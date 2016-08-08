@@ -16,11 +16,12 @@ import com.umeng.analytics.MobclickAgent;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
 /**
  * Created by codeest on 2016/8/2.
  */
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView{
+public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackActivity implements BaseView{
 
     @Inject
     protected T mPresenter;

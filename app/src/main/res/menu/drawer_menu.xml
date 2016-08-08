@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/g1">
+        <item
+            android:id="@+id/favorite"
+            android:icon="@mipmap/ic_launcher"
+            android:title="收藏"/>
+        <item
+            android:id="@+id/wallet"
+            android:icon="@mipmap/ic_launcher"
+            android:title="钱包"/>
+    </group>
+    <group android:id="@+id/g2">
+        <item
+            android:id="@+id/photo"
+            android:icon="@mipmap/ic_launcher"
+            android:title="相册"/>
+    </group>
+    <item
+        android:id="@+id/file"
+        android:icon="@mipmap/ic_launcher"
+        android:title="文件"/>
+</menu>

@@ -15,11 +15,12 @@ import com.umeng.analytics.MobclickAgent;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
  * Created by codeest on 2016/8/2.
  */
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView{
+public abstract class BaseFragment<T extends BasePresenter> extends SwipeBackFragment implements BaseView{
 
     @Inject
     protected T mPresenter;
@@ -61,7 +62,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(getLayoutId(), null);
-        return mView;
+        initInject();
+        return attachToSwipeBack(mView);
     }
 
     @Override
@@ -91,7 +93,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             mPresenter.detachView();
     }
 
-    protected abstract T getPresenter();
+    protected abstract void initInject();
     protected abstract int getLayoutId();
     protected abstract void initEventAndData();
 }

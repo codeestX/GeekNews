@@ -1,3 +1,3 @@
-Android App with MVP + RxJava + Retrofit + Dagger2
+News App with MVP + Material Design + RxJava + Retrofit + Dagger2
 
-Keep Updating
+<b>Updating

@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.codeest.geeknews.di.ActivityScope;
 import com.codeest.geeknews.di.module.ActivityModule;
 import com.codeest.geeknews.model.http.RetrofitHelper;
-import com.codeest.geeknews.ui.login.LoginActivity;
+import com.codeest.geeknews.ui.main.MainActivity;
 
 import dagger.Component;
 
@@ -21,6 +21,6 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-    void inject(LoginActivity loginActivity);
+    void inject(MainActivity mainActivity);
 
 }

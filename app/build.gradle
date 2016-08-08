@@ -54,6 +54,7 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0.2'
     compile 'com.google.dagger:dagger-compiler:2.0.2'
     compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     //other
@@ -61,7 +62,8 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     compile 'com.orhanobut:logger:1.15'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'me.yokeyword:fragmentation:0.7.9'
+    compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
 
     //canary
     debugCompile 'com.github.moduth:blockcanary-android:1.2.1'
