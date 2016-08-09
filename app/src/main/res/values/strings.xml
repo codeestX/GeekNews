@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GeekNews</string>
+
+    //main drawer
+    <string name="zhihu">知乎</string>
+    <string name="gank">干货集中营</string>
+    <string name="about">关于</string>
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
 </resources>

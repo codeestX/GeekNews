@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/g1">
+    <group android:id="@+id/group_content">
         <item
-            android:id="@+id/favorite"
+            android:id="@+id/drawer_zhihu"
             android:icon="@mipmap/ic_launcher"
-            android:title="收藏"/>
+            android:title="@string/zhihu"/>
         <item
-            android:id="@+id/wallet"
+            android:id="@+id/drawer_gank"
             android:icon="@mipmap/ic_launcher"
-            android:title="钱包"/>
+            android:title="@string/gank"/>
     </group>
-    <group android:id="@+id/g2">
+    <group android:id="@+id/group_other">
         <item
-            android:id="@+id/photo"
+            android:id="@+id/drawer_about"
             android:icon="@mipmap/ic_launcher"
-            android:title="相册"/>
+            android:title="@string/about"/>
     </group>
-    <item
-        android:id="@+id/file"
-        android:icon="@mipmap/ic_launcher"
-        android:title="文件"/>
 </menu>
