@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.codeest.geeknews.di.FragmentScope;
 import com.codeest.geeknews.di.module.FragmentModule;
 import com.codeest.geeknews.model.http.RetrofitHelper;
+import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
 
 import dagger.Component;
 
@@ -19,5 +20,7 @@ public interface FragmentComponent {
     RetrofitHelper getRetrofitHelper();
 
     Activity getActivity();
+
+    void inject(ZhihuMainFragment zhihuMainFragment);
 
 }

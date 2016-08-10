@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codeest.geeknews.app.App;
+import com.codeest.geeknews.di.component.DaggerFragmentComponent;
+import com.codeest.geeknews.di.component.FragmentComponent;
+import com.codeest.geeknews.di.module.FragmentModule;
 import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
@@ -19,6 +23,7 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
  * Created by codeest on 2016/8/2.
+ * MVP Fragment基类
  */
 public abstract class BaseFragment<T extends BasePresenter> extends SwipeBackFragment implements BaseView{
 
@@ -52,6 +57,16 @@ public abstract class BaseFragment<T extends BasePresenter> extends SwipeBackFra
         }
     }
 
+    protected FragmentComponent getFragmentComponent(){
+        return DaggerFragmentComponent.builder()
+                .appComponent(App.getAppComponent())
+                .fragmentModule(getFragmentModule())
+                .build();
+    }
+
+    protected FragmentModule getFragmentModule(){
+        return new FragmentModule(this);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
