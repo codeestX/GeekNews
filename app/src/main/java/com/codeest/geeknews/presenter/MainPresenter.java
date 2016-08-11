@@ -1,7 +1,8 @@
-package com.codeest.geeknews.ui.main;
+package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.http.RetrofitHelper;
+import com.codeest.geeknews.presenter.contract.MainContract;
 
 import javax.inject.Inject;
 

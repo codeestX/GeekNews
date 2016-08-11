@@ -8,6 +8,8 @@ import android.view.MenuItem;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseActivity;
+import com.codeest.geeknews.presenter.MainPresenter;
+import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.util.LogUtil;
 
 import butterknife.BindView;

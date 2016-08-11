@@ -1,4 +1,4 @@
-package com.codeest.geeknews.ui.main;
+package com.codeest.geeknews.presenter.contract;
 
 import com.codeest.geeknews.base.BasePresenter;
 import com.codeest.geeknews.base.BaseView;
