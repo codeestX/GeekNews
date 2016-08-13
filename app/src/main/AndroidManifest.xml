@@ -13,6 +13,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.codeest.geeknews.ui.main.MainActivity">
             <intent-filter>
@@ -21,6 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        //知乎
+        <activity android:name=".ui.zhihu.activity.CalendarActivity"/>
 
         <meta-data
             android:value="YOUR_APP_KEY"

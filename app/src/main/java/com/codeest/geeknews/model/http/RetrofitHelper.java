@@ -2,15 +2,13 @@ package com.codeest.geeknews.model.http;
 
 import com.codeest.geeknews.BuildConfig;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.bean.UserCardInfo;
-import com.codeest.geeknews.util.LogUtil;
+import com.codeest.geeknews.model.bean.DailyBeforeListBean;
+import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.util.SystemUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -29,14 +27,12 @@ import rx.Observable;
  */
 public class RetrofitHelper {
 
-    private static Apis apiService = null;
-    private static Retrofit retrofit = null;
     private static OkHttpClient okHttpClient = null;
+    private static ZhihuApis zhihuApiService = null;
 
     private void init() {
         initOkHttp();
-        initRetrofit();
-        apiService = retrofit.create(Apis.class);
+        zhihuApiService = getZhihuApiService();
     }
 
     public RetrofitHelper() {
@@ -98,16 +94,21 @@ public class RetrofitHelper {
         okHttpClient = builder.build();
     }
 
-    private static void initRetrofit() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Apis.HOST)
+    private static ZhihuApis getZhihuApiService() {
+        Retrofit zhihuRetrofit = new Retrofit.Builder()
+                .baseUrl(ZhihuApis.HOST)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
+        return zhihuRetrofit.create(ZhihuApis.class);
     }
 
-    public Observable<HttpResponse<UserCardInfo>> fetchUserCardInfo(int uid,String token,int otherId) {
-        return apiService.getUserCardInfo(uid,token,otherId);
+    public Observable<DailyListBean> fetchDailyListInfo() {
+        return zhihuApiService.getDailyList();
+    }
+
+    public Observable<DailyBeforeListBean> fetchDailyBeforeListInfo(String date) {
+        return zhihuApiService.getDailyBeforeList(date);
     }
 }

@@ -10,6 +10,7 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.presenter.MainPresenter;
 import com.codeest.geeknews.presenter.contract.MainContract;
+import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
 import com.codeest.geeknews.util.LogUtil;
 
 import butterknife.BindView;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView mNavigationView;
 
     ActionBarDrawerToggle mDrawerToggle;
+    ZhihuMainFragment zhihuFragment;
 
     int currentNavigationId = 0;
 
@@ -44,9 +46,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         setToolBar(mToolbar,"首页");
+        zhihuFragment = new ZhihuMainFragment();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        loadRootFragment(R.id.fl_main_content,zhihuFragment);
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

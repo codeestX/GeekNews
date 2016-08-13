@@ -1,4 +1,4 @@
-package com.ztgame.dudu.util;
+package com.codeest.geeknews.util;
 
 /**
  * Created by codeest on 2016/7/25.

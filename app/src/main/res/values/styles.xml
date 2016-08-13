@@ -8,8 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionMenuTextColor">#ffffff</item>
 
+        //沉浸状态栏
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+
+        //ActionBarDrawerToggle设置颜色
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
 </resources>
