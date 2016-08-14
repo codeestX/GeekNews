@@ -10,6 +10,7 @@ import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.CalendarBean;
 import com.codeest.geeknews.util.DateUtil;
+import com.codeest.geeknews.util.LogUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -58,5 +59,6 @@ public class CalendarActivity extends SimpleActivity {
     @OnClick(R.id.tv_calender_enter)
     void chooseDate() {
         RxBus.getDefault().post(mDate);
+        finish();
     }
 }

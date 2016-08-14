@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="toast_bg">#dddfe0</color>
+    <color name="black_bg">#d0000000</color>
+    <color name="bottom_text">#a9a9a9</color>
 </resources>

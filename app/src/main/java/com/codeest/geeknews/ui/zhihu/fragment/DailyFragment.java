@@ -14,6 +14,7 @@ import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.presenter.DailyPresenter;
 import com.codeest.geeknews.presenter.contract.DailyContract;
 import com.codeest.geeknews.ui.zhihu.activity.CalendarActivity;
+import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.DailyAdapter;
 import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
@@ -62,12 +63,22 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         mAdapter.setOnItemClickListener(new DailyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int id) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ZhihuDetailActivity.class);
+                intent.putExtra("id",id);
+                mContext.startActivity(intent);
             }
         });
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getBeforeData(currentDate);
+                rvDailyList.setVisibility(View.INVISIBLE);
+                viewLoading.start();
+                if(currentDate.equals("今日热闻")) {
+                    mPresenter.getDailyData();
+                } else {
+                    mPresenter.getBeforeData(currentDate);
+                }
             }
         });
         rvDailyList.setLayoutManager(new LinearLayoutManager(mContext));
@@ -82,12 +93,14 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         viewLoading.stop();
         rvDailyList.setVisibility(View.VISIBLE);
         mAdapter.addDailyDate(info);
+        mPresenter.startInterval();
     }
 
     @Override
     public void showMoreContent(String date,DailyBeforeListBean info) {
+        mPresenter.stopInterval();
         swipeRefresh.setRefreshing(false);
-        currentDate = String.valueOf(Integer.valueOf(info.getDate() + 1));
+        currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
         viewLoading.stop();
         rvDailyList.setVisibility(View.VISIBLE);
         mAdapter.addDailyBeforeDate(info);
@@ -105,10 +118,15 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         rvDailyList.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void doInterval(int currentCount) {
+        mAdapter.changeTopPager(currentCount);
+    }
+
     @OnClick(R.id.fab_calender)
     void startCalender() {
         Intent it = new Intent();
         it.setClass(mContext,CalendarActivity.class);
-        CircularAnimUtil.startActivity(mActivity,it,fabCalender,R.color.colorPrimary);
+        CircularAnimUtil.startActivity(mActivity,it,fabCalender,R.color.colorAccent);
     }
 }

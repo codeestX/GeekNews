@@ -37,6 +37,7 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private LayoutInflater inflater;
     private Context mContext;
     private TopPagerAdapter mAdapter;
+    private ViewPager topViewPager;
     private OnItemClickListener onItemClickListener;
 
     private boolean isBefore = false;
@@ -108,6 +109,7 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             ((DateViewHolder) holder).tvDate.setText(currentTitle);
         } else {
             ((TopViewHolder) holder).vpTop.setAdapter(mAdapter);
+            topViewPager = ((TopViewHolder) holder).vpTop;
         }
     }
 
@@ -166,6 +168,12 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         mList = info.getStories();
         isBefore = true;
         notifyDataSetChanged();
+    }
+
+    public void changeTopPager(int currentCount) {
+        if(!isBefore && topViewPager != null) {
+            topViewPager.setCurrentItem(currentCount);
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

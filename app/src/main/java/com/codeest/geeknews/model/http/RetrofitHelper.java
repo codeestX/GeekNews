@@ -4,6 +4,9 @@ import com.codeest.geeknews.BuildConfig;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
+import com.codeest.geeknews.model.bean.DetailExtraBean;
+import com.codeest.geeknews.model.bean.ThemeListBean;
+import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 import com.codeest.geeknews.util.SystemUtil;
 
 import java.io.File;
@@ -111,4 +114,17 @@ public class RetrofitHelper {
     public Observable<DailyBeforeListBean> fetchDailyBeforeListInfo(String date) {
         return zhihuApiService.getDailyBeforeList(date);
     }
+
+    public Observable<ThemeListBean> fetchDailyThemeListInfo() {
+        return zhihuApiService.getThemeList();
+    }
+
+    public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
+        return zhihuApiService.getDetailInfo(id);
+    }
+
+    public Observable<DetailExtraBean> fetchDetailExtraInfo(int id) {
+        return zhihuApiService.getDetailExtraInfo(id);
+    }
+
 }

@@ -21,6 +21,7 @@ public interface DailyContract {
 
         void showProgress();
 
+        void doInterval(int currentCount);
     }
 
     interface  Presenter extends BasePresenter<View> {
@@ -28,5 +29,9 @@ public interface DailyContract {
         void getDailyData();
 
         void getBeforeData(String date);
+
+        void startInterval();
+
+        void stopInterval();
     }
 }

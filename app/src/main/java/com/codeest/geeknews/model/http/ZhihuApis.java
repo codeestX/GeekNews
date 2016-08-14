@@ -2,6 +2,9 @@ package com.codeest.geeknews.model.http;
 
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
+import com.codeest.geeknews.model.bean.DetailExtraBean;
+import com.codeest.geeknews.model.bean.ThemeListBean;
+import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -18,23 +21,33 @@ public interface ZhihuApis {
     /**
      * 最新日报
      */
-    @GET("stories/latest")
+    @GET("news/latest")
     Observable<DailyListBean> getDailyList();
 
     /**
      * 往期日报
      */
-    @GET("stories/before/{date}")
+    @GET("news/before/{date}")
     Observable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
 
-//    /**
-//     * 获取日报详情数据
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET("story/{id}")
-//    Observable<DailyDetail> getNewsDetails(@Path("id") int id);
+    /**
+     * 专题日报
+     */
+    @GET("themes")
+    Observable<ThemeListBean> getThemeList();
+
+    /**
+     * 日报详情
+     */
+    @GET("news/{id}")
+    Observable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
+
+    /**
+     * 日报的额外信息
+     */
+    @GET("story-extra/{id}")
+    Observable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
+
 //
 //    /**
 //     * 根据分辨率获取启动界面图片
@@ -45,13 +58,7 @@ public interface ZhihuApis {
 //    @GET("start-image/{res}")
 //    Observable<LuanchImageBean> getLuanchImage(@Path("res") String res);
 //
-//    /**
-//     * 获取专题日报
-//     *
-//     * @return
-//     */
-//    @GET("themes")
-//    Observable<DailyTypeBean> getDailyType();
+
 //
 //    /**
 //     * 根据id查询主题日报内容
