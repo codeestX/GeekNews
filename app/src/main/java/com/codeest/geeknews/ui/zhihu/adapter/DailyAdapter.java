@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -101,7 +102,8 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View view) {
                     if(onItemClickListener != null) {
-                        onItemClickListener.onItemClick((Integer) view.getTag());
+                        ImageView iv = (ImageView) view.findViewById(R.id.iv_daily_item_image);
+                        onItemClickListener.onItemClick((Integer) view.getTag(),iv);
                     }
                 }
             });
@@ -181,6 +183,6 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int id);
+        void onItemClick(int id,View view);
     }
 }

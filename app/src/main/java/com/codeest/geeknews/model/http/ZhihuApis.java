@@ -4,6 +4,7 @@ import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
+import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 
 import retrofit2.http.GET;
@@ -17,6 +18,12 @@ import rx.Observable;
 public interface ZhihuApis {
 
     String HOST = "http://news-at.zhihu.com/api/4/";
+
+    /**
+     * 启动界面图片
+     */
+    @GET("start-image/{res}")
+    Observable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
 
     /**
      * 最新日报
@@ -47,17 +54,6 @@ public interface ZhihuApis {
      */
     @GET("story-extra/{id}")
     Observable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
-
-//
-//    /**
-//     * 根据分辨率获取启动界面图片
-//     *
-//     * @param res
-//     * @return
-//     */
-//    @GET("start-image/{res}")
-//    Observable<LuanchImageBean> getLuanchImage(@Path("res") String res);
-//
 
 //
 //    /**

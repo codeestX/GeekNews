@@ -6,6 +6,7 @@ import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
+import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 import com.codeest.geeknews.util.SystemUtil;
 
@@ -125,6 +126,10 @@ public class RetrofitHelper {
 
     public Observable<DetailExtraBean> fetchDetailExtraInfo(int id) {
         return zhihuApiService.getDetailExtraInfo(id);
+    }
+
+    public Observable<WelcomeBean> fetchWelcomeInfo(String res) {
+        return zhihuApiService.getWelcomeInfo(res);
     }
 
 }

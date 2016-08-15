@@ -25,4 +25,9 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
     protected void initEventAndData() {
 
     }
+
+    @Override
+    public void showError(String msg) {
+
+    }
 }

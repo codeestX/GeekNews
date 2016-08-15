@@ -6,4 +6,6 @@ package com.codeest.geeknews.base;
  */
 public interface BaseView {
 
+    void showError(String msg);
+
 }

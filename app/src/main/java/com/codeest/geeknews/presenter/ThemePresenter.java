@@ -35,7 +35,7 @@ public class ThemePresenter extends RxPresenter<ThemeContract.View> implements T
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError();
+                        mView.showError("数据加载失败");
                     }
                 });
     }

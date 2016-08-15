@@ -24,4 +24,9 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     protected void initEventAndData() {
 
     }
+
+    @Override
+    public void showError(String msg) {
+
+    }
 }

@@ -66,9 +66,9 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
     }
 
     @Override
-    public void showError() {
+    public void showError(String msg) {
         viewLoading.stop();
         rvThemeList.setVisibility(View.VISIBLE);
-        ToastUtil.shortShow("数据加载失败");
+        ToastUtil.shortShow(msg);
     }
 }

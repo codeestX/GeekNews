@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.codeest.geeknews.ui.main.MainActivity">
+
+        <activity android:name=".ui.main.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,10 +24,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.codeest.geeknews.ui.main.MainActivity"
+            android:launchMode="singleTop">
+
+        </activity>
+
         //知乎
         <activity android:name=".ui.zhihu.activity.CalendarActivity"/>
         <activity android:name=".ui.zhihu.activity.ZhihuDetailActivity"
-            android:launchMode="standard" />
+            android:launchMode="singleTop" />
 
         <meta-data
             android:value="YOUR_APP_KEY"

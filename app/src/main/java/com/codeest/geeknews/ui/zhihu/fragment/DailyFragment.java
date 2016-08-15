@@ -1,5 +1,6 @@
 package com.codeest.geeknews.ui.zhihu.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,7 @@ import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.DailyAdapter;
 import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -62,11 +64,13 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         mAdapter = new DailyAdapter(mContext,mList);
         mAdapter.setOnItemClickListener(new DailyAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int id) {
+            public void onItemClick(int id,View shareView) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
                 intent.putExtra("id",id);
-                mContext.startActivity(intent);
+                LogUtil.d(shareView.getTransitionName());
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
+                mContext.startActivity(intent,options.toBundle());
             }
         });
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -107,12 +111,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     }
 
     @Override
-    public void showError() {
-        viewLoading.stop();
-        ToastUtil.shortShow("数据加载失败");
-    }
-
-    @Override
     public void showProgress() {
         viewLoading.start();
         rvDailyList.setVisibility(View.INVISIBLE);
@@ -128,5 +126,11 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         Intent it = new Intent();
         it.setClass(mContext,CalendarActivity.class);
         CircularAnimUtil.startActivity(mActivity,it,fabCalender,R.color.colorAccent);
+    }
+
+    @Override
+    public void showError(String msg) {
+        viewLoading.stop();
+        ToastUtil.shortShow(msg);
     }
 }

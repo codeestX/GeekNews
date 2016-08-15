@@ -114,12 +114,6 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         tvDetailBottomComment.setText(String.format("%d条评论",detailExtraBean.getComments()));
     }
 
-    @Override
-    public void showError() {
-        viewLoading.stop();
-        ToastUtil.shortShow("获取信息失败");
-    }
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && wvDetailContent.canGoBack()) {
             wvDetailContent.goBack();
@@ -128,5 +122,18 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            finishAfterTransition();
+        }
+    }
 
+    @Override
+    public void showError(String msg) {
+        viewLoading.stop();
+        ToastUtil.shortShow("获取信息失败");
+    }
 }

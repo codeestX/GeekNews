@@ -37,7 +37,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError();
+                        mView.showError("");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -55,7 +55,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError();
+                        mView.showError("");
                     }
                 });
         addSubscrebe(rxSubscription);
