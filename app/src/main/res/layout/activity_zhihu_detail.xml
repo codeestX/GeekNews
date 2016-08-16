@@ -9,13 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
-        <android.support.design.widget.CollapsingToolbarLayout
+        <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
             android:id="@+id/clp_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_image_height"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="10dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
             app:expandedTitleMarginEnd="10dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <FrameLayout
@@ -53,7 +53,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -82,54 +82,64 @@
                 android:layout_gravity="center"/>
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/ll_detail_bottom"
-        android:elevation="3dp"
-        android:padding="3dp"
-        android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:layout_width="match_parent"
         android:background="@android:color/white"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/detail_bottom_height">
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="6dp"
+            android:orientation="horizontal"
+            >
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="2"/>
+            <TextView
+                android:id="@+id/tv_detail_bottom_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bottom_text"
+                android:drawableTop="@mipmap/ic_star"
+                android:drawablePadding="3dp"
+                android:text="@string/detail_bottom_like"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="3"/>
+            <TextView
+                android:id="@+id/tv_detail_bottom_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bottom_text"
+                android:drawableTop="@mipmap/ic_comment"
+                android:drawablePadding="3dp"
+                android:text="@string/detail_bottom_commit"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="3"/>
+            <TextView
+                android:id="@+id/tv_detail_bottom_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bottom_text"
+                android:drawableTop="@mipmap/ic_share"
+                android:drawablePadding="3dp"
+                android:text="@string/detail_bottom_share"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="2"/>
+        </LinearLayout>
         <TextView
-            android:id="@+id/tv_detail_bottom_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/bottom_text"
-            android:drawableTop="@mipmap/ic_star"
-            android:drawablePadding="3dp"
-            android:text="@string/detail_bottom_like"/>
-        <View
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_weight="3"/>
-        <TextView
-            android:id="@+id/tv_detail_bottom_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/bottom_text"
-            android:drawableTop="@mipmap/ic_comment"
-            android:drawablePadding="3dp"
-            android:text="@string/detail_bottom_commit"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="3"/>
-        <TextView
-            android:id="@+id/tv_detail_bottom_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/bottom_text"
-            android:drawableTop="@mipmap/ic_share"
-            android:drawablePadding="3dp"
-            android:text="@string/detail_bottom_share"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="2"/>
-    </LinearLayout>
+            android:layout_gravity="top"
+            android:background="@android:color/darker_gray"/>
+    </FrameLayout>
+
 </android.support.design.widget.CoordinatorLayout>

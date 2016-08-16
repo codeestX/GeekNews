@@ -63,6 +63,15 @@ public class DailyListBean {
         private String ga_prefix;
         private String title;
         private List<String> images;
+        private boolean readState;
+
+        public boolean getReadState() {
+            return readState;
+        }
+
+        public void setReadState(boolean readState) {
+            this.readState = readState;
+        }
 
         public int getType() {
             return type;

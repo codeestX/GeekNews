@@ -88,8 +88,6 @@ public class App extends Application{
             SCREEN_HEIGHT = SCREEN_WIDTH;
             SCREEN_WIDTH = t;
         }
-        LogUtil.w("SCREEN_WIDTH",SCREEN_WIDTH);
-        LogUtil.w("SCREEN_HEIGHT",SCREEN_HEIGHT);
     }
 
     public static AppComponent getAppComponent(){

@@ -2,8 +2,10 @@ package com.codeest.geeknews.di.component;
 
 import android.app.Activity;
 
+import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.FragmentScope;
 import com.codeest.geeknews.di.module.FragmentModule;
+import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.ui.zhihu.fragment.DailyFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.HotFragment;
@@ -20,8 +22,6 @@ import dagger.Component;
 @FragmentScope
 @Component(dependencies = AppComponent.class, modules = FragmentModule.class)
 public interface FragmentComponent {
-
-    RetrofitHelper getRetrofitHelper();
 
     Activity getActivity();
 

@@ -1,6 +1,7 @@
 package com.codeest.geeknews.ui.zhihu.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -89,21 +90,25 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ContentViewHolder) {
-            DailyListBean.StoriesBean item;
+            final int contentPosition;
             if(isBefore) {
-                item = mList.get(position - 1);
+                contentPosition = position - 1;
             } else {
-                item = mList.get(position - 2);
+                contentPosition = position - 2;
             }
-            ((ContentViewHolder)holder).title.setText(item.getTitle());
-            ImageLoader.load(mContext,item.getImages().get(0),((ContentViewHolder)holder).image);
-            holder.itemView.setTag(item.getId());
+            ((ContentViewHolder)holder).title.setText(mList.get(contentPosition).getTitle());
+            if (mList.get(contentPosition).getReadState()) {
+                ((ContentViewHolder)holder).title.setTextColor(ContextCompat.getColor(mContext,R.color.news_read));
+            } else {
+                ((ContentViewHolder)holder).title.setTextColor(ContextCompat.getColor(mContext,R.color.news_unread));
+            }
+            ImageLoader.load(mContext,mList.get(contentPosition).getImages().get(0),((ContentViewHolder)holder).image);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(onItemClickListener != null) {
                         ImageView iv = (ImageView) view.findViewById(R.id.iv_daily_item_image);
-                        onItemClickListener.onItemClick((Integer) view.getTag(),iv);
+                        onItemClickListener.onItemClick(contentPosition,iv);
                     }
                 }
             });
@@ -172,6 +177,14 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         notifyDataSetChanged();
     }
 
+    public boolean getIsBefore() {
+        return isBefore;
+    }
+
+    public void setReadState(int position,boolean readState) {
+        mList.get(position).setReadState(readState);
+    }
+
     public void changeTopPager(int currentCount) {
         if(!isBefore && topViewPager != null) {
             topViewPager.setCurrentItem(currentCount);
@@ -183,6 +196,6 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int id,View view);
+        void onItemClick(int position,View view);
     }
 }

@@ -2,12 +2,12 @@ package com.codeest.geeknews.ui.zhihu.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,8 +23,9 @@ import com.codeest.geeknews.util.HtmlUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
+import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/13.
@@ -53,7 +54,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @BindView(R.id.tv_detail_bottom_share)
     TextView tvDetailBottomShare;
     @BindView(R.id.ll_detail_bottom)
-    LinearLayout llDetailBottom;
+    FrameLayout llDetailBottom;
 
     int id = 0;
     boolean isBottomShow = true;
@@ -110,7 +111,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @Override
     public void showExtraInfo(DetailExtraBean detailExtraBean) {
         viewLoading.stop();
-        tvDetailBottomLike.setText(String.format("%d赞",detailExtraBean.getPopularity()));
+        tvDetailBottomLike.setText(String.format("%d个赞",detailExtraBean.getPopularity()));
         tvDetailBottomComment.setText(String.format("%d条评论",detailExtraBean.getComments()));
     }
 

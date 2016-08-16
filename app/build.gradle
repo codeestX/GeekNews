@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 24
@@ -42,7 +43,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
-    //network
+    //network & db
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
@@ -66,6 +67,7 @@ dependencies {
     compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
     compile 'com.victor:lib:1.0.4'
     compile 'com.prolificinteractive:material-calendarview:1.4.0'
+    compile 'net.opacapp:multiline-collapsingtoolbar:1.2.2'
 
     //canary
     debugCompile 'com.github.moduth:blockcanary-android:1.2.1'

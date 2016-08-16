@@ -4,12 +4,14 @@ import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
+import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.DailyContract;
 import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.RxUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -28,6 +30,7 @@ import rx.schedulers.Schedulers;
 public class DailyPresenter extends RxPresenter<DailyContract.View> implements DailyContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
+    private RealmHelper mRealHelper;
     private Subscription intervalSubscription;
 
     private static final int INTERVAL_INSTANCE = 6;
@@ -36,8 +39,9 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     private int currentTopCount = 0;
 
     @Inject
-    public DailyPresenter(RetrofitHelper mRetrofitHelper) {
+    public DailyPresenter(RetrofitHelper mRetrofitHelper,RealmHelper mRealHelper) {
         this.mRetrofitHelper = mRetrofitHelper;
+        this.mRealHelper = mRealHelper;
         registerEvent();
     }
 
@@ -91,6 +95,16 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     public void getDailyData() {
         Subscription rxSubscription = mRetrofitHelper.fetchDailyListInfo()
                 .compose(RxUtil.<DailyListBean>rxSchedulerHelper())
+                .map(new Func1<DailyListBean, DailyListBean>() {
+                    @Override
+                    public DailyListBean call(DailyListBean dailyListBean) {
+                        List<DailyListBean.StoriesBean> list = dailyListBean.getStories();
+                        for(DailyListBean.StoriesBean item : list) {
+                            item.setReadState(mRealHelper.queryNewsId(item.getId()));
+                        }
+                        return dailyListBean;
+                    }
+                })
                 .subscribe(new Action1<DailyListBean>() {
                     @Override
                     public void call(DailyListBean dailyListBean) {
