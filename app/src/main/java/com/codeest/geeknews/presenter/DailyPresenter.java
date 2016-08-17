@@ -65,13 +65,25 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         }
                         return date.append(year).append(month).append(day).toString();
                     }
-                }).observeOn(Schedulers.io())   //为了网络请求切到io线程
+                })
+                .observeOn(Schedulers.io())   //为了网络请求切到io线程
                 .flatMap(new Func1<String, Observable<DailyBeforeListBean>>() {
                     @Override
                     public Observable<DailyBeforeListBean> call(String date) {
                         return mRetrofitHelper.fetchDailyBeforeListInfo(date);
                     }
-                }).observeOn(AndroidSchedulers.mainThread())    //为了显示结果切到主线程
+                })
+                .map(new Func1<DailyBeforeListBean, DailyBeforeListBean>() {
+                    @Override
+                    public DailyBeforeListBean call(DailyBeforeListBean dailyBeforeListBean) {
+                        List<DailyListBean.StoriesBean> list = dailyBeforeListBean.getStories();
+                        for(DailyListBean.StoriesBean item : list) {
+                            item.setReadState(mRealHelper.queryNewsId(item.getId()));
+                        }
+                        return dailyBeforeListBean;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())    //为了显示结果切到主线程
                 .subscribe(new Action1<DailyBeforeListBean>() {
                    @Override
                    public void call(DailyBeforeListBean dailyBeforeListBean) {

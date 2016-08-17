@@ -58,6 +58,7 @@ public class TopPagerAdapter extends PagerAdapter{
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
                 intent.putExtra("id",id);
+                mContext.startActivity(intent);
             }
         });
         container.addView(view);

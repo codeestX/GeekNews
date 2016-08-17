@@ -11,6 +11,7 @@ import android.view.View;
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.base.BaseFragment;
+import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.db.RealmHelper;
@@ -23,6 +24,7 @@ import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ToastUtil;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
@@ -91,7 +93,12 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
                 if(currentDate.equals("今日热闻")) {
                     mPresenter.getDailyData();
                 } else {
-                    mPresenter.getBeforeData(currentDate);
+                    int year = Integer.valueOf(currentDate.substring(0,4));
+                    int month = Integer.valueOf(currentDate.substring(4,6));
+                    int day = Integer.valueOf(currentDate.substring(6,8));
+                    CalendarDay date = CalendarDay.from(year, month, day);
+                    RxBus.getDefault().post(date);
+//                    mPresenter.getBeforeData(currentDate);
                 }
             }
         });
