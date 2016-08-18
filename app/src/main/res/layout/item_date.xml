@@ -4,5 +4,6 @@
     android:id="@+id/tv_daily_date"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorBackground"
     android:textSize="14sp">
 </TextView>

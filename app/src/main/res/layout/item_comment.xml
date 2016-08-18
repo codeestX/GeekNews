@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.codeest.geeknews.widget.CircleImageView
+        android:id="@+id/civ_comment_face"
+        android:padding="6dp"
+        android:layout_width="@dimen/comment_face_size"
+        android:layout_height="@dimen/comment_face_size"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_comment_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_comment_content"
+            android:textColor="@color/comment_text"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.3"
+            />
+        <TextView
+            android:id="@+id/tv_comment_reply"
+            android:textColor="@color/comment_reply"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            >
+            <TextView
+                android:id="@+id/tv_comment_time"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/comment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_toEndOf="@id/tv_comment_time"
+                android:layout_marginStart="10dp"
+                android:id="@+id/tv_comment_expand"
+                android:text="@string/comment_expand"
+                android:textColor="@color/comment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_comment_like"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/comment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
