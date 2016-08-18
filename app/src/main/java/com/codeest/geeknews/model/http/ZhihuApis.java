@@ -1,5 +1,6 @@
 package com.codeest.geeknews.model.http;
 
+import com.codeest.geeknews.model.bean.CommentBean;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
@@ -55,6 +56,18 @@ public interface ZhihuApis {
     @GET("story-extra/{id}")
     Observable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
 
+    /**
+     * 日报的长评论
+     */
+    @GET("story/{id}/long-comments")
+    Observable<CommentBean> getLongCommentInfo(@Path("id") int id);
+
+    /**
+     * 日报的短评论
+     */
+    @GET("story/{id}/short-comments")
+    Observable<CommentBean> getShortCommentInfo(@Path("id") int id);
+
 //
 //    /**
 //     * 根据id查询主题日报内容
@@ -74,23 +87,7 @@ public interface ZhihuApis {
 //    @GET("story-extra/{id}")
 //    Observable<DailyExtraMessage> getDailyExtraMessageById(@Path("id") int id);
 //
-//    /**
-//     * 根据id查询日报的长评论
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET("story/{id}/long-comments")
-//    Observable<DailyComment> getDailyLongComment(@Path("id") int id);
 //
-//    /**
-//     * 根据id查询日报的短评论
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET("story/{id}/short-comments")
-//    Observable<DailyComment> getDailyShortComment(@Path("id") int id);
 //
 //    /**
 //     * 获取最新的热门新闻

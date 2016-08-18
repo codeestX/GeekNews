@@ -20,7 +20,7 @@ public class RealmHelper {
 
     public RealmHelper(Context mContext) {
         mRealm = Realm.getInstance(new RealmConfiguration.Builder(mContext)
-                .name("myOtherRealm.realm")
+                .name("myRealm.realm")
                 .build());
     }
 

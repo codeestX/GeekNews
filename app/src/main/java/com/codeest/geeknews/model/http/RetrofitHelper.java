@@ -2,6 +2,7 @@ package com.codeest.geeknews.model.http;
 
 import com.codeest.geeknews.BuildConfig;
 import com.codeest.geeknews.app.Constants;
+import com.codeest.geeknews.model.bean.CommentBean;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
@@ -132,4 +133,11 @@ public class RetrofitHelper {
         return zhihuApiService.getWelcomeInfo(res);
     }
 
+    public Observable<CommentBean> fetchLongCommentInfo(int id) {
+        return zhihuApiService.getLongCommentInfo(id);
+    }
+
+    public Observable<CommentBean> fetchShortCommentInfo(int id) {
+        return zhihuApiService.getShortCommentInfo(id);
+    }
 }

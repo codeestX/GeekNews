@@ -26,6 +26,7 @@ import com.victor.loading.rotate.RotateLoading;
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by codeest on 16/8/13.
@@ -57,6 +58,9 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     FrameLayout llDetailBottom;
 
     int id = 0;
+    int allNum = 0;
+    int shortNum = 0;
+    int longNum = 0;
     boolean isBottomShow = true;
 
     @Override
@@ -113,6 +117,9 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         viewLoading.stop();
         tvDetailBottomLike.setText(String.format("%d个赞",detailExtraBean.getPopularity()));
         tvDetailBottomComment.setText(String.format("%d条评论",detailExtraBean.getComments()));
+        allNum = detailExtraBean.getComments();
+        shortNum = detailExtraBean.getShort_comments();
+        longNum = detailExtraBean.getLong_comments();
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -136,5 +143,16 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     public void showError(String msg) {
         viewLoading.stop();
         ToastUtil.shortShow("获取信息失败");
+    }
+
+    @OnClick(R.id.tv_detail_bottom_comment)
+    void gotoComment() {
+        Intent intent = getIntent();
+        intent.setClass(this,CommentActivity.class);
+        intent.putExtra("id",id);
+        intent.putExtra("allNum",id);
+        intent.putExtra("shortNum",id);
+        intent.putExtra("longNum",id);
+        startActivity(intent);
     }
 }

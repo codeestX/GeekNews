@@ -18,7 +18,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/tv_comment_title"
+            android:id="@+id/tv_comment_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"/>
@@ -33,6 +33,7 @@
         <TextView
             android:id="@+id/tv_comment_reply"
             android:textColor="@color/comment_reply"
+            android:ellipsize="end"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
