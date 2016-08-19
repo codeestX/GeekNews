@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +18,13 @@ import com.umeng.analytics.MobclickAgent;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by codeest on 2016/8/2.
  * MVP Fragment基类
  */
-public abstract class BaseFragment<T extends BasePresenter> extends SwipeBackFragment implements BaseView{
+public abstract class BaseFragment<T extends BasePresenter> extends SupportFragment implements BaseView{
 
     @Inject
     protected T mPresenter;
@@ -78,7 +77,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SwipeBackFra
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(getLayoutId(), null);
         initInject();
-        return attachToSwipeBack(mView);
+        return mView;
     }
 
     @Override

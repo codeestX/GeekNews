@@ -1,11 +1,12 @@
 package com.codeest.geeknews.ui.zhihu.adapter;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.codeest.geeknews.ui.zhihu.fragment.CommentFragment;
+
+import java.util.List;
 
 /**
  * Created by codeest on 16/8/19.
@@ -13,32 +14,22 @@ import com.codeest.geeknews.ui.zhihu.fragment.CommentFragment;
 
 public class CommentMainAdapter extends FragmentPagerAdapter{
 
-    private int id;
+    List<CommentFragment> fragments;
 
-    public CommentMainAdapter(FragmentManager fm,int id) {
+    public CommentMainAdapter(FragmentManager fm,List<CommentFragment> fragments) {
         super(fm);
-        this.id = id;
+        this.fragments = fragments;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                CommentFragment shortCommentFragment = new CommentFragment();
-                Bundle shortBundle = new Bundle();
-                shortBundle.putInt("id", id);
-                shortBundle.putInt("kind", 0);
-                shortCommentFragment.setArguments(shortBundle);
-                break;
+                return fragments.get(0);
             case 1:
-                CommentFragment longCommentFragment = new CommentFragment();
-                Bundle longBundle = new Bundle();
-                longBundle.putInt("id", id);
-                longBundle.putInt("kind", 1);
-                longCommentFragment.setArguments(longBundle);
-                break;
+                return fragments.get(1);
         }
-        return new CommentFragment();
+        return fragments.get(0);
     }
 
     @Override

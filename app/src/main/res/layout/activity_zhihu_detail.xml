@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/bottom_text"
-                android:drawableTop="@mipmap/ic_star"
+                android:drawableTop="@mipmap/ic_daily_like"
                 android:drawablePadding="3dp"
                 android:text="@string/detail_bottom_like"/>
             <View
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/bottom_text"
-                android:drawableTop="@mipmap/ic_comment"
+                android:drawableTop="@mipmap/ic_daily_comment"
                 android:drawablePadding="3dp"
                 android:text="@string/detail_bottom_commit"/>
             <View
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/bottom_text"
-                android:drawableTop="@mipmap/ic_share"
+                android:drawableTop="@mipmap/ic_daily_share"
                 android:drawablePadding="3dp"
                 android:text="@string/detail_bottom_share"/>
             <View

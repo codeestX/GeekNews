@@ -3,9 +3,7 @@ package com.codeest.geeknews.ui.zhihu.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
@@ -15,10 +13,10 @@ import com.codeest.geeknews.presenter.contract.CommentContract;
 import com.codeest.geeknews.ui.zhihu.adapter.CommentAdapter;
 import com.victor.loading.rotate.RotateLoading;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/18.
@@ -50,6 +48,7 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
         mPresenter.getCommentData(bundle.getInt("id"),bundle.getInt("kind"));
         viewLoading.start();
         rvCommentList.setVisibility(View.INVISIBLE);
+        mList = new ArrayList<>();
         mAdapter = new CommentAdapter(mContext,mList);
         rvCommentList.setLayoutManager(new LinearLayoutManager(mContext));
         rvCommentList.setAdapter(mAdapter);
@@ -59,7 +58,8 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
     public void showContent(CommentBean commentBean) {
         viewLoading.stop();
         rvCommentList.setVisibility(View.VISIBLE);
-        mList = commentBean.getComments();
+        mList.clear();
+        mList.addAll(commentBean.getComments());
         mAdapter.notifyDataSetChanged();
     }
 

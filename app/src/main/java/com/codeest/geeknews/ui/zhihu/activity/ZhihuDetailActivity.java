@@ -1,7 +1,6 @@
 package com.codeest.geeknews.ui.zhihu.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -9,7 +8,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codeest.geeknews.R;
@@ -150,9 +148,9 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         Intent intent = getIntent();
         intent.setClass(this,CommentActivity.class);
         intent.putExtra("id",id);
-        intent.putExtra("allNum",id);
-        intent.putExtra("shortNum",id);
-        intent.putExtra("longNum",id);
+        intent.putExtra("allNum",allNum);
+        intent.putExtra("shortNum",shortNum);
+        intent.putExtra("longNum",longNum);
         startActivity(intent);
     }
 }

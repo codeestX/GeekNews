@@ -9,9 +9,12 @@ import android.support.v7.widget.Toolbar;
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.CommentMainAdapter;
+import com.codeest.geeknews.ui.zhihu.fragment.CommentFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/18.
@@ -19,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class CommentActivity extends SimpleActivity {
 
-    @BindView(R.id.tool_bar)
+    @BindView(R.id.toolbar)
     Toolbar toolBar;
     @BindView(R.id.tab_comment)
     TabLayout mTabLayout;
@@ -27,6 +30,7 @@ public class CommentActivity extends SimpleActivity {
     ViewPager mViewPager;
 
     CommentMainAdapter mAdapter;
+    List<CommentFragment> fragments = new ArrayList<>();
 
     @Override
     protected int getLayout() {
@@ -43,7 +47,19 @@ public class CommentActivity extends SimpleActivity {
         intent.getExtras().getInt("shortNum");
         setToolBar(toolBar,String.format("%d条评论",allNum));
 
-        mAdapter = new CommentMainAdapter(getSupportFragmentManager(),id);
+        CommentFragment shortCommentFragment = new CommentFragment();
+        Bundle shortBundle = new Bundle();
+        shortBundle.putInt("id", id);
+        shortBundle.putInt("kind", 0);
+        shortCommentFragment.setArguments(shortBundle);
+        CommentFragment longCommentFragment = new CommentFragment();
+        Bundle longBundle = new Bundle();
+        longBundle.putInt("id", id);
+        longBundle.putInt("kind", 1);
+        longCommentFragment.setArguments(longBundle);
+        fragments.add(shortCommentFragment);
+        fragments.add(longCommentFragment);
+        mAdapter = new CommentMainAdapter(getSupportFragmentManager(),fragments);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.addTab(mTabLayout.newTab().setText(String.format("短评论(%d)",shortNum)));
         mTabLayout.addTab(mTabLayout.newTab().setText(String.format("长评论(%d)",longNum)));

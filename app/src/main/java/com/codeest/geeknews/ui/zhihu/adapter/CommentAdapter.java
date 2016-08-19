@@ -52,8 +52,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.tvName.setText(info.getAuthor());
         holder.tvContent.setText(info.getContent());
         holder.tvTime.setText(DateUtil.formatTime2String(info.getTime()));
-        holder.tvLike.setText(info.getLikes());
-        if (info.getReply_to() != null) {
+        holder.tvLike.setText(String.valueOf(info.getLikes()));
+        if (info.getReply_to() != null && info.getReply_to().getId() != 0) {
             holder.tvReply.setVisibility(View.VISIBLE);
             holder.tvReply.setText(String.format("@%s: %s",info.getReply_to().getAuthor(),info.getReply_to().getContent()));
             if (info.getReply_to().getExpandState() == STATE_NULL) {    //未知
@@ -105,7 +105,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return mList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.civ_comment_face)
         CircleImageView civFace;

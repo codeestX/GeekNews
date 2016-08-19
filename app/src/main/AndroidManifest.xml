@@ -33,6 +33,8 @@
         <activity android:name=".ui.zhihu.activity.CalendarActivity"/>
         <activity android:name=".ui.zhihu.activity.ZhihuDetailActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".ui.zhihu.activity.CommentActivity"
+            android:launchMode="singleTop" />
 
         <meta-data
             android:value="YOUR_APP_KEY"
