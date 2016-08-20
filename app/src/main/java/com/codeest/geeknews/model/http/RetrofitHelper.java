@@ -6,6 +6,7 @@ import com.codeest.geeknews.model.bean.CommentBean;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
+import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
@@ -13,6 +14,7 @@ import com.codeest.geeknews.util.SystemUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -34,10 +36,12 @@ public class RetrofitHelper {
 
     private static OkHttpClient okHttpClient = null;
     private static ZhihuApis zhihuApiService = null;
+    private static GankApis gankApiService = null;
 
     private void init() {
         initOkHttp();
         zhihuApiService = getZhihuApiService();
+        gankApiService = getGankApiService();
     }
 
     public RetrofitHelper() {
@@ -109,6 +113,16 @@ public class RetrofitHelper {
         return zhihuRetrofit.create(ZhihuApis.class);
     }
 
+    private static GankApis getGankApiService() {
+        Retrofit gankRetrofit = new Retrofit.Builder()
+                .baseUrl(GankApis.HOST)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return gankRetrofit.create(GankApis.class);
+    }
+
     public Observable<DailyListBean> fetchDailyListInfo() {
         return zhihuApiService.getDailyList();
     }
@@ -140,4 +154,17 @@ public class RetrofitHelper {
     public Observable<CommentBean> fetchShortCommentInfo(int id) {
         return zhihuApiService.getShortCommentInfo(id);
     }
+
+    public Observable<HttpResponse<List<GankItemBean>>> fetchTechList(String tech,int num,int page) {
+        return gankApiService.getTechList(tech, num, page);
+    }
+
+    public Observable<HttpResponse<List<GankItemBean>>> fetchGirlList(int num,int page) {
+        return gankApiService.getGirlList(num, page);
+    }
+
+    public Observable<HttpResponse<List<GankItemBean>>> fetchRandomGirl(int num) {
+        return gankApiService.getRandomGirl(num);
+    }
+
 }

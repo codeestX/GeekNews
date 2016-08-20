@@ -9,4 +9,5 @@
     <dimen name="top_viewpager_height">200dp</dimen>
     <dimen name="detail_image_height">240dp</dimen>
     <dimen name="detail_bottom_height">56dp</dimen>
+    <dimen name="tech_icon_size">32dp</dimen>
 </resources>

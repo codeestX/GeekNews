@@ -2,7 +2,7 @@
     <string name="app_name">GeekNews</string>
 
     //main drawer
-    <string name="zhihu">知乎</string>
+    <string name="zhihu">知乎日报</string>
     <string name="gank">干货集中营</string>
     <string name="about">关于</string>
     <string name="drawer_open">打开</string>
@@ -11,4 +11,5 @@
     <string name="detail_bottom_like">点赞</string>
     <string name="detail_bottom_commit">评论</string>
     <string name="comment_expand">收起</string>
+    <string name="action_copy">复制链接到剪贴板</string>
 </resources>

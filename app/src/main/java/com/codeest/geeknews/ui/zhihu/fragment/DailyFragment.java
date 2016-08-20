@@ -80,7 +80,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
                 intent.putExtra("id",mList.get(position).getId());
-                LogUtil.d(shareView.getTransitionName());
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
                 mContext.startActivity(intent,options.toBundle());
             }

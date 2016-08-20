@@ -1,5 +1,7 @@
 package com.codeest.geeknews.util;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -49,5 +51,10 @@ public class SystemUtil {
         return connectivityManager.getActiveNetworkInfo() != null;
     }
 
-
+    public static void copyToClipBoard(Context context, String text) {
+        ClipData clipData = ClipData.newPlainText("url", text);
+        ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        manager.setPrimaryClip(clipData);
+        ToastUtil.shortShow("已复制到剪贴板");
+    }
 }

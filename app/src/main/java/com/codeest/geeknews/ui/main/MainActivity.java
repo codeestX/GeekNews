@@ -3,6 +3,7 @@ package com.codeest.geeknews.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -15,10 +16,12 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.presenter.MainPresenter;
 import com.codeest.geeknews.presenter.contract.MainContract;
+import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
 import com.codeest.geeknews.util.LogUtil;
 
 import butterknife.BindView;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by codeest on 16/8/9.
@@ -33,10 +36,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R.id.navigation)
     NavigationView mNavigationView;
 
+    private static final String ITEM_ZHIHU = "知乎日报";
+    private static final String ITEM_GANK = "干货集中营";
+
     ActionBarDrawerToggle mDrawerToggle;
     ZhihuMainFragment zhihuFragment;
+    GankMainFragment gankFragment;
 
-    int currentNavigationId = 0;
+    private String hideFragment = ITEM_ZHIHU;
+    private String showFragment = ITEM_ZHIHU;
 
     @Override
     protected void initInject() {
@@ -50,21 +58,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initEventAndData() {
-        setToolBar(mToolbar,"首页");
+        setToolBar(mToolbar,ITEM_ZHIHU);
         zhihuFragment = new ZhihuMainFragment();
+        gankFragment = new GankMainFragment();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        loadRootFragment(R.id.fl_main_content,zhihuFragment);
-
+        loadMultipleRootFragment(R.id.fl_main_content,0,zhihuFragment,gankFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                LogUtil.d(menuItem.getTitle().toString());
-                menuItem.setChecked(true); // 改变item选中状态
-                setTitle(menuItem.getTitle()); // 改变页面标题，标明导航状态
-                currentNavigationId = menuItem.getItemId();
-                mDrawerLayout.closeDrawers(); // 关闭导航菜单
+                showFragment = menuItem.getTitle().toString();
+                mToolbar.setTitle(showFragment);
+                menuItem.setChecked(true);
+                setTitle(menuItem.getTitle());
+                mDrawerLayout.closeDrawers();
+                showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
+                hideFragment = menuItem.getTitle().toString();
                 return true;
             }
         });
@@ -78,5 +88,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void showError(String msg) {
 
+    }
+
+    private SupportFragment getTargetFragment(String item) {
+        switch (item) {
+            case ITEM_ZHIHU:
+                return zhihuFragment;
+            case ITEM_GANK:
+                return gankFragment;
+        }
+        return zhihuFragment;
     }
 }

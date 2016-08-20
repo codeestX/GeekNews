@@ -4,6 +4,9 @@ import android.app.Activity;
 
 import com.codeest.geeknews.di.FragmentScope;
 import com.codeest.geeknews.di.module.FragmentModule;
+import com.codeest.geeknews.ui.gank.fragment.TechFragment;
+import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
+import com.codeest.geeknews.ui.gank.fragment.GirlFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.CommentFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.DailyFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.HotFragment;
@@ -25,6 +28,8 @@ public interface FragmentComponent {
 
     void inject(ZhihuMainFragment zhihuMainFragment);
 
+    void inject(GankMainFragment gankMainFragment);
+
     void inject(DailyFragment dailyFragment);
 
     void inject(ThemeFragment themeFragment);
@@ -34,5 +39,9 @@ public interface FragmentComponent {
     void inject(HotFragment hotFragment);
 
     void inject(CommentFragment longCommentFragment);
+
+    void inject(TechFragment techFragment);
+
+    void inject(GirlFragment girlFragment);
 
 }

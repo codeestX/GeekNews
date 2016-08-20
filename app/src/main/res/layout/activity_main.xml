@@ -3,20 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/view_toolbar"
-        android:id="@+id/toolbar"/>
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <include layout="@layout/view_toolbar"
+                android:id="@+id/toolbar"/>
 
             <FrameLayout
                 android:id="@+id/fl_main_content"

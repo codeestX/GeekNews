@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CommentMainAdapter extends FragmentPagerAdapter{
 
-    List<CommentFragment> fragments;
+    private List<CommentFragment> fragments;
 
     public CommentMainAdapter(FragmentManager fm,List<CommentFragment> fragments) {
         super(fm);
@@ -23,17 +23,11 @@ public class CommentMainAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return fragments.get(0);
-            case 1:
-                return fragments.get(1);
-        }
-        return fragments.get(0);
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return fragments.size();
     }
 }

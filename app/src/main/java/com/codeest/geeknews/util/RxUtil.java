@@ -31,10 +31,10 @@ public class RxUtil {
                 return httpResponseObservable.flatMap(new Func1<HttpResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(HttpResponse<T> tHttpResponse) {
-                        if(tHttpResponse.isSuccess()) {
-                            return createData(tHttpResponse.getData());
+                        if(!tHttpResponse.getError()) {
+                            return createData(tHttpResponse.getResults());
                         } else {
-                            return Observable.error(new ApiException(tHttpResponse.getError()));
+                            return Observable.error(new ApiException("服务器返回error"));
                         }
                     }
                 });

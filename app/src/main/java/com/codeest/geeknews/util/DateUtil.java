@@ -1,5 +1,7 @@
 package com.codeest.geeknews.util;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,6 +19,15 @@ public class DateUtil {
      */
     public static String getCurrentDate() {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+        return df.format(new Date());
+    }
+
+    /**
+     * 获取当前日期字符串
+     * @return
+     */
+    public static String getCurrentDateString() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日");
         return df.format(new Date());
     }
 
@@ -71,7 +82,7 @@ public class DateUtil {
             str = "半小时前";
         }else if(distance >= 2700){
             Date date = new Date(showTime * 1000);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             str = formatDateTime(sdf.format(date) , haveYear);
         }
         return str;
@@ -79,7 +90,7 @@ public class DateUtil {
     }
 
     public static String formatDateTime(String time ,boolean haveYear) {
-        SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(time == null){
             return "";
         }
@@ -113,10 +124,12 @@ public class DateUtil {
             return "昨天 "+time.split(" ")[1];
         }else{
             if(haveYear) {
-                return time;
+                int index = time.indexOf(" ");
+                return time.substring(0,index);
             }else {
-                int index = time.indexOf("-")+1;
-                return time.substring(index,time.length());
+                int yearIndex = time.indexOf("-")+1;
+                int index = time.indexOf(" ");
+                return time.substring(yearIndex,time.length()).substring(0,index);
             }
         }
     }

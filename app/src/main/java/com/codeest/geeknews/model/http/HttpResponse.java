@@ -5,37 +5,22 @@ package com.codeest.geeknews.model.http;
  */
 public class HttpResponse<T> {
 
-    public static final int SUCCESS_CODE = 0;
+    private boolean error;
+    private T results;
 
-    private int code;
-    private String error;
-    private T data;
-
-    public int getCode() {
-        return code;
+    public T getResults() {
+        return results;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setResults(T results) {
+        this.results = results;
     }
 
-    public String getError() {
+    public boolean getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(boolean error) {
         this.error = error;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public boolean isSuccess() {
-        return this.code == SUCCESS_CODE;
     }
 }

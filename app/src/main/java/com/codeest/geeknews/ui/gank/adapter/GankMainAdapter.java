@@ -1,26 +1,22 @@
-package com.codeest.geeknews.ui.zhihu.adapter;
+package com.codeest.geeknews.ui.gank.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.view.View;
 import android.view.ViewGroup;
-
-import com.codeest.geeknews.ui.zhihu.fragment.DailyFragment;
-import com.codeest.geeknews.ui.zhihu.fragment.ThemeFragment;
 
 import java.util.List;
 
 /**
- * Created by codeest on 16/8/11.
+ * Created by codeest on 16/8/19.
  */
 
-public class ZhihuMainAdapter extends FragmentPagerAdapter{
+public class GankMainAdapter extends FragmentPagerAdapter{
 
     private List<Fragment> fragments;
 
-    public ZhihuMainAdapter(FragmentManager fm,List<Fragment> fragments) {
+    public GankMainAdapter(FragmentManager fm,List<Fragment> fragments) {
         super(fm);
         this.fragments = fragments;
     }
