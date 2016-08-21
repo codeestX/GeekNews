@@ -2,14 +2,11 @@ package com.codeest.geeknews.ui.gank.fragment;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +18,6 @@ import com.codeest.geeknews.presenter.TechPresenter;
 import com.codeest.geeknews.presenter.contract.TechContract;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.ui.gank.adapter.TechAdapter;
-import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ToastUtil;
@@ -31,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/19.
@@ -39,14 +34,12 @@ import butterknife.ButterKnife;
 
 public class TechFragment extends BaseFragment<TechPresenter> implements TechContract.View {
 
-    @BindView(R.id.iv_tech_bar_image)
-    ImageView ivTechBarImage;
-    @BindView(R.id.tv_tech_bar_time)
-    TextView tvTechBarTime;
     @BindView(R.id.rv_tech_content)
     RecyclerView rvTechContent;
     @BindView(R.id.view_loading)
     RotateLoading viewLoading;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefresh;
 
     List<GankItemBean> mList;
     TechAdapter mAdapter;
@@ -67,7 +60,6 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
     @Override
     protected void initEventAndData() {
         mPresenter.getGirlImage();
-        tvTechBarTime.setText(DateUtil.getCurrentDateString());
         mList = new ArrayList<>();
         tech = getArguments().getString("tech");
         mAdapter = new TechAdapter(mContext,mList,tech);
@@ -86,7 +78,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
                 mContext.startActivity(intent,options.toBundle());
             }
         });
-        rvTechContent.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        rvTechContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -98,6 +90,17 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
                         mPresenter.getMoreGankData(tech);
                     }
                 }
+                View firstVisiableItem = recyclerView.getChildAt(0);
+                int firstItemPosition = ((LinearLayoutManager) rvTechContent.getLayoutManager()).findFirstVisibleItemPosition();
+                int itemHeight = firstVisiableItem.getHeight();
+                int firstItemBottom = rvTechContent.getLayoutManager().getDecoratedBottom(firstVisiableItem);
+                mAdapter.setTopAlpha(((firstItemPosition + 1) * itemHeight - firstItemBottom) * 2.0 / recyclerView.getChildAt(0).getHeight());
+            }
+        });
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.getGankData(tech);
             }
         });
     }
@@ -110,7 +113,11 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
 
     @Override
     public void showContent(List<GankItemBean> list) {
-        viewLoading.stop();
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         mList.clear();
         mList.addAll(list);
         mAdapter.notifyDataSetChanged();
@@ -126,6 +133,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
 
     @Override
     public void showGirlImage(String url) {
-        ImageLoader.load(mContext, url, ivTechBarImage);
+        mAdapter.setTopInfo(url,DateUtil.getCurrentDateString());
+        mAdapter.notifyItemChanged(0);
     }
 }

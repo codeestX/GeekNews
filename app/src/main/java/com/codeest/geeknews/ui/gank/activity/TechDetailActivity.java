@@ -47,7 +47,6 @@ public class TechDetailActivity extends SimpleActivity {
         title = intent.getExtras().getString("title");
         url = intent.getExtras().getString("url");
         setToolBar(toolBar,title);
-//        toolBar.inflateMenu(R.menu.tech_meun);
         WebSettings settings = wvTechContent.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);

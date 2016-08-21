@@ -48,7 +48,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     RecyclerView rvDailyList;
 
     String currentDate;
-    RealmHelper mRealHealper;
+    RealmHelper mRealHelper;
     DailyAdapter mAdapter;
     List<DailyListBean.StoriesBean> mList = new ArrayList<>();
 
@@ -64,13 +64,13 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     protected void initEventAndData() {
-        mRealHealper = App.getAppComponent().realmHelper();
+        mRealHelper = App.getAppComponent().realmHelper();
         currentDate = DateUtil.getCurrentDate();
         mAdapter = new DailyAdapter(mContext,mList);
         mAdapter.setOnItemClickListener(new DailyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position,View shareView) {
-                mRealHealper.insertNewsId(mList.get(position).getId());
+                mRealHelper.insertNewsId(mList.get(position).getId());
                 mAdapter.setReadState(position,true);
                 if(mAdapter.getIsBefore()) {
                     mAdapter.notifyItemChanged(position + 1);

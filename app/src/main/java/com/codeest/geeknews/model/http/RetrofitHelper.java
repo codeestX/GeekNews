@@ -7,6 +7,7 @@ import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.GankItemBean;
+import com.codeest.geeknews.model.bean.HotListBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
@@ -153,6 +154,10 @@ public class RetrofitHelper {
 
     public Observable<CommentBean> fetchShortCommentInfo(int id) {
         return zhihuApiService.getShortCommentInfo(id);
+    }
+
+    public Observable<HotListBean> fetchHotListInfo() {
+        return zhihuApiService.getHotList();
     }
 
     public Observable<HttpResponse<List<GankItemBean>>> fetchTechList(String tech,int num,int page) {

@@ -12,4 +12,5 @@
     <string name="detail_bottom_commit">评论</string>
     <string name="comment_expand">收起</string>
     <string name="action_copy">复制链接到剪贴板</string>
+    <string name="action_save">保存到本地</string>
 </resources>

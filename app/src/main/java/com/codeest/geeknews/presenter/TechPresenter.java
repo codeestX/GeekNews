@@ -25,7 +25,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
     public static final String TECH_ANDROID = "Android";
     public static final String TECH_IOS = "iOS";
     public static final String TECH_WEB = "前端";
-    private static final int NUM_OF_PAGE = 10;
+    private static final int NUM_OF_PAGE = 20;
 
     private int currentPage = 1;
 
@@ -56,7 +56,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
 
     @Override
     public void getMoreGankData(String tech) {
-        Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,currentPage++)
+        Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,++currentPage)
                 .compose(RxUtil.<HttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
                 .subscribe(new Action1<List<GankItemBean>>() {

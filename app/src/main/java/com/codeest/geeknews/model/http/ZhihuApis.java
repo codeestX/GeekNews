@@ -4,6 +4,7 @@ import com.codeest.geeknews.model.bean.CommentBean;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
+import com.codeest.geeknews.model.bean.HotListBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
@@ -45,6 +46,12 @@ public interface ZhihuApis {
     Observable<ThemeListBean> getThemeList();
 
     /**
+     * 热门日报
+     */
+    @GET("news/hot")
+    Observable<HotListBean> getHotList();
+
+    /**
      * 日报详情
      */
     @GET("news/{id}")
@@ -69,33 +76,8 @@ public interface ZhihuApis {
     Observable<CommentBean> getShortCommentInfo(@Path("id") int id);
 
 //
-//    /**
-//     * 根据id查询主题日报内容
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET("theme/{id}")
-//    Observable<ThemesDetails> getThemesDetailsById(@Path("id") int id);
-//
-//    /**
-//     * 根据id查询日报的额外信息
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET("story-extra/{id}")
-//    Observable<DailyExtraMessage> getDailyExtraMessageById(@Path("id") int id);
 //
 //
-//
-//    /**
-//     * 获取最新的热门新闻
-//     *
-//     * @return
-//     */
-//    @GET("news/hot")
-//    Observable<HotNews> getHotNews();
 //
 //
 //    /**

@@ -68,6 +68,7 @@ dependencies {
     compile 'com.victor:lib:1.0.4'
     compile 'com.prolificinteractive:material-calendarview:1.4.0'
     compile 'net.opacapp:multiline-collapsingtoolbar:1.2.2'
+    compile 'com.github.chrisbanes:PhotoView:1.3.0'
 
     //canary
     debugCompile 'com.github.moduth:blockcanary-android:1.2.1'
