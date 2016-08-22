@@ -9,12 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.codeest.geeknews.R;
-import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
-import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.presenter.DailyPresenter;
 import com.codeest.geeknews.presenter.contract.DailyContract;
 import com.codeest.geeknews.ui.zhihu.activity.CalendarActivity;
@@ -22,7 +20,6 @@ import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.DailyAdapter;
 import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.victor.loading.rotate.RotateLoading;
@@ -48,7 +45,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     RecyclerView rvDailyList;
 
     String currentDate;
-    RealmHelper mRealHelper;
     DailyAdapter mAdapter;
     List<DailyListBean.StoriesBean> mList = new ArrayList<>();
 
@@ -64,13 +60,12 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     protected void initEventAndData() {
-        mRealHelper = App.getAppComponent().realmHelper();
         currentDate = DateUtil.getCurrentDate();
         mAdapter = new DailyAdapter(mContext,mList);
         mAdapter.setOnItemClickListener(new DailyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position,View shareView) {
-                mRealHelper.insertNewsId(mList.get(position).getId());
+                mPresenter.insertReadToDB(mList.get(position).getId());
                 mAdapter.setReadState(position,true);
                 if(mAdapter.getIsBefore()) {
                     mAdapter.notifyItemChanged(position + 1);
@@ -95,9 +90,8 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
                     int year = Integer.valueOf(currentDate.substring(0,4));
                     int month = Integer.valueOf(currentDate.substring(4,6));
                     int day = Integer.valueOf(currentDate.substring(6,8));
-                    CalendarDay date = CalendarDay.from(year, month, day);
+                    CalendarDay date = CalendarDay.from(year, month - 1, day);
                     RxBus.getDefault().post(date);
-//                    mPresenter.getBeforeData(currentDate);
                 }
             }
         });

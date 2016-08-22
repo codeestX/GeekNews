@@ -22,12 +22,12 @@ import rx.functions.Func1;
 public class HotPresenter extends RxPresenter<HotContract.View> implements HotContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
-    private RealmHelper mRealHelper;
+    private RealmHelper mRealmHelper;
 
     @Inject
     public HotPresenter(RetrofitHelper mRetrofitHelper,RealmHelper mRealHelper) {
         this.mRetrofitHelper = mRetrofitHelper;
-        this.mRealHelper = mRealHelper;
+        this.mRealmHelper = mRealHelper;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
                     public HotListBean call(HotListBean hotListBean) {
                         List<HotListBean.RecentBean> list = hotListBean.getRecent();
                         for(HotListBean.RecentBean item : list) {
-                            item.setReadState(mRealHelper.queryNewsId(item.getNews_id()));
+                            item.setReadState(mRealmHelper.queryNewsId(item.getNews_id()));
                         }
                         return hotListBean;
                     }
@@ -56,5 +56,10 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
                     }
                 });
         addSubscrebe(rxSubscription);
+    }
+
+    @Override
+    public void insertReadToDB(int id) {
+        mRealmHelper.insertNewsId(id);
     }
 }

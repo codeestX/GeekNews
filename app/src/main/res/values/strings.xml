@@ -13,4 +13,5 @@
     <string name="comment_expand">收起</string>
     <string name="action_copy">复制链接到剪贴板</string>
     <string name="action_save">保存到本地</string>
+    <string name="action_share">分享链接</string>
 </resources>

@@ -38,7 +38,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder>{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(inflater.inflate(R.layout.fragment_hot, parent, false));
+        return new ViewHolder(inflater.inflate(R.layout.item_daily, parent, false));
     }
 
     @Override

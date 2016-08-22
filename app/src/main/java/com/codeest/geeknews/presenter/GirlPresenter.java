@@ -22,7 +22,7 @@ public class GirlPresenter extends RxPresenter<GirlContract.View> implements Gir
 
     private RetrofitHelper mRetrofitHelper;
 
-    private static final int NUM_OF_PAGE = 20;
+    public static final int NUM_OF_PAGE = 20;
 
     private int currentPage = 1;
 
@@ -59,7 +59,7 @@ public class GirlPresenter extends RxPresenter<GirlContract.View> implements Gir
                 .subscribe(new Action1<List<GankItemBean>>() {
                     @Override
                     public void call(List<GankItemBean> gankItemBeen) {
-                        mView.showMoreContent(gankItemBeen,currentPage);
+                        mView.showMoreContent(gankItemBeen);
                     }
                 }, new Action1<Throwable>() {
                     @Override

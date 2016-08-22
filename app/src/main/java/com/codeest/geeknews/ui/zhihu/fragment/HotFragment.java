@@ -2,18 +2,14 @@ package com.codeest.geeknews.ui.zhihu.fragment;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.model.bean.HotListBean;
-import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.presenter.HotPresenter;
 import com.codeest.geeknews.presenter.contract.HotContract;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
@@ -25,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 2016/8/11.
@@ -41,7 +36,6 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
 
     List<HotListBean.RecentBean> mList;
     HotAdapter mAdapter;
-    RealmHelper mRealHelper;
 
     @Override
     protected void initInject() {
@@ -71,7 +65,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         mAdapter.setOnItemClickListener(new HotAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View shareView) {
-                mRealHelper.insertNewsId(mList.get(position).getNews_id());
+                mPresenter.insertReadToDB(mList.get(position).getNews_id());
                 mAdapter.setReadState(position,true);
                 mAdapter.notifyItemChanged(position);
                 Intent intent = new Intent();

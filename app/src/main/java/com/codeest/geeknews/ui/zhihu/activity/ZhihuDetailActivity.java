@@ -18,6 +18,7 @@ import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 import com.codeest.geeknews.presenter.ZhihuDetailPresenter;
 import com.codeest.geeknews.presenter.contract.ZhihuDetailContract;
 import com.codeest.geeknews.util.HtmlUtil;
+import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -59,6 +60,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     int allNum = 0;
     int shortNum = 0;
     int longNum = 0;
+    String shareUrl;
     boolean isBottomShow = true;
 
     @Override
@@ -103,6 +105,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @Override
     public void showContent(ZhihuDetailBean zhihuDetailBean) {
         viewLoading.stop();
+        shareUrl = zhihuDetailBean.getShare_url();
         ImageLoader.load(mContext, zhihuDetailBean.getImage(), detailBarImage);
         clpToolbar.setTitle(zhihuDetailBean.getTitle());
         detailBarCopyright.setText(zhihuDetailBean.getImage_source());
@@ -152,5 +155,10 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         intent.putExtra("shortNum",shortNum);
         intent.putExtra("longNum",longNum);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_detail_bottom_share)
+    void shareUrl() {
+        ShareUtil.shareText(mContext,shareUrl,"分享一篇文章");
     }
 }

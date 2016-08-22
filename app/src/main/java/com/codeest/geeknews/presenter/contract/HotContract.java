@@ -19,5 +19,7 @@ public interface HotContract {
 
         void getHotData();
 
+        void insertReadToDB(int id);
+
     }
 }

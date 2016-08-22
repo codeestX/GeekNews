@@ -16,7 +16,7 @@ public interface GirlContract {
 
         void showContent(List<GankItemBean> list);
 
-        void showMoreContent(List<GankItemBean> list,int currentPage);
+        void showMoreContent(List<GankItemBean> list);
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
 public class DailyPresenter extends RxPresenter<DailyContract.View> implements DailyContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
-    private RealmHelper mRealHelper;
+    private RealmHelper mRealmHelper;
     private Subscription intervalSubscription;
 
     private static final int INTERVAL_INSTANCE = 6;
@@ -41,7 +41,7 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     @Inject
     public DailyPresenter(RetrofitHelper mRetrofitHelper,RealmHelper mRealHelper) {
         this.mRetrofitHelper = mRetrofitHelper;
-        this.mRealHelper = mRealHelper;
+        this.mRealmHelper = mRealHelper;
         registerEvent();
     }
 
@@ -73,17 +73,17 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return mRetrofitHelper.fetchDailyBeforeListInfo(date);
                     }
                 })
+                .observeOn(AndroidSchedulers.mainThread())    //为了使用Realm和显示结果切到主线程
                 .map(new Func1<DailyBeforeListBean, DailyBeforeListBean>() {
                     @Override
                     public DailyBeforeListBean call(DailyBeforeListBean dailyBeforeListBean) {
                         List<DailyListBean.StoriesBean> list = dailyBeforeListBean.getStories();
                         for(DailyListBean.StoriesBean item : list) {
-                            item.setReadState(mRealHelper.queryNewsId(item.getId()));
+                            item.setReadState(mRealmHelper.queryNewsId(item.getId()));
                         }
                         return dailyBeforeListBean;
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread())    //为了显示结果切到主线程
                 .subscribe(new Action1<DailyBeforeListBean>() {
                    @Override
                    public void call(DailyBeforeListBean dailyBeforeListBean) {
@@ -112,7 +112,7 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                     public DailyListBean call(DailyListBean dailyListBean) {
                         List<DailyListBean.StoriesBean> list = dailyListBean.getStories();
                         for(DailyListBean.StoriesBean item : list) {
-                            item.setReadState(mRealHelper.queryNewsId(item.getId()));
+                            item.setReadState(mRealmHelper.queryNewsId(item.getId()));
                         }
                         return dailyListBean;
                     }
@@ -172,5 +172,10 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     @Override
     public void stopInterval() {
         intervalSubscription.unsubscribe();
+    }
+
+    @Override
+    public void insertReadToDB(int id) {
+        mRealmHelper.insertNewsId(id);
     }
 }

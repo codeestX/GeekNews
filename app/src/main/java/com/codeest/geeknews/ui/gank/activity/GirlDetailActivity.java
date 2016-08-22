@@ -3,7 +3,6 @@ package com.codeest.geeknews.ui.gank.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -13,12 +12,10 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.SimpleActivity;
-import com.codeest.geeknews.component.ImageLoader;
-import com.codeest.geeknews.util.ImageUtil;
+import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
 
 import butterknife.BindView;
-import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -71,6 +68,9 @@ public class GirlDetailActivity extends SimpleActivity {
         switch (id){
             case R.id.action_save:
                 SystemUtil.saveBitmapToFile(mContext,url,bitmap);
+                break;
+            case R.id.action_share:
+                ShareUtil.shareImage(mContext,SystemUtil.saveBitmapToFile(mContext,url,bitmap),"分享一只妹纸");
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -1,8 +1,6 @@
 package com.codeest.geeknews.ui.gank.activity;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -14,11 +12,11 @@ import android.webkit.WebViewClient;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.SimpleActivity;
+import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/20.
@@ -102,6 +100,8 @@ public class TechDetailActivity extends SimpleActivity {
             case R.id.action_copy:
                 SystemUtil.copyToClipBoard(mContext,url);
                 return true;
+            case R.id.action_share:
+                ShareUtil.shareText(mContext,url,"分享一篇文章");
         }
         return super.onOptionsItemSelected(item);
     }

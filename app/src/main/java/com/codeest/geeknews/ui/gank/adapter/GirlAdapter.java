@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.GankItemBean;
-import com.codeest.geeknews.presenter.contract.MainContract;
 
 import java.util.ArrayList;
 import java.util.List;

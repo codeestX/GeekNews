@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_share"
+        android:icon="@mipmap/ic_girl_share"
+        android:title="@string/action_save"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_save"
-        android:icon="@mipmap/ic_save"
+        android:icon="@mipmap/ic_girl_save"
         android:title="@string/action_save"
         app:showAsAction="ifRoom" />
 

@@ -36,7 +36,7 @@
             android:ellipsize="end"
             android:layout_marginTop="8dp"
             android:background="@drawable/reply_bg"
-            android:paddingStart="3dp"
+            android:paddingStart="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <RelativeLayout

@@ -31,5 +31,7 @@ public interface DailyContract {
         void startInterval();
 
         void stopInterval();
+
+        void insertReadToDB(int id);
     }
 }

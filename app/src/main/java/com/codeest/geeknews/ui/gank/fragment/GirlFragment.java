@@ -2,35 +2,25 @@ package com.codeest.geeknews.ui.gank.fragment;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
-import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.presenter.GirlPresenter;
 import com.codeest.geeknews.presenter.contract.GirlContract;
 import com.codeest.geeknews.ui.gank.activity.GirlDetailActivity;
-import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.ui.gank.adapter.GirlAdapter;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ToastUtil;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/19.
@@ -119,13 +109,12 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
     }
 
     @Override
-    public void showMoreContent(List<GankItemBean> list,int currentPage) {
+    public void showMoreContent(List<GankItemBean> list) {
         isLoadingMore = false;
         viewLoading.stop();
         mList.addAll(list);
-        mAdapter.notifyDataSetChanged();
-//        for(int i = (currentPage - 1) * 10; i<currentPage * 10; i++)
-//        mAdapter.notifyItemInserted(i);
+        for(int i =mList.size() - GirlPresenter.NUM_OF_PAGE ; i < mList.size(); i++) {    //使用notifyDataSetChanged已加载的图片会有闪烁，遂使用inserted逐个插入
+            mAdapter.notifyItemInserted(i);
+        }
     }
-
 }

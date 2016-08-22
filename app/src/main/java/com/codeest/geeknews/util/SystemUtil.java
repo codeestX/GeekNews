@@ -78,7 +78,7 @@ public class SystemUtil {
      * @param url
      * @param bitmap
      */
-    public static void saveBitmapToFile(Context context, String url, Bitmap bitmap){
+    public static Uri saveBitmapToFile(Context context, String url, Bitmap bitmap){
         String fileName = url.substring(url.lastIndexOf("/"),url.lastIndexOf(".")) + ".png";
         File fileDir = new File(Constants.DATA_PATH);
         if (!fileDir.exists()){
@@ -102,5 +102,6 @@ public class SystemUtil {
         }
         Uri uri = Uri.fromFile(imageFile);
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri));
+        return uri;
     }
 }
