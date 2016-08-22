@@ -31,6 +31,8 @@
                     android:id="@+id/iv_tech_icon"
                     android:layout_width="@dimen/tech_icon_size"
                     android:layout_height="@dimen/tech_icon_size"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
                     android:src="@mipmap/ic_android"/>
                 <TextView
                     android:id="@+id/tv_tech_title"

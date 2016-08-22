@@ -3,17 +3,25 @@
     <group android:id="@+id/group_content">
         <item
             android:id="@+id/drawer_zhihu"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/ic_drawer_zhihu"
             android:title="@string/zhihu"/>
         <item
             android:id="@+id/drawer_gank"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/ic_drawer_gank"
             android:title="@string/gank"/>
     </group>
     <group android:id="@+id/group_other">
         <item
+            android:id="@+id/drawer_collection"
+            android:icon="@mipmap/ic_drawer_like"
+            android:title="@string/drawer_collection"/>
+        <item
+            android:id="@+id/drawer_setting"
+            android:icon="@mipmap/ic_drawer_setting"
+            android:title="@string/drawable_setting"/>
+        <item
             android:id="@+id/drawer_about"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/about"/>
+            android:icon="@mipmap/ic_drawer_about"
+            android:title="@string/drawer_about"/>
     </group>
 </menu>

@@ -4,7 +4,9 @@
     //main drawer
     <string name="zhihu">知乎日报</string>
     <string name="gank">干货集中营</string>
-    <string name="about">关于</string>
+    <string name="drawer_about">关于</string>
+    <string name="drawer_collection">收藏</string>
+    <string name="drawable_setting">设置</string>
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
     <string name="detail_bottom_share">分享</string>

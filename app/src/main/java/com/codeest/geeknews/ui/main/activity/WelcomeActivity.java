@@ -1,4 +1,4 @@
-package com.codeest.geeknews.ui.main;
+package com.codeest.geeknews.ui.main.activity;
 
 import android.content.Intent;
 import android.widget.ImageView;
