@@ -37,11 +37,6 @@ public class GankMainFragment extends SimpleFragment{
     GirlFragment girlFragment;
 
     @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.fragment_gank_main;
     }

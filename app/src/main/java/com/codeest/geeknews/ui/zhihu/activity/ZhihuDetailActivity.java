@@ -128,6 +128,11 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         longNum = detailExtraBean.getLong_comments();
     }
 
+    @Override
+    public void setLikeButtonState(boolean isLiked) {
+        fabLike.setSelected(isLiked);
+    }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && wvDetailContent.canGoBack()) {
             wvDetailContent.goBack();

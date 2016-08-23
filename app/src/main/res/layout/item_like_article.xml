@@ -18,8 +18,8 @@
             android:layout_height="wrap_content">
             <com.codeest.geeknews.widget.SquareImageView
                 android:id="@+id/iv_article_image"
-                android:layout_width="45dp"
-                android:layout_height="45dp" />
+                android:layout_width="@dimen/list_image_size"
+                android:layout_height="@dimen/list_image_size" />
             <TextView
                 android:id="@+id/tv_article_title"
                 android:layout_marginStart="6dp"

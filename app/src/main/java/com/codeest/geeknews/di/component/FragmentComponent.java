@@ -27,10 +27,6 @@ public interface FragmentComponent {
 
     Activity getActivity();
 
-    void inject(ZhihuMainFragment zhihuMainFragment);
-
-    void inject(GankMainFragment gankMainFragment);
-
     void inject(DailyFragment dailyFragment);
 
     void inject(ThemeFragment themeFragment);

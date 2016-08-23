@@ -8,6 +8,7 @@ import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.model.bean.HotListBean;
+import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
@@ -134,6 +135,10 @@ public class RetrofitHelper {
 
     public Observable<ThemeListBean> fetchDailyThemeListInfo() {
         return zhihuApiService.getThemeList();
+    }
+
+    public Observable<ThemeChildListBean> fetchThemeChildListInfo(int id) {
+        return zhihuApiService.getThemeChildList(id);
     }
 
     public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {

@@ -17,6 +17,9 @@ import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.presenter.MainPresenter;
 import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
+import com.codeest.geeknews.ui.main.fragment.AboutFragment;
+import com.codeest.geeknews.ui.main.fragment.LikeFragment;
+import com.codeest.geeknews.ui.main.fragment.SettingFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
 import com.codeest.geeknews.util.LogUtil;
 
@@ -38,10 +41,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private static final String ITEM_ZHIHU = "知乎日报";
     private static final String ITEM_GANK = "干货集中营";
+    private static final String ITEM_LIKE = "收藏";
+    private static final String ITEM_SETTING = "设置";
+    private static final String ITEM_ABOUT = "关于";
 
     ActionBarDrawerToggle mDrawerToggle;
-    ZhihuMainFragment zhihuFragment;
-    GankMainFragment gankFragment;
+    ZhihuMainFragment mZhihuFragment;
+    GankMainFragment mGankFragment;
+    LikeFragment mLikeFragment;
+    SettingFragment mSettingFragment;
+    AboutFragment mAboutFragment;
 
     private String hideFragment = ITEM_ZHIHU;
     private String showFragment = ITEM_ZHIHU;
@@ -59,12 +68,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         setToolBar(mToolbar,ITEM_ZHIHU);
-        zhihuFragment = new ZhihuMainFragment();
-        gankFragment = new GankMainFragment();
+        mZhihuFragment = new ZhihuMainFragment();
+        mGankFragment = new GankMainFragment();
+        mLikeFragment = new LikeFragment();
+        mSettingFragment = new SettingFragment();
+        mAboutFragment = new AboutFragment();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        loadMultipleRootFragment(R.id.fl_main_content,0,zhihuFragment,gankFragment);
+        loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mLikeFragment,mSettingFragment,mAboutFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -93,10 +105,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private SupportFragment getTargetFragment(String item) {
         switch (item) {
             case ITEM_ZHIHU:
-                return zhihuFragment;
+                return mZhihuFragment;
             case ITEM_GANK:
-                return gankFragment;
+                return mGankFragment;
+            case ITEM_LIKE:
+                return mLikeFragment;
+            case ITEM_SETTING:
+                return mSettingFragment;
+            case ITEM_ABOUT:
+                return mAboutFragment;
         }
-        return zhihuFragment;
+        return mZhihuFragment;
     }
 }

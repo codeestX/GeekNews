@@ -16,6 +16,8 @@ public interface ZhihuDetailContract {
         void showContent(ZhihuDetailBean zhihuDetailBean);
 
         void showExtraInfo(DetailExtraBean detailExtraBean);
+
+        void setLikeButtonState(boolean isLiked);
     }
 
     interface  Presenter extends BasePresenter<View> {
@@ -28,6 +30,6 @@ public interface ZhihuDetailContract {
 
         void deleteLikeData();
 
-        boolean queryLikeData(int id);
+        void queryLikeData(int id);
     }
 }

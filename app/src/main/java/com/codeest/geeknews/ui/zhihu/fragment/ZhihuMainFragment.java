@@ -31,11 +31,6 @@ public class ZhihuMainFragment extends SimpleFragment{
     ZhihuMainAdapter mAdapter;
 
     @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.fragment_zhihu_main;
     }

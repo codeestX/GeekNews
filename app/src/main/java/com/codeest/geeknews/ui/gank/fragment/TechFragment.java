@@ -87,10 +87,10 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
                         mPresenter.getMoreGankData(tech);
                     }
                 }
-                View firstVisiableItem = recyclerView.getChildAt(0);
+                View firstVisibleItem = recyclerView.getChildAt(0);
                 int firstItemPosition = ((LinearLayoutManager) rvTechContent.getLayoutManager()).findFirstVisibleItemPosition();
-                int itemHeight = firstVisiableItem.getHeight();
-                int firstItemBottom = rvTechContent.getLayoutManager().getDecoratedBottom(firstVisiableItem);
+                int itemHeight = firstVisibleItem.getHeight();
+                int firstItemBottom = rvTechContent.getLayoutManager().getDecoratedBottom(firstVisibleItem);
                 mAdapter.setTopAlpha(((firstItemPosition + 1) * itemHeight - firstItemBottom) * 2.0 / recyclerView.getChildAt(0).getHeight());
             }
         });

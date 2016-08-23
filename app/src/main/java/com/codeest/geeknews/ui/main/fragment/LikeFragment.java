@@ -11,6 +11,7 @@ import com.codeest.geeknews.presenter.contract.LikeContract;
 import com.codeest.geeknews.ui.main.adapter.LikeAdapter;
 import com.codeest.geeknews.util.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +40,7 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
 
     @Override
     protected void initEventAndData() {
+        mList = new ArrayList<>();
         mAdapter = new LikeAdapter(mContext, mList);
         rvLikeList.setLayoutManager(new LinearLayoutManager(mContext));
         rvLikeList.setAdapter(mAdapter);

@@ -6,6 +6,7 @@ import com.codeest.geeknews.di.ActivityScope;
 import com.codeest.geeknews.di.module.ActivityModule;
 import com.codeest.geeknews.ui.main.activity.MainActivity;
 import com.codeest.geeknews.ui.main.activity.WelcomeActivity;
+import com.codeest.geeknews.ui.zhihu.activity.ThemeActivity;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 
 import dagger.Component;
@@ -26,4 +27,5 @@ public interface ActivityComponent {
 
     void inject(ZhihuDetailActivity zhihuDetailActivity);
 
+    void inject(ThemeActivity themeActivity);
 }

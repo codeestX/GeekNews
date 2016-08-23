@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/action_like"
-        android:icon="@mipmap/ic_toolbar_share"
+        android:icon="@drawable/selector_toolbar_like"
         android:title="@string/action_like"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_share"
         android:icon="@mipmap/ic_toolbar_share"
-        android:title="@string/action_save"
+        android:title="@string/action_share"
         app:showAsAction="ifRoom" />
 
     <item

@@ -73,7 +73,6 @@ public abstract class SimpleFragment extends SwipeBackFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(getLayoutId(), null);
-        initInject();
         return attachToSwipeBack(mView);
     }
 
@@ -101,7 +100,6 @@ public abstract class SimpleFragment extends SwipeBackFragment{
         super.onDestroyView();
     }
 
-    protected abstract void initInject();
     protected abstract int getLayoutId();
     protected abstract void initEventAndData();
 }

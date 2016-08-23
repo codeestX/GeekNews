@@ -92,7 +92,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
     }
 
     @Override
-    public boolean queryLikeData(int id) {
-        return mRealmHelper.queryLikeId(String.valueOf(id));
+    public void queryLikeData(int id) {
+        mView.setLikeButtonState(mRealmHelper.queryLikeId(String.valueOf(id)));
     }
 }

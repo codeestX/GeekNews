@@ -5,6 +5,7 @@ import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.HotListBean;
+import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
@@ -44,6 +45,12 @@ public interface ZhihuApis {
      */
     @GET("themes")
     Observable<ThemeListBean> getThemeList();
+
+    /**
+     * 专题日报详情
+     */
+    @GET("theme/{id}")
+    Observable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
 
     /**
      * 热门日报
