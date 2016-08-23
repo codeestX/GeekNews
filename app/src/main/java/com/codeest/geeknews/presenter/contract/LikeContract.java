@@ -1,0 +1,23 @@
+package com.codeest.geeknews.presenter.contract;
+
+import com.codeest.geeknews.base.BasePresenter;
+import com.codeest.geeknews.base.BaseView;
+import com.codeest.geeknews.model.bean.RealmLikeBean;
+
+import java.util.List;
+
+/**
+ * Created by codeest on 2016/8/23.
+ */
+public interface LikeContract {
+
+    interface View extends BaseView {
+
+        void showContent(List<RealmLikeBean> mList);
+    }
+
+    interface Presenter extends BasePresenter<View> {
+
+        void getLikeData();
+    }
+}

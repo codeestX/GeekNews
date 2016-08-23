@@ -11,7 +11,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.App;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleActivity;
+import com.codeest.geeknews.model.bean.RealmLikeBean;
+import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
 
@@ -30,9 +34,12 @@ public class GirlDetailActivity extends SimpleActivity {
     ImageView ivGirlDetail;
 
     PhotoViewAttacher mAttacher;
+    MenuItem menuItem;
 
     String url;
+    String id;
     Bitmap bitmap;
+    RealmHelper mRealmHelper;
 
     @Override
     protected int getLayout() {
@@ -42,8 +49,11 @@ public class GirlDetailActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
         setToolBar(toolBar,"");
+        mRealmHelper = App.getAppComponent().realmHelper();
         Intent intent = getIntent();
         url = intent.getExtras().getString("url");
+        id = intent.getExtras().getString("id");
+        mRealmHelper.queryLikeId(id);
         if (url != null) {
             Glide.with(mContext).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
@@ -59,6 +69,7 @@ public class GirlDetailActivity extends SimpleActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.girl_menu,menu);
+        menuItem = menu.findItem(R.id.action_like);
         return true;
     }
 
@@ -66,6 +77,19 @@ public class GirlDetailActivity extends SimpleActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
+            case R.id.action_like:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    mRealmHelper.deleteLikeBean(this.id);
+                } else {
+                    item.setChecked(true);
+                    RealmLikeBean bean = new RealmLikeBean();
+                    bean.setId(this.id);
+                    bean.setImage(url);
+                    bean.setType(Constants.TYPE_GIRL);
+                    mRealmHelper.insertLikeBean(bean);
+                }
+                break;
             case R.id.action_save:
                 SystemUtil.saveBitmapToFile(mContext,url,bitmap);
                 break;

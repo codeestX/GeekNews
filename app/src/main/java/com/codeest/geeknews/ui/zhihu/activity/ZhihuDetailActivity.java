@@ -1,6 +1,7 @@
 package com.codeest.geeknews.ui.zhihu.activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -55,6 +56,9 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     TextView tvDetailBottomShare;
     @BindView(R.id.ll_detail_bottom)
     FrameLayout llDetailBottom;
+    @BindView(R.id.fab_like)
+    FloatingActionButton fabLike;
+
 
     int id = 0;
     int allNum = 0;
@@ -78,6 +82,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         setToolBar(viewToolbar,"");
         Intent intent = getIntent();
         id = intent.getExtras().getInt("id");
+        mPresenter.queryLikeData(id);
         mPresenter.getDetailData(id);
         mPresenter.getExtraData(id);
         viewLoading.start();
@@ -160,5 +165,16 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @OnClick(R.id.tv_detail_bottom_share)
     void shareUrl() {
         ShareUtil.shareText(mContext,shareUrl,"分享一篇文章");
+    }
+
+    @OnClick(R.id.fab_like)
+    void likeArticle() {
+        if (fabLike.isSelected()) {
+            fabLike.setSelected(false);
+            mPresenter.deleteLikeData();
+        } else {
+            fabLike.setSelected(true);
+            mPresenter.insertLikeData();
+        }
     }
 }

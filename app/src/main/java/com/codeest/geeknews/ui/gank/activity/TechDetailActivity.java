@@ -11,7 +11,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.App;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleActivity;
+import com.codeest.geeknews.model.bean.RealmLikeBean;
+import com.codeest.geeknews.model.db.RealmHelper;
+import com.codeest.geeknews.presenter.TechPresenter;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.victor.loading.rotate.RotateLoading;
@@ -33,6 +38,10 @@ public class TechDetailActivity extends SimpleActivity {
 
     String title;
     String url;
+    String id;
+    String tech;
+    RealmHelper mRealmHelper;
+    MenuItem menuItem;
 
     @Override
     protected int getLayout() {
@@ -41,9 +50,13 @@ public class TechDetailActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
+        mRealmHelper = App.getAppComponent().realmHelper();
         Intent intent = getIntent();
+        tech = intent.getExtras().getString("tech");
         title = intent.getExtras().getString("title");
         url = intent.getExtras().getString("url");
+        id = intent.getExtras().getString("id");
+        mRealmHelper.queryLikeId(id);
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -90,6 +103,7 @@ public class TechDetailActivity extends SimpleActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tech_meun, menu);
+        menuItem = menu.findItem(R.id.action_like);
         return true;
     }
 
@@ -97,6 +111,19 @@ public class TechDetailActivity extends SimpleActivity {
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_like:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    mRealmHelper.deleteLikeBean(this.id);
+                } else {
+                    item.setChecked(true);
+                    RealmLikeBean bean = new RealmLikeBean();
+                    bean.setId(this.id);
+                    bean.setImage(url);
+                    bean.setType(getTechType(tech));
+                    mRealmHelper.insertLikeBean(bean);
+                }
+                break;
             case R.id.action_copy:
                 SystemUtil.copyToClipBoard(mContext,url);
                 return true;
@@ -113,5 +140,17 @@ public class TechDetailActivity extends SimpleActivity {
         } else {
             finishAfterTransition();
         }
+    }
+
+    private int getTechType(String tech) {
+        switch (tech) {
+            case TechPresenter.TECH_ANDROID:
+                return Constants.TYPE_ANDROID;
+            case TechPresenter.TECH_IOS:
+                return Constants.TYPE_IOS;
+            case TechPresenter.TECH_WEB:
+                return Constants.TYPE_WEB;
+        }
+        return Constants.TYPE_ANDROID;
     }
 }

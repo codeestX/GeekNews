@@ -7,6 +7,7 @@ import com.codeest.geeknews.di.module.FragmentModule;
 import com.codeest.geeknews.ui.gank.fragment.TechFragment;
 import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
 import com.codeest.geeknews.ui.gank.fragment.GirlFragment;
+import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.CommentFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.DailyFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.HotFragment;
@@ -44,4 +45,5 @@ public interface FragmentComponent {
 
     void inject(GirlFragment girlFragment);
 
+    void inject(LikeFragment likeFragment);
 }

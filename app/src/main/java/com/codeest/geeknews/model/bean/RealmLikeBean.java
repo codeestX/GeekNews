@@ -1,5 +1,7 @@
 package com.codeest.geeknews.model.bean;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 /**
@@ -7,11 +9,11 @@ import io.realm.RealmObject;
  * 用于数据库的bean 种类包括 新闻、技术、福利
  */
 
-public class RealmLikeBean extends RealmObject {
+public class RealmLikeBean extends RealmObject implements Serializable{
 
     public RealmLikeBean() { }
 
-    private int id;
+    private String id;
 
     private String image;
 
@@ -19,11 +21,11 @@ public class RealmLikeBean extends RealmObject {
 
     private int type;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -3,12 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_like"
+        android:icon="@drawable/selector_toolbar_like"
+        android:title="@string/action_like"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_copy"
+        android:icon="@mipmap/ic_toolbar_copy"
         android:title="@string/action_copy"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_share"
+        android:icon="@mipmap/ic_toolbar_share"
         android:title="@string/action_share"
         app:showAsAction="never" />
 

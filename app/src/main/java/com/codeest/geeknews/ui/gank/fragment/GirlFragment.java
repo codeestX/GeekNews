@@ -82,6 +82,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
                 Intent intent = new Intent();
                 intent.setClass(mContext, GirlDetailActivity.class);
                 intent.putExtra("url",mList.get(position).getUrl());
+                intent.putExtra("id",mList.get(position).get_id());
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
                 mContext.startActivity(intent,options.toBundle());
             }

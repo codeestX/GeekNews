@@ -1,8 +1,11 @@
 package com.codeest.geeknews.presenter;
 
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
+import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
+import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.ZhihuDetailContract;
 import com.codeest.geeknews.util.RxUtil;
@@ -19,10 +22,13 @@ import rx.functions.Action1;
 public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> implements ZhihuDetailContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
+    private RealmHelper mRealmHelper;
+    private ZhihuDetailBean mData;
 
     @Inject
-    public ZhihuDetailPresenter(RetrofitHelper mRetrofitHelper) {
+    public ZhihuDetailPresenter(RetrofitHelper mRetrofitHelper,RealmHelper mRealmHelper) {
         this.mRetrofitHelper = mRetrofitHelper;
+        this.mRealmHelper = mRealmHelper;
     }
 
     @Override
@@ -32,6 +38,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
                 .subscribe(new Action1<ZhihuDetailBean>() {
                     @Override
                     public void call(ZhihuDetailBean zhihuDetailBean) {
+                        mData = zhihuDetailBean;
                         mView.showContent(zhihuDetailBean);
                     }
                 }, new Action1<Throwable>() {
@@ -59,5 +66,33 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
                     }
                 });
         addSubscrebe(rxSubscription);
+    }
+
+    @Override
+    public void insertLikeData() {
+        if (mData != null) {
+            RealmLikeBean bean = new RealmLikeBean();
+            bean.setId(String.valueOf(mData.getId()));
+            bean.setImage(mData.getImage());
+            bean.setTitle(mData.getTitle());
+            bean.setType(Constants.TYPE_ZHIHU);
+            mRealmHelper.insertLikeBean(bean);
+        } else {
+            mView.showError("操作失败");
+        }
+    }
+
+    @Override
+    public void deleteLikeData() {
+        if (mData != null) {
+            mRealmHelper.deleteLikeBean(String.valueOf(mData.getId()));
+        } else {
+            mView.showError("操作失败");
+        }
+    }
+
+    @Override
+    public boolean queryLikeData(int id) {
+        return mRealmHelper.queryLikeId(String.valueOf(id));
     }
 }

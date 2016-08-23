@@ -5,21 +5,16 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
-import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.presenter.TechPresenter;
 import com.codeest.geeknews.presenter.contract.TechContract;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.ui.gank.adapter.TechAdapter;
 import com.codeest.geeknews.util.DateUtil;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -74,6 +69,8 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
                 intent.setClass(mContext, TechDetailActivity.class);
                 intent.putExtra("url",mList.get(position).getUrl());
                 intent.putExtra("title",mList.get(position).getDesc());
+                intent.putExtra("id",mList.get(position).get_id());
+                intent.putExtra("tech",tech);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
                 mContext.startActivity(intent,options.toBundle());
             }

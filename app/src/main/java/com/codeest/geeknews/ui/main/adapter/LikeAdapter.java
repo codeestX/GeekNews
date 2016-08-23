@@ -2,7 +2,6 @@ package com.codeest.geeknews.ui.main.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +70,7 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            gotoDailyDetail(mList.get(holder.getAdapterPosition()).getId());
+                            gotoDailyDetail(Integer.valueOf(mList.get(holder.getAdapterPosition()).getId()));
                         }
                     });
                     break;

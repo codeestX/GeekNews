@@ -6,6 +6,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
@@ -137,9 +138,16 @@
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:background="@android:color/darker_gray"/>
+            android:background="#e8e8e8"/>
     </FrameLayout>
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/selector_like"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end" />
 </android.support.design.widget.CoordinatorLayout>

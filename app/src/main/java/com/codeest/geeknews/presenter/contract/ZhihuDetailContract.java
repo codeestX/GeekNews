@@ -23,5 +23,11 @@ public interface ZhihuDetailContract {
         void getDetailData(int id);
 
         void getExtraData(int id);
+
+        void insertLikeData();
+
+        void deleteLikeData();
+
+        boolean queryLikeData(int id);
     }
 }
