@@ -2,7 +2,6 @@ package com.codeest.geeknews.ui.zhihu.activity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.presenter.ThemeChildPresenter;
 import com.codeest.geeknews.presenter.contract.ThemeChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeChildAdapter;
-import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/24.
