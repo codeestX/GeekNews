@@ -33,13 +33,15 @@ public class GirlDetailActivity extends SimpleActivity {
     @BindView(R.id.iv_girl_detail)
     ImageView ivGirlDetail;
 
+    Bitmap bitmap;
+    RealmHelper mRealmHelper;
     PhotoViewAttacher mAttacher;
     MenuItem menuItem;
 
     String url;
     String id;
-    Bitmap bitmap;
-    RealmHelper mRealmHelper;
+
+    boolean isLiked;
 
     @Override
     protected int getLayout() {
@@ -53,7 +55,7 @@ public class GirlDetailActivity extends SimpleActivity {
         Intent intent = getIntent();
         url = intent.getExtras().getString("url");
         id = intent.getExtras().getString("id");
-        mRealmHelper.queryLikeId(id);
+        setLikeState(mRealmHelper.queryLikeId(id));
         if (url != null) {
             Glide.with(mContext).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
@@ -78,11 +80,11 @@ public class GirlDetailActivity extends SimpleActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.action_like:
-                if(item.isChecked()) {
-                    item.setChecked(false);
+                if(isLiked) {
+                    item.setIcon(R.mipmap.ic_toolbar_like_n);
                     mRealmHelper.deleteLikeBean(this.id);
                 } else {
-                    item.setChecked(true);
+                    item.setIcon(R.mipmap.ic_toolbar_like_p);
                     RealmLikeBean bean = new RealmLikeBean();
                     bean.setId(this.id);
                     bean.setImage(url);
@@ -106,6 +108,16 @@ public class GirlDetailActivity extends SimpleActivity {
             pop();
         } else {
             finishAfterTransition();
+        }
+    }
+
+    private void setLikeState(boolean state) {
+        if(state) {
+            menuItem.setIcon(R.mipmap.ic_toolbar_like_p);
+            isLiked = true;
+        } else {
+            menuItem.setIcon(R.mipmap.ic_toolbar_like_n);
+            isLiked = false;
         }
     }
 }

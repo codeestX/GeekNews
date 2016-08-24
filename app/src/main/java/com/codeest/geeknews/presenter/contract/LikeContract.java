@@ -19,5 +19,7 @@ public interface LikeContract {
     interface Presenter extends BasePresenter<View> {
 
         void getLikeData();
+
+        void deleteLikeData(String id);
     }
 }

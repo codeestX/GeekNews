@@ -36,12 +36,11 @@ public class TechDetailActivity extends SimpleActivity {
     @BindView(R.id.view_loading)
     RotateLoading viewLoading;
 
-    String title;
-    String url;
-    String id;
-    String tech;
     RealmHelper mRealmHelper;
     MenuItem menuItem;
+
+    String title,url,id,tech;
+    boolean isLiked;
 
     @Override
     protected int getLayout() {
@@ -56,7 +55,7 @@ public class TechDetailActivity extends SimpleActivity {
         title = intent.getExtras().getString("title");
         url = intent.getExtras().getString("url");
         id = intent.getExtras().getString("id");
-        mRealmHelper.queryLikeId(id);
+        setLikeState(mRealmHelper.queryLikeId(id));
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -107,19 +106,19 @@ public class TechDetailActivity extends SimpleActivity {
         return true;
     }
 
-
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_like:
-                if(item.isChecked()) {
-                    item.setChecked(false);
+                if(isLiked) {
+                    item.setIcon(R.mipmap.ic_toolbar_like_n);
                     mRealmHelper.deleteLikeBean(this.id);
                 } else {
-                    item.setChecked(true);
+                    item.setIcon(R.mipmap.ic_toolbar_like_p);
                     RealmLikeBean bean = new RealmLikeBean();
                     bean.setId(this.id);
                     bean.setImage(url);
+                    bean.setTitle(title);
                     bean.setType(getTechType(tech));
                     mRealmHelper.insertLikeBean(bean);
                 }
@@ -152,5 +151,15 @@ public class TechDetailActivity extends SimpleActivity {
                 return Constants.TYPE_WEB;
         }
         return Constants.TYPE_ANDROID;
+    }
+
+    private void setLikeState(boolean state) {
+        if(state) {
+            menuItem.setIcon(R.mipmap.ic_toolbar_like_p);
+            isLiked = true;
+        } else {
+            menuItem.setIcon(R.mipmap.ic_toolbar_like_n);
+            isLiked = false;
+        }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="常规">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pre_save"
+            android:summary="仅Wi-Fi下可用，自动下载缓存最新内容"
+            android:title="自动缓存"/>
+        <CheckBoxPreference
+            android:checked="true"
+            android:defaultValue="true"
+            android:key="pre_image"
+            android:summary="2G/3G 网络下不下载图片"
+            android:title="无图模式"/>
+        <CheckBoxPreference
+            android:checked="true"
+            android:defaultValue="true"
+            android:key="pre_image"
+            android:title="夜间模式"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="其他">
+        <Preference
+            android:key="pre_feedback"
+            android:title="意见反馈"/>
+        <Preference
+            android:key="pre_clear"
+            android:summary="缓存大小：200kb"
+            android:title="清除缓存"/>
+        <Preference
+            android:key="pre_version"
+            android:summary="当前版本号：v1.0"
+            android:title="检查更新"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

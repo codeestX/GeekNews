@@ -7,7 +7,7 @@ import com.codeest.geeknews.base.SimpleFragment;
  * Created by codeest on 16/8/23.
  */
 
-public class SettingFragment extends SimpleFragment{
+public class SettingFragment extends SimpleFragment {
 
     @Override
     protected int getLayoutId() {
@@ -16,6 +16,7 @@ public class SettingFragment extends SimpleFragment{
 
     @Override
     protected void initEventAndData() {
+
 
     }
 }

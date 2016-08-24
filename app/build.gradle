@@ -43,13 +43,15 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
-    //network & db
+    //network
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 
     //di
     compile 'com.google.dagger:dagger:2.0.2'
@@ -60,8 +62,6 @@ dependencies {
 
     //other
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     compile 'com.orhanobut:logger:1.15'
     compile 'me.yokeyword:fragmentation:0.7.9'
     compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
