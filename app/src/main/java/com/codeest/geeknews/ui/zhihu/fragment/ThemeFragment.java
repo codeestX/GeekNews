@@ -68,6 +68,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         rvThemeList.setVisibility(View.VISIBLE);
         mList.clear();
         mList.addAll(themeListBean.getOthers());
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

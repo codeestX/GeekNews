@@ -28,6 +28,15 @@ public class GankItemBean {
     private String url;
     private boolean used;
     private String who;
+    private int height;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     public String get_id() {
         return _id;

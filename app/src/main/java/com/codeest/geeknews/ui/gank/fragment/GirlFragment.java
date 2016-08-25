@@ -39,6 +39,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
 
     GirlAdapter mAdapter;
     List<GankItemBean> mList;
+    StaggeredGridLayoutManager mStaggeredGridLayoutManager;
 
     private boolean isLoadingMore = false;
 
@@ -56,8 +57,16 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
     protected void initEventAndData() {
         mList = new ArrayList<>();
         mAdapter = new GirlAdapter(mContext, mList);
-        rvGirlContent.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT,StaggeredGridLayoutManager.VERTICAL));
+        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(SPAN_COUNT,StaggeredGridLayoutManager.VERTICAL);
+        mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        rvGirlContent.setLayoutManager(mStaggeredGridLayoutManager);
         rvGirlContent.setAdapter(mAdapter);
+
+//        rvGirlContent.setHasFixedSize(true);
+//        rvGirlContent.setItemViewCacheSize(20);
+//        rvGirlContent.setDrawingCacheEnabled(true);
+//        rvGirlContent.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -68,7 +77,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int[] visibleItems = ((StaggeredGridLayoutManager)rvGirlContent.getLayoutManager()).findLastVisibleItemPositions(null);
+                int[] visibleItems = mStaggeredGridLayoutManager.findLastVisibleItemPositions(null);
                 int lastItem = Math.max(visibleItems[0],visibleItems[1]);
                 if (lastItem > mAdapter.getItemCount() - 5 && !isLoadingMore && dy > 0 ) {
                     isLoadingMore = true;
