@@ -80,9 +80,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                showFragment = menuItem.getTitle().toString();
+                switch (menuItem.getItemId()) {
+                    case R.id.drawer_zhihu:
+                        showFragment = ITEM_ZHIHU;
+                        break;
+                    case R.id.drawer_gank:
+                        showFragment = ITEM_GANK;
+                        break;
+                    case R.id.drawer_setting:
+                        showFragment = ITEM_SETTING;
+                        break;
+                    case R.id.drawer_collection:
+                        showFragment = ITEM_LIKE;
+                        break;
+                    case R.id.drawer_about:
+                        showFragment = ITEM_ABOUT;
+                        break;
+                }
+
+//                showFragment = menuItem.getTitle().toString();
                 mToolbar.setTitle(showFragment);
-                menuItem.setChecked(true);
+//                menuItem.setChecked(true);
                 setTitle(menuItem.getTitle());
                 mDrawerLayout.closeDrawers();
                 showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));

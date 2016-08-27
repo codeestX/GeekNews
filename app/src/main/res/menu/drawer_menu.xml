@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/group_content">
-        <item
-            android:id="@+id/drawer_zhihu"
-            android:icon="@mipmap/ic_drawer_zhihu"
-            android:title="@string/zhihu"/>
-        <item
-            android:id="@+id/drawer_gank"
-            android:icon="@mipmap/ic_drawer_gank"
-            android:title="@string/gank"/>
-    </group>
-    <group android:id="@+id/group_other">
-        <item
-            android:id="@+id/drawer_collection"
-            android:icon="@mipmap/ic_drawer_like"
-            android:title="@string/drawer_collection"/>
-        <item
-            android:id="@+id/drawer_setting"
-            android:icon="@mipmap/ic_drawer_setting"
-            android:title="@string/drawer_setting"/>
-        <item
-            android:id="@+id/drawer_about"
-            android:icon="@mipmap/ic_drawer_about"
-            android:title="@string/drawer_about"/>
-    </group>
+    <item android:title="@string/drawer_group_content">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/drawer_zhihu"
+                    android:icon="@mipmap/ic_drawer_zhihu"
+                    android:checked="true"
+                    android:title="@string/zhihu"/>
+                <item
+                    android:id="@+id/drawer_gank"
+                    android:icon="@mipmap/ic_drawer_gank"
+                    android:title="@string/gank"/>
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/drawer_group_options">
+        <menu>
+            <item
+                android:id="@+id/drawer_collection"
+                android:icon="@mipmap/ic_drawer_like"
+                android:title="@string/drawer_collection"/>
+            <item
+                android:id="@+id/drawer_setting"
+                android:icon="@mipmap/ic_drawer_setting"
+                android:title="@string/drawer_setting"/>
+            <item
+                android:id="@+id/drawer_about"
+                android:icon="@mipmap/ic_drawer_about"
+                android:title="@string/drawer_about"/>
+        </menu>
+    </item>
 </menu>

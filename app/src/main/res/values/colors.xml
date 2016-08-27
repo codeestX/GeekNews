@@ -6,6 +6,8 @@
     <color name="colorBackground">#EEEEEE</color>
     <color name="colorCard">#FFFFFF</color>
 
+    <color name="drawer_item_bg_p">#e8e8e8</color>
+    <color name="drawer_item_bg_n">#ffffff</color>
     <color name="toast_bg">#dddfe0</color>
     <color name="black_bg">#d0000000</color>
     <color name="bottom_text">#a9a9a9</color>

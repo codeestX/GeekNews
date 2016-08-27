@@ -109,6 +109,18 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
         recreate();
     }
 
+    @Override
+    public void useNightMode(boolean isNight) {
+        if (isNight) {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        recreate();
+    }
+
     protected abstract void initInject();
     protected abstract int getLayout();
     protected abstract void initEventAndData();

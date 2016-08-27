@@ -6,7 +6,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.base.SimpleFragment;
+import com.codeest.geeknews.component.RxBus;
+import com.codeest.geeknews.model.bean.NightModeEvent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,6 +66,12 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+        switch (compoundButton.getId()) {
+            case R.id.cb_setting_night:
+                NightModeEvent event = new NightModeEvent();
+                event.setNightMode(true);
+                RxBus.getDefault().post(event);
+                break;
+        }
     }
 }

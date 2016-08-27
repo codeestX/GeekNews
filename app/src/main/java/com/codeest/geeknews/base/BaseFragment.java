@@ -107,6 +107,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
             mPresenter.detachView();
     }
 
+    @Override
+    public void useNightMode(boolean isNight) {
+
+    }
+
     protected abstract void initInject();
     protected abstract int getLayoutId();
     protected abstract void initEventAndData();
