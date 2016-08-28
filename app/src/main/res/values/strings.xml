@@ -3,6 +3,7 @@
 
     //main drawer
     <string name="zhihu">知乎日报</string>
+    <string name="wechat">微信精选</string>
     <string name="gank">干货集中营</string>
     <string name="drawer_about">关于</string>
     <string name="drawer_collection">收藏</string>

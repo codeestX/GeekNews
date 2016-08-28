@@ -2,6 +2,7 @@ package com.codeest.geeknews.util;
 
 import com.codeest.geeknews.model.http.ApiException;
 import com.codeest.geeknews.model.http.GankHttpResponse;
+import com.codeest.geeknews.model.http.WXHttpResponse;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -33,6 +34,24 @@ public class RxUtil {
                     public Observable<T> call(GankHttpResponse<T> tGankHttpResponse) {
                         if(!tGankHttpResponse.getError()) {
                             return createData(tGankHttpResponse.getResults());
+                        } else {
+                            return Observable.error(new ApiException("服务器返回error"));
+                        }
+                    }
+                });
+            }
+        };
+    }
+
+    public static <T> Observable.Transformer<WXHttpResponse<T>, T> handleWXResult() {   //compose判断结果
+        return new Observable.Transformer<WXHttpResponse<T>, T>() {
+            @Override
+            public Observable<T> call(Observable<WXHttpResponse<T>> httpResponseObservable) {
+                return httpResponseObservable.flatMap(new Func1<WXHttpResponse<T>, Observable<T>>() {
+                    @Override
+                    public Observable<T> call(WXHttpResponse<T> tWXHttpResponse) {
+                        if(tWXHttpResponse.getCode() == 200) {
+                            return createData(tWXHttpResponse.getNewslist());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
                         }

@@ -70,6 +70,7 @@ public class RetrofitHelper {
                 if (!SystemUtil.isNetworkConnected()) {
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
+                            .addHeader("apikey",Constants.APIKEY)
                             .build();
                 }
                 Response response = chain.proceed(request);

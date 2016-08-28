@@ -20,6 +20,7 @@ import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
 import com.codeest.geeknews.ui.main.fragment.AboutFragment;
 import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.main.fragment.SettingFragment;
+import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
 import com.codeest.geeknews.util.LogUtil;
 
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView mNavigationView;
 
     private static final String ITEM_ZHIHU = "知乎日报";
+    private static final String ITEM_WECHAT = "微信精选";
     private static final String ITEM_GANK = "干货集中营";
     private static final String ITEM_LIKE = "收藏";
     private static final String ITEM_SETTING = "设置";
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     ActionBarDrawerToggle mDrawerToggle;
     ZhihuMainFragment mZhihuFragment;
     GankMainFragment mGankFragment;
+    WechatMainFragment mWechatFragment;
     LikeFragment mLikeFragment;
     SettingFragment mSettingFragment;
     AboutFragment mAboutFragment;
@@ -71,6 +74,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         setToolBar(mToolbar,ITEM_ZHIHU);
         mZhihuFragment = new ZhihuMainFragment();
         mGankFragment = new GankMainFragment();
+        mWechatFragment = new WechatMainFragment();
         mLikeFragment = new LikeFragment();
         mSettingFragment = new SettingFragment();
         mAboutFragment = new AboutFragment();
@@ -78,7 +82,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_zhihu);
-        loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mLikeFragment,mSettingFragment,mAboutFragment);
+        loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mWechatFragment,mLikeFragment,mSettingFragment,mAboutFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -89,6 +93,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     case R.id.drawer_gank:
                         showFragment = ITEM_GANK;
                         break;
+                    case R.id.drawer_wechat:
+                        showFragment = ITEM_WECHAT;
+                        break;
                     case R.id.drawer_setting:
                         showFragment = ITEM_SETTING;
                         break;
@@ -97,7 +104,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         break;
                     case R.id.drawer_about:
                         showFragment = ITEM_ABOUT;
-                        useNightMode(true);
                         break;
                 }
                 if(mLastMenuItem != null) {
@@ -130,6 +136,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mZhihuFragment;
             case ITEM_GANK:
                 return mGankFragment;
+            case ITEM_WECHAT:
+                return mWechatFragment;
             case ITEM_LIKE:
                 return mLikeFragment;
             case ITEM_SETTING:
