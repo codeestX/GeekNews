@@ -2,7 +2,7 @@ package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.GankItemBean;
-import com.codeest.geeknews.model.http.HttpResponse;
+import com.codeest.geeknews.model.http.GankHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.TechContract;
 import com.codeest.geeknews.util.RxUtil;
@@ -38,7 +38,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
     public void getGankData(String tech) {
         currentPage = 1;
         Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,currentPage)
-                .compose(RxUtil.<HttpResponse<List<GankItemBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
                 .subscribe(new Action1<List<GankItemBean>>() {
                     @Override
@@ -57,7 +57,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
     @Override
     public void getMoreGankData(String tech) {
         Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,++currentPage)
-                .compose(RxUtil.<HttpResponse<List<GankItemBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
                 .subscribe(new Action1<List<GankItemBean>>() {
                     @Override
@@ -76,7 +76,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
     @Override
     public void getGirlImage() {
         Subscription rxSubscription = mRetrofitHelper.fetchRandomGirl(1)
-                .compose(RxUtil.<HttpResponse<List<GankItemBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
                 .subscribe(new Action1<List<GankItemBean>>() {
                     @Override

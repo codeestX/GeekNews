@@ -13,12 +13,16 @@ import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.component.DaggerFragmentComponent;
 import com.codeest.geeknews.di.component.FragmentComponent;
 import com.codeest.geeknews.di.module.FragmentModule;
+import com.codeest.geeknews.util.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.Fragmentation;
 import me.yokeyword.fragmentation.SupportFragment;
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
  * Created by codeest on 2016/8/2.
@@ -32,28 +36,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     protected Activity mActivity;
     protected Context mContext;
 
-    private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
-
     @Override
     public void onAttach(Context context) {
         mActivity = (Activity) context;
         mContext = context;
         super.onAttach(context);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            if (isSupportHidden) {
-                ft.hide(this);
-            } else {
-                ft.show(this);
-            }
-            ft.commit();
-        }
     }
 
     protected FragmentComponent getFragmentComponent(){
@@ -65,11 +52,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 
     protected FragmentModule getFragmentModule(){
         return new FragmentModule(this);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
     }
 
     @Nullable

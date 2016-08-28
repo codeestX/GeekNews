@@ -2,18 +2,18 @@ package com.codeest.geeknews.presenter.contract;
 
 import com.codeest.geeknews.base.BasePresenter;
 import com.codeest.geeknews.base.BaseView;
+import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
 
 /**
- * Created by codeest on 16/8/24.
+ * Created by codeest on 16/8/28.
  */
 
-public interface ThemeChildContract {
+public interface SectionChildContract {
 
     interface View extends BaseView {
 
-        void showContent(ThemeChildListBean themeChildListBean);
-
+        void showContent(SectionChildListBean sectionChildListBean);
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -8,8 +8,10 @@
     <dimen name="comment_face_size">42dp</dimen>
     <dimen name="list_image_size">80dp</dimen>
     <dimen name="top_viewpager_height">200dp</dimen>
-    <dimen name="detail_image_height">240dp</dimen>
-    <dimen name="tech_image_height">300dp</dimen>
+    <dimen name="detail_image_height">180dp</dimen>
     <dimen name="detail_bottom_height">56dp</dimen>
+    <dimen name="tech_image_height">300dp</dimen>
     <dimen name="tech_icon_size">32dp</dimen>
+    <dimen name="theme_image_height">120dp</dimen>
+    <dimen name="section_image_height">140dp</dimen>
 </resources>

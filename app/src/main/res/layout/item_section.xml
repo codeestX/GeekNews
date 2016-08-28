@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,15 +12,23 @@
         app:elevation="3dp"
         android:layout_margin="3dp">
         <ImageView
-            android:id="@+id/theme_bg"
+            android:id="@+id/section_bg"
             android:scaleType="centerCrop"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/theme_image_height" />
         <TextView
-            android:id="@+id/theme_kind"
-            android:textColor="#fff"
+            android:id="@+id/section_kind"
+            android:textColor="@color/colorCard"
             android:textSize="18sp"
             android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/section_des"
+            android:textColor="@color/colorCard"
+            android:textSize="12sp"
+            android:layout_gravity="top|start"
             android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -29,4 +38,5 @@
             android:layout_height="50dp"
             android:background="@drawable/bottom_shadow_bg"/>
     </android.support.v7.widget.CardView>
+
 </LinearLayout>

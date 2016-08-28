@@ -3,7 +3,7 @@ package com.codeest.geeknews.model.http;
 /**
  * Created by codeest on 2016/8/3.
  */
-public class HttpResponse<T> {
+public class GankHttpResponse<T> {
 
     private boolean error;
     private T results;

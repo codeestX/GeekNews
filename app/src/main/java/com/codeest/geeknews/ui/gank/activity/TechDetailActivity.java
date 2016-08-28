@@ -55,7 +55,6 @@ public class TechDetailActivity extends SimpleActivity {
         title = intent.getExtras().getString("title");
         url = intent.getExtras().getString("url");
         id = intent.getExtras().getString("id");
-        setLikeState(mRealmHelper.queryLikeId(id));
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -103,6 +102,7 @@ public class TechDetailActivity extends SimpleActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tech_meun, menu);
         menuItem = menu.findItem(R.id.action_like);
+        setLikeState(mRealmHelper.queryLikeId(id));
         return true;
     }
 

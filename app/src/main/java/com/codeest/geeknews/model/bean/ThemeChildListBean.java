@@ -113,6 +113,15 @@ public class ThemeChildListBean {
         private int id;
         private String title;
         private List<String> images;
+        private boolean readState;
+
+        public boolean getState() {
+            return readState;
+        }
+
+        public void setReadState(boolean readState) {
+            this.readState = readState;
+        }
 
         public int getType() {
             return type;

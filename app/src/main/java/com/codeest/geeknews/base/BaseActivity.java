@@ -1,7 +1,6 @@
 package com.codeest.geeknews.base;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
@@ -86,27 +85,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
         if (mPresenter != null)
             mPresenter.detachView();
         App.getInstance().removeActivity(this);
-    }
-
-    private void changeDayNight() {
-        int currentNightMode = getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-        switch (currentNightMode) {
-            case Configuration.UI_MODE_NIGHT_NO:
-                AppCompatDelegate.setDefaultNightMode(
-                        AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-            case Configuration.UI_MODE_NIGHT_YES:
-                AppCompatDelegate.setDefaultNightMode(
-                        AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                AppCompatDelegate.setDefaultNightMode(
-                        AppCompatDelegate.MODE_NIGHT_AUTO);
-                break;
-        }
-        // 调用 recreate() 使设置生效
-        recreate();
     }
 
     @Override

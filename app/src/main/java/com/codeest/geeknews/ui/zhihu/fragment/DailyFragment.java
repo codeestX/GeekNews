@@ -142,6 +142,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void showError(String msg) {
+        swipeRefresh.setRefreshing(false);
         viewLoading.stop();
         ToastUtil.shortShow(msg);
     }

@@ -55,7 +55,6 @@ public class GirlDetailActivity extends SimpleActivity {
         Intent intent = getIntent();
         url = intent.getExtras().getString("url");
         id = intent.getExtras().getString("id");
-        setLikeState(mRealmHelper.queryLikeId(id));
         if (url != null) {
             Glide.with(mContext).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
@@ -72,6 +71,7 @@ public class GirlDetailActivity extends SimpleActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.girl_menu,menu);
         menuItem = menu.findItem(R.id.action_like);
+        setLikeState(mRealmHelper.queryLikeId(id));
         return true;
     }
 

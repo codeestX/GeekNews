@@ -38,6 +38,8 @@
             android:launchMode="singleTop" />
         <activity android:name=".ui.zhihu.activity.ThemeActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".ui.zhihu.activity.SectionActivity"
+            android:launchMode="singleTop" />
 
         //Gank
         <activity android:name=".ui.gank.activity.TechDetailActivity"

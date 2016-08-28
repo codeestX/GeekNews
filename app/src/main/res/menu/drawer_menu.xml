@@ -2,32 +2,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="@string/drawer_group_content">
         <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/drawer_zhihu"
-                    android:icon="@mipmap/ic_drawer_zhihu"
-                    android:checked="true"
-                    android:title="@string/zhihu"/>
-                <item
-                    android:id="@+id/drawer_gank"
-                    android:icon="@mipmap/ic_drawer_gank"
-                    android:title="@string/gank"/>
-            </group>
+            <item
+                android:id="@+id/drawer_zhihu"
+                android:icon="@mipmap/ic_drawer_zhihu"
+                android:checkable="true"
+                android:checked="true"
+                android:title="@string/zhihu"/>
+            <item
+                android:id="@+id/drawer_gank"
+                android:icon="@mipmap/ic_drawer_gank"
+                android:checkable="true"
+                android:title="@string/gank"/>
         </menu>
     </item>
     <item android:title="@string/drawer_group_options">
         <menu>
             <item
-                android:id="@+id/drawer_collection"
+                android:id="@+id/drawer_like"
                 android:icon="@mipmap/ic_drawer_like"
+                android:checkable="true"
                 android:title="@string/drawer_collection"/>
             <item
                 android:id="@+id/drawer_setting"
                 android:icon="@mipmap/ic_drawer_setting"
+                android:checkable="true"
                 android:title="@string/drawer_setting"/>
             <item
                 android:id="@+id/drawer_about"
                 android:icon="@mipmap/ic_drawer_about"
+                android:checkable="true"
                 android:title="@string/drawer_about"/>
         </menu>
     </item>

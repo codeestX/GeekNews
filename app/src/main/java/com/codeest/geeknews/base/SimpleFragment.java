@@ -16,6 +16,7 @@ import com.codeest.geeknews.di.module.FragmentModule;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
@@ -23,13 +24,11 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
  * 无MVP的Fragment基类
  */
 
-public abstract class SimpleFragment extends SwipeBackFragment{
+public abstract class SimpleFragment extends SupportFragment {
 
     protected View mView;
     protected Activity mActivity;
     protected Context mContext;
-
-    private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
 
     @Override
     public void onAttach(Context context) {
@@ -38,42 +37,11 @@ public abstract class SimpleFragment extends SwipeBackFragment{
         super.onAttach(context);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            if (isSupportHidden) {
-                ft.hide(this);
-            } else {
-                ft.show(this);
-            }
-            ft.commit();
-        }
-    }
-
-    protected FragmentComponent getFragmentComponent(){
-        return DaggerFragmentComponent.builder()
-                .appComponent(App.getAppComponent())
-                .fragmentModule(getFragmentModule())
-                .build();
-    }
-
-    protected FragmentModule getFragmentModule(){
-        return new FragmentModule(this);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(getLayoutId(), null);
-        return attachToSwipeBack(mView);
+        return mView;
     }
 
     @Override

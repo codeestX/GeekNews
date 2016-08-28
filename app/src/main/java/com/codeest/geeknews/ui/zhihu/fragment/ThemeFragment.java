@@ -1,9 +1,13 @@
 package com.codeest.geeknews.ui.zhihu.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
@@ -19,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 2016/8/11.
@@ -29,6 +34,8 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
     RecyclerView rvThemeList;
     @BindView(R.id.view_loading)
     RotateLoading viewLoading;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefresh;
 
     ThemeAdapter mAdapter;
     List<ThemeListBean.OthersBean> mList = new ArrayList<>();
@@ -46,17 +53,24 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
     @Override
     protected void initEventAndData() {
         mAdapter = new ThemeAdapter(mContext, mList);
+        rvThemeList.setLayoutManager(new GridLayoutManager(mContext, 2));
+        rvThemeList.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new ThemeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int id) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, ThemeActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 mContext.startActivity(intent);
             }
         });
-        rvThemeList.setLayoutManager(new GridLayoutManager(mContext, 2));
-        rvThemeList.setAdapter(mAdapter);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewLoading.start();
+                mPresenter.getThemeData();
+            }
+        });
         mPresenter.getThemeData();
         rvThemeList.setVisibility(View.INVISIBLE);
         viewLoading.start();
@@ -64,6 +78,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
 
     @Override
     public void showContent(ThemeListBean themeListBean) {
+        swipeRefresh.setRefreshing(false);
         viewLoading.stop();
         rvThemeList.setVisibility(View.VISIBLE);
         mList.clear();
@@ -73,6 +88,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
 
     @Override
     public void showError(String msg) {
+        swipeRefresh.setRefreshing(false);
         viewLoading.stop();
         rvThemeList.setVisibility(View.VISIBLE);
         ToastUtil.shortShow(msg);

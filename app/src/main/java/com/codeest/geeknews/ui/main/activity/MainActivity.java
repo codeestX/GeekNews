@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     LikeFragment mLikeFragment;
     SettingFragment mSettingFragment;
     AboutFragment mAboutFragment;
+    MenuItem mLastMenuItem;
 
     private String hideFragment = ITEM_ZHIHU;
     private String showFragment = ITEM_ZHIHU;
@@ -75,7 +76,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mAboutFragment = new AboutFragment();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_zhihu);
         loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mLikeFragment,mSettingFragment,mAboutFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -90,18 +92,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     case R.id.drawer_setting:
                         showFragment = ITEM_SETTING;
                         break;
-                    case R.id.drawer_collection:
+                    case R.id.drawer_like:
                         showFragment = ITEM_LIKE;
                         break;
                     case R.id.drawer_about:
                         showFragment = ITEM_ABOUT;
+                        useNightMode(true);
                         break;
                 }
-
-//                showFragment = menuItem.getTitle().toString();
+                if(mLastMenuItem != null) {
+                    mLastMenuItem.setChecked(false);
+                }
+                mLastMenuItem = menuItem;
+                menuItem.setChecked(true);
                 mToolbar.setTitle(showFragment);
-//                menuItem.setChecked(true);
-                setTitle(menuItem.getTitle());
                 mDrawerLayout.closeDrawers();
                 showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
                 hideFragment = menuItem.getTitle().toString();

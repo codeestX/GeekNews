@@ -2,9 +2,11 @@ package com.codeest.geeknews.ui.zhihu.activity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.codeest.geeknews.R;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/24.
@@ -33,9 +36,12 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
     RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.tool_bar)
+    Toolbar mToolBar;
 
     ThemeChildAdapter mAdapter;
     List<ThemeChildListBean.StoriesBean> mList;
+
     int id;
 
     @Override
@@ -54,19 +60,21 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
         id = intent.getExtras().getInt("id");
         viewLoading.start();
         mList = new ArrayList<>();
-        mAdapter = new ThemeChildAdapter(mContext,mList);
+        mAdapter = new ThemeChildAdapter(mContext, mList);
         rvThemeChildList.setLayoutManager(new LinearLayoutManager(mContext));
         rvThemeChildList.setAdapter(mAdapter);
         mPresenter.getThemeChildData(id);
         mAdapter.setOnItemClickListener(new ThemeChildAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View shareView) {
+                mPresenter.insertReadToDB(mList.get(position).getId());
+                mAdapter.setReadState(position, true);
+                mAdapter.notifyItemChanged(position);
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id",mList.get(position).getId());
-                intent.putExtra("title",mList.get(position).getTitle());
+                intent.putExtra("id", mList.get(position).getId());
                 if (shareView != null) {
-                    mContext.startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(mContext, shareView, "shareView").toBundle());
+                    mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mContext, shareView, "shareView").toBundle());
                 } else {
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mContext).toBundle());
                 }
@@ -99,6 +107,7 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
 
     @Override
     public void showContent(ThemeChildListBean themeChildListBean) {
+        setToolBar(mToolBar,themeChildListBean.getName());
         viewLoading.stop();
         mList.clear();
         mList.addAll(themeChildListBean.getStories());

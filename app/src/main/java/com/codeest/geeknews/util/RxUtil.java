@@ -1,7 +1,7 @@
 package com.codeest.geeknews.util;
 
 import com.codeest.geeknews.model.http.ApiException;
-import com.codeest.geeknews.model.http.HttpResponse;
+import com.codeest.geeknews.model.http.GankHttpResponse;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -24,15 +24,15 @@ public class RxUtil {
         };
     }
 
-    public static <T> Observable.Transformer<HttpResponse<T>, T> handleResult() {   //compose判断结果
-        return new Observable.Transformer<HttpResponse<T>, T>() {
+    public static <T> Observable.Transformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
+        return new Observable.Transformer<GankHttpResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<HttpResponse<T>> httpResponseObservable) {
-                return httpResponseObservable.flatMap(new Func1<HttpResponse<T>, Observable<T>>() {
+            public Observable<T> call(Observable<GankHttpResponse<T>> httpResponseObservable) {
+                return httpResponseObservable.flatMap(new Func1<GankHttpResponse<T>, Observable<T>>() {
                     @Override
-                    public Observable<T> call(HttpResponse<T> tHttpResponse) {
-                        if(!tHttpResponse.getError()) {
-                            return createData(tHttpResponse.getResults());
+                    public Observable<T> call(GankHttpResponse<T> tGankHttpResponse) {
+                        if(!tGankHttpResponse.getError()) {
+                            return createData(tGankHttpResponse.getResults());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
                         }

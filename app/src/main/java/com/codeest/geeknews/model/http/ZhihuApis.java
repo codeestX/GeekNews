@@ -5,6 +5,8 @@ import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.HotListBean;
+import com.codeest.geeknews.model.bean.SectionChildListBean;
+import com.codeest.geeknews.model.bean.SectionListBean;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
@@ -41,16 +43,28 @@ public interface ZhihuApis {
     Observable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
 
     /**
-     * 专题日报
+     * 主题日报
      */
     @GET("themes")
     Observable<ThemeListBean> getThemeList();
 
     /**
-     * 专题日报详情
+     * 主题日报详情
      */
     @GET("theme/{id}")
     Observable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
+
+    /**
+     * 专栏日报
+     */
+    @GET("sections")
+    Observable<SectionListBean> getSectionList();
+
+    /**
+     * 专栏日报详情
+     */
+    @GET("section/{id}")
+    Observable<SectionChildListBean> getSectionChildList(@Path("id") int id);
 
     /**
      * 热门日报
@@ -83,27 +97,6 @@ public interface ZhihuApis {
     Observable<CommentBean> getShortCommentInfo(@Path("id") int id);
 
 //
-//
-//
-//
-//
-//    /**
-//     * 获取知乎专栏数据
-//     *
-//     * @return
-//     */
-//    @GET("sections")
-//    Observable<DailySections> getZhiHuSections();
-//
-//    /**
-//     * 获取专栏详情数据
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET("section/{id}")
-//    Observable<SectionsDetails> getSectionsDetails(@Path("id") int id);
-//
 //    /**
 //     * 获取专栏的之前消息
 //     *
@@ -114,12 +107,4 @@ public interface ZhihuApis {
 //    @GET("section/{id}/before/{timestamp}")
 //    Observable<SectionsDetails> getBeforeSectionsDetails(@Path("id") int id, @Path("timestamp") long timestamp);
 //
-//    /**
-//     * 根据日报id查询该日报的推荐者信息
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET("story/{id}/recommenders")
-//    Observable<DailyRecommend> getDailyRecommendEditors(@Path("id") int id);
 }

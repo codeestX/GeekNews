@@ -53,17 +53,6 @@ public abstract class SimpleActivity extends SwipeBackActivity {
         });
     }
 
-    protected ActivityComponent getActivityComponent(){
-        return  DaggerActivityComponent.builder()
-                .appComponent(App.getAppComponent())
-                .activityModule(getActivityModule())
-                .build();
-    }
-
-    protected ActivityModule getActivityModule(){
-        return new ActivityModule(this);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();

@@ -152,4 +152,8 @@ public class ThemeChildAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public interface OnItemClickListener {
         void onItemClick(int position,View view);
     }
+
+    public void setReadState(int position,boolean readState) {
+        mList.get(position).setReadState(readState);
+    }
 }

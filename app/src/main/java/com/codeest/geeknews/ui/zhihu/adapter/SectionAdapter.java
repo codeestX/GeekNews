@@ -1,8 +1,81 @@
 package com.codeest.geeknews.ui.zhihu.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.codeest.geeknews.R;
+import com.codeest.geeknews.component.ImageLoader;
+import com.codeest.geeknews.model.bean.SectionChildListBean;
+import com.codeest.geeknews.model.bean.SectionListBean;
+import com.codeest.geeknews.ui.zhihu.activity.SectionActivity;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by codeest on 16/8/21.
  */
 
-public class SectionAdapter {
+public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHolder>{
+
+    private Context mContext;
+    private List<SectionListBean.DataBean> mList;
+    private LayoutInflater inflater;
+
+    public SectionAdapter(Context mContext,List<SectionListBean.DataBean> mList) {
+        this.mContext = mContext;
+        this.mList = mList;
+        inflater = LayoutInflater.from(mContext);
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(inflater.inflate(R.layout.item_section,parent,false));
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        ImageLoader.load(mContext,mList.get(position).getThumbnail(),holder.ivBg);
+        holder.tvKind.setText(mList.get(position).getName());
+        holder.tvDes.setText(mList.get(position).getDescription());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, SectionActivity.class);
+                intent.putExtra("id",mList.get(holder.getAdapterPosition()).getId());
+                intent.putExtra("title",mList.get(holder.getAdapterPosition()).getName());
+                mContext.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return mList.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.section_bg)
+        ImageView ivBg;
+        @BindView(R.id.section_kind)
+        TextView tvKind;
+        @BindView(R.id.section_des)
+        TextView tvDes;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
+    }
 }

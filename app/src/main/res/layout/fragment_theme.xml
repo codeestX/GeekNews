@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_theme_list"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <com.victor.loading.rotate.RotateLoading
-        android:id="@+id/view_loading"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:loading_width="5dp"
-        app:loading_color="@color/colorPrimary"
-        android:layout_gravity="center"/>
-
-</FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_theme_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        <com.victor.loading.rotate.RotateLoading
+            android:id="@+id/view_loading"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:loading_width="5dp"
+            app:loading_color="@color/colorPrimary"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
