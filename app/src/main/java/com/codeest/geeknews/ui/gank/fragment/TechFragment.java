@@ -104,7 +104,11 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
 
     @Override
     public void showError(String msg) {
-        viewLoading.stop();
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         ToastUtil.shortShow(msg);
     }
 

@@ -17,6 +17,7 @@ import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.presenter.TechPresenter;
+import com.codeest.geeknews.presenter.WechatPresenter;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.victor.loading.rotate.RotateLoading;
@@ -149,6 +150,8 @@ public class TechDetailActivity extends SimpleActivity {
                 return Constants.TYPE_IOS;
             case TechPresenter.TECH_WEB:
                 return Constants.TYPE_WEB;
+            case WechatPresenter.TECH_WECHAT:
+                return Constants.TYPE_WECHAT;
         }
         return Constants.TYPE_ANDROID;
     }

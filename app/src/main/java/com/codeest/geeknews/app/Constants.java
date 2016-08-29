@@ -2,8 +2,6 @@ package com.codeest.geeknews.app;
 
 import android.os.Environment;
 
-import com.codeest.geeknews.di.component.AppComponent;
-
 import java.io.File;
 
 /**
@@ -20,6 +18,8 @@ public class Constants {
     public static final int TYPE_WEB = 104;
 
     public static final int TYPE_GIRL = 105;
+
+    public static final int TYPE_WECHAT = 106;
 
     public static final String APIKEY = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
 

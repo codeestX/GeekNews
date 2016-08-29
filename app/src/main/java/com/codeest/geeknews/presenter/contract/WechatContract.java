@@ -15,6 +15,8 @@ public interface WechatContract {
     interface View extends BaseView {
 
         void showContent(List<WXItemBean> mList);
+
+        void showMoreContent(List<WXItemBean> mList);
     }
 
     interface Presenter extends BasePresenter<View> {

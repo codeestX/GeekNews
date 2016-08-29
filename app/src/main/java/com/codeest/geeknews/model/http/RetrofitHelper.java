@@ -12,6 +12,7 @@ import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.SectionListBean;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
+import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 import com.codeest.geeknews.util.SystemUtil;
@@ -41,11 +42,13 @@ public class RetrofitHelper {
     private static OkHttpClient okHttpClient = null;
     private static ZhihuApis zhihuApiService = null;
     private static GankApis gankApiService = null;
+    private static WeChatApis wechatApiService = null;
 
     private void init() {
         initOkHttp();
         zhihuApiService = getZhihuApiService();
         gankApiService = getGankApiService();
+        wechatApiService = getWechatApiService();
     }
 
     public RetrofitHelper() {
@@ -70,7 +73,6 @@ public class RetrofitHelper {
                 if (!SystemUtil.isNetworkConnected()) {
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
-                            .addHeader("apikey",Constants.APIKEY)
                             .build();
                 }
                 Response response = chain.proceed(request);
@@ -90,7 +92,18 @@ public class RetrofitHelper {
                 return response;
             }
         };
+        Interceptor apikey = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                request = request.newBuilder()
+                        .addHeader("apikey",Constants.APIKEY)
+                        .build();
+                return chain.proceed(request);
+            }
+        };
         builder.cache(cache).addInterceptor(cacheInterceptor);
+        builder.addInterceptor(apikey);
         //设置超时
         builder.connectTimeout(15, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);
@@ -118,6 +131,16 @@ public class RetrofitHelper {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return gankRetrofit.create(GankApis.class);
+    }
+
+    private static WeChatApis getWechatApiService() {
+        Retrofit gankRetrofit = new Retrofit.Builder()
+                .baseUrl(WeChatApis.HOST)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return gankRetrofit.create(WeChatApis.class);
     }
 
     public Observable<DailyListBean> fetchDailyListInfo() {
@@ -178,6 +201,10 @@ public class RetrofitHelper {
 
     public Observable<GankHttpResponse<List<GankItemBean>>> fetchRandomGirl(int num) {
         return gankApiService.getRandomGirl(num);
+    }
+
+    public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatListInfo(int num, int page) {
+        return wechatApiService.getWXHot(num, page);
     }
 
 }

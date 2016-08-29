@@ -13,6 +13,8 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
+import com.codeest.geeknews.presenter.TechPresenter;
+import com.codeest.geeknews.presenter.WechatPresenter;
 import com.codeest.geeknews.ui.gank.activity.GirlDetailActivity;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
@@ -80,7 +82,8 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            gotoTechDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getTitle());
+                            gotoTechDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getTitle()
+                                    ,mList.get(holder.getAdapterPosition()).getId(), TechPresenter.TECH_ANDROID);
                         }
                     });
                     break;
@@ -90,7 +93,8 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            gotoTechDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getTitle());
+                            gotoTechDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getTitle()
+                                    ,mList.get(holder.getAdapterPosition()).getId(), TechPresenter.TECH_IOS);
                         }
                     });
                     break;
@@ -100,7 +104,19 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            gotoTechDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getTitle());
+                            gotoTechDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getTitle()
+                                    ,mList.get(holder.getAdapterPosition()).getId(), TechPresenter.TECH_WEB);
+                        }
+                    });
+                    break;
+                case Constants.TYPE_WECHAT:
+                    ImageLoader.load(mContext, mList.get(position).getId(), ((ArticleViewHolder) holder).image);
+                    ((ArticleViewHolder) holder).from.setText("来自 微信");
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            gotoTechDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getTitle()
+                                    ,mList.get(holder.getAdapterPosition()).getId(), WechatPresenter.TECH_WECHAT);
                         }
                     });
                     break;
@@ -110,7 +126,7 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gotoGirlDetail(mList.get(holder.getAdapterPosition()).getImage());
+                    gotoGirlDetail(mList.get(holder.getAdapterPosition()).getImage(),mList.get(holder.getAdapterPosition()).getId());
                 }
             });
         }
@@ -155,18 +171,21 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         mContext.startActivity(intent);
     }
 
-    public void gotoTechDetail(String url,String title) {
+    public void gotoTechDetail(String url,String title,String id,String tech) {
         Intent intent = new Intent();
         intent.setClass(mContext, TechDetailActivity.class);
         intent.putExtra("url",url);
         intent.putExtra("title",title);
+        intent.putExtra("id",id);
+        intent.putExtra("tech",tech);
         mContext.startActivity(intent);
     }
 
-    public void gotoGirlDetail(String url) {
+    public void gotoGirlDetail(String url,String id) {
         Intent intent = new Intent();
         intent.setClass(mContext, GirlDetailActivity.class);
         intent.putExtra("url",url);
+        intent.putExtra("id",id);
         mContext.startActivity(intent);
     }
 }
