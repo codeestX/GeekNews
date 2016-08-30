@@ -67,7 +67,6 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                viewLoading.start();
                 mPresenter.getThemeData();
             }
         });
@@ -78,8 +77,11 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
 
     @Override
     public void showContent(ThemeListBean themeListBean) {
-        swipeRefresh.setRefreshing(false);
-        viewLoading.stop();
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         rvThemeList.setVisibility(View.VISIBLE);
         mList.clear();
         mList.addAll(themeListBean.getOthers());

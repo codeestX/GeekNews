@@ -1,7 +1,10 @@
 package com.codeest.geeknews.model.http;
 
+import android.util.Log;
+
 import com.codeest.geeknews.BuildConfig;
 import com.codeest.geeknews.app.Constants;
+import com.codeest.geeknews.component.ACache;
 import com.codeest.geeknews.model.bean.CommentBean;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
@@ -15,6 +18,7 @@ import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.SystemUtil;
 
 import java.io.File;
@@ -33,6 +37,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+
+import static com.google.common.net.HttpHeaders.CACHE_CONTROL;
 
 /**
  * Created by codeest on 2016/8/3.
@@ -64,7 +70,7 @@ public class RetrofitHelper {
             builder.addInterceptor(loggingInterceptor);
         }
         // 缓存 http://www.jianshu.com/p/93153b34310e
-        File cacheFile = new File(Constants.PATH_DATA,"/NetCache");
+        File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = new Interceptor() {
             @Override
@@ -78,15 +84,17 @@ public class RetrofitHelper {
                 Response response = chain.proceed(request);
                 if (SystemUtil.isNetworkConnected()) {
                     int maxAge = 0;
-                    // 有网络时 设置缓存超时时间0个小时
+                    // 有网络时, 不缓存
                     response.newBuilder()
                             .header("Cache-Control", "public, max-age=" + maxAge)
+                            .removeHeader("Pragma")
                             .build();
                 } else {
                     // 无网络时，设置超时为4周
                     int maxStale = 60 * 60 * 24 * 28;
                     response.newBuilder()
                             .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                            .removeHeader("Pragma")
                             .build();
                 }
                 return response;
@@ -102,15 +110,20 @@ public class RetrofitHelper {
                 return chain.proceed(request);
             }
         };
-        builder.cache(cache).addInterceptor(cacheInterceptor);
+        builder.addNetworkInterceptor(cacheInterceptor);
+        builder.addInterceptor(cacheInterceptor);
         builder.addInterceptor(apikey);
+        builder.cache(cache);
         //设置超时
-        builder.connectTimeout(15, TimeUnit.SECONDS);
+        builder.connectTimeout(10, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
         //错误重连
         builder.retryOnConnectionFailure(true);
         okHttpClient = builder.build();
+
+        LogUtil.d(ACache.getCacheSize(cacheFile));
+        ACache.deleteDir(cacheFile);
     }
 
     private static ZhihuApis getZhihuApiService() {

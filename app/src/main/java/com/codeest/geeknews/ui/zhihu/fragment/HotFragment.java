@@ -59,7 +59,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                mPresenter.getHotData();
             }
         });
         mAdapter.setOnItemClickListener(new HotAdapter.OnItemClickListener() {
@@ -87,8 +87,9 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     public void showContent(HotListBean hotListBean) {
         if (swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
         }
-        viewLoading.stop();
         rvHotContent.setVisibility(View.VISIBLE);
         mList.clear();
         mList.addAll(hotListBean.getRecent());

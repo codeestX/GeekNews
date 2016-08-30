@@ -1,5 +1,7 @@
 package com.codeest.geeknews.ui.main.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -8,10 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleFragment;
+import com.codeest.geeknews.component.ACache;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.NightModeEvent;
 import com.codeest.geeknews.util.LogUtil;
+import com.codeest.geeknews.util.ShareUtil;
+import com.codeest.geeknews.util.SharedPreferenceUtil;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,6 +47,7 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
     @BindView(R.id.ll_setting_update)
     LinearLayout llSettingUpdate;
 
+    File cacheFile;
     boolean isNull = true;
 
     @Override
@@ -48,6 +57,11 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     @Override
     protected void initEventAndData() {
+        cacheFile = new File(Constants.PATH_CACHE);
+        tvSettingClear.setText(ACache.getCacheSize(cacheFile));
+        cbSettingCache.setChecked(SharedPreferenceUtil.getAutoCacheState(mContext));
+        cbSettingImage.setChecked(SharedPreferenceUtil.getNoImageState(mContext));
+        cbSettingNight.setChecked(SharedPreferenceUtil.getNightModeState(mContext));
         cbSettingCache.setOnCheckedChangeListener(this);
         cbSettingImage.setOnCheckedChangeListener(this);
         cbSettingNight.setOnCheckedChangeListener(this);
@@ -61,12 +75,13 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     @OnClick(R.id.ll_setting_feedback)
     void doFeedBack() {
-
+        ShareUtil.sendEmail(mContext, "选择邮件客户端:");
     }
 
     @OnClick(R.id.ll_setting_clear)
     void doClear() {
-
+        ACache.deleteDir(cacheFile);
+        tvSettingClear.setText(ACache.getCacheSize(cacheFile));
     }
 
     @OnClick(R.id.ll_setting_update)
@@ -82,11 +97,14 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
                     NightModeEvent event = new NightModeEvent();
                     event.setNightMode(b);
                     RxBus.getDefault().post(event);
+                    SharedPreferenceUtil.setNightModeState(mContext,b);
                 }
                 break;
             case R.id.cb_setting_image:
+                SharedPreferenceUtil.setNoImageState(mContext,b);
                 break;
             case R.id.cb_setting_cache:
+                SharedPreferenceUtil.setAutoCacheState(mContext,b);
                 break;
         }
     }
