@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme">
 
         //主类
-        <activity android:name=".ui.main.activity.WelcomeActivity">
+        <activity android:name=".ui.main.activity.WelcomeActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

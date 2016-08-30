@@ -64,7 +64,7 @@ public class RetrofitHelper {
             builder.addInterceptor(loggingInterceptor);
         }
         // 缓存 http://www.jianshu.com/p/93153b34310e
-        File cacheFile = new File(Constants.DATA_PATH,"/NetCache");
+        File cacheFile = new File(Constants.PATH_DATA,"/NetCache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = new Interceptor() {
             @Override
@@ -97,7 +97,7 @@ public class RetrofitHelper {
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 request = request.newBuilder()
-                        .addHeader("apikey",Constants.APIKEY)
+                        .addHeader("apikey",Constants.KEY_API)
                         .build();
                 return chain.proceed(request);
             }

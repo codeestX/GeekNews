@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 底层白色 -->
+    <item android:drawable="@android:color/white" />
+
+    <!-- 顶层Logo居中 -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/ic_launcher" />
+    </item>
+</layer-list>

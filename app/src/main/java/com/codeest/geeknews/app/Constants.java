@@ -9,6 +9,8 @@ import java.io.File;
  */
 public class Constants {
 
+    //================= TYPE ====================
+
     public static final int TYPE_ZHIHU = 101;
 
     public static final int TYPE_ANDROID = 102;
@@ -21,9 +23,25 @@ public class Constants {
 
     public static final int TYPE_WECHAT = 106;
 
-    public static final String APIKEY = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
+    //================= KEY ====================
 
-    public static final String DATA_PATH = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
+    public static final String KEY_API = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
 
-    public static final String SDCARD_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "codeest" + File.separator + "GeekNews";
+    //================= PATH ====================
+
+    public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
+
+    public static final String PATH_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "codeest" + File.separator + "GeekNews";
+
+    //================= UMENG ====================
+
+    public static final String EVENT_TAB_HOME = "tab_home";
+
+    //================= PREFERENCE ====================
+
+    public static final String SP_NIGHT_MODE = "night_mode";
+
+    public static final String SP_NO_IMAGE = "no_image";
+
+    public static final String SP_AUTO_CACHE = "auto_cache";
 }

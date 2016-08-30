@@ -1,16 +1,10 @@
 package com.codeest.geeknews.ui.main.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseActivity;
@@ -22,7 +16,6 @@ import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.main.fragment.SettingFragment;
 import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
-import com.codeest.geeknews.util.LogUtil;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -81,6 +74,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mNavigationView.getMenu().findItem(R.id.drawer_setting).setChecked(false);
         mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_zhihu);
         loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mWechatFragment,mLikeFragment,mSettingFragment,mAboutFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

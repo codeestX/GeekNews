@@ -19,8 +19,4 @@ public class Umeng {
         m.put(key, value);
         MobclickAgent.onEvent(App.getInstance(), ev, m);
     }
-
-    public static class UmengEvent {
-        public static final String EVENT_TAB_HOME = "home"; //点击Home Tab
-    }
 }

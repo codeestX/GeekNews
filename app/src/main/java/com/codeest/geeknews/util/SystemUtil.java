@@ -80,7 +80,7 @@ public class SystemUtil {
      */
     public static Uri saveBitmapToFile(Context context, String url, Bitmap bitmap){
         String fileName = url.substring(url.lastIndexOf("/"),url.lastIndexOf(".")) + ".png";
-        File fileDir = new File(Constants.DATA_PATH);
+        File fileDir = new File(Constants.PATH_DATA);
         if (!fileDir.exists()){
             fileDir.mkdir();
         }

@@ -4,17 +4,11 @@
     <color name="colorPrimaryDark">#0F1010</color>
     <color name="colorAccent">#181921</color>
     <color name="colorBackground">#0F1010</color>
-    <color name="colorCard">#181921</color>
+    <color name="colorCard">#202124</color>
+    <color name="colorText">#6B6D72</color>
 
-    <color name="toast_bg">#dddfe0</color>
-    <color name="black_bg">#d0000000</color>
-    <color name="bottom_text">#a9a9a9</color>
-    <color name="news_unread">#000000</color>
-    <color name="news_read">#898989</color>
-    <color name="comment_text">#5b5d5c</color>
-    <color name="comment_reply">#9ba4a3</color>
-    <color name="comment_btn">#bfbfbf</color>
-    <color name="comment_line">#dddddd</color>
-    <color name="comment_at">#5d8698</color>
-    <color name="preferences_title">#00618c</color>
+    <color name="drawer_item_bg_p">#6b6d72</color>
+    <color name="drawer_item_bg_n">#303030</color>
+    <color name="news_unread">#999999</color>
+    <color name="news_read">#6b6d72</color>
 </resources>

@@ -130,6 +130,7 @@
                     android:layout_marginStart="12dp"
                     android:text="@string/setting_feedback"/>
             </LinearLayout>
+            <include layout="@layout/view_line_05"/>
             <LinearLayout
                 android:id="@+id/ll_setting_clear"
                 android:orientation="horizontal"
@@ -154,6 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            <include layout="@layout/view_line_05"/>
             <LinearLayout
                 android:id="@+id/ll_setting_update"
                 android:orientation="horizontal"
