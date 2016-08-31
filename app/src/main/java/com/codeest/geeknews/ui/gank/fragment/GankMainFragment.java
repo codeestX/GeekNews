@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleFragment;
+import com.codeest.geeknews.component.RxBus;
+import com.codeest.geeknews.model.bean.SearchEvent;
 import com.codeest.geeknews.presenter.TechPresenter;
 import com.codeest.geeknews.ui.gank.adapter.GankMainAdapter;
 import com.codeest.geeknews.util.LogUtil;
@@ -74,5 +77,22 @@ public class GankMainFragment extends SimpleFragment{
         mTabLayout.getTabAt(1).setText(tabTitle[1]);
         mTabLayout.getTabAt(2).setText(tabTitle[2]);
         mTabLayout.getTabAt(3).setText(tabTitle[3]);
+    }
+
+    public void doSearch(String query) {
+        switch (mViewPager.getCurrentItem()) {
+            case 0:
+                RxBus.getDefault().post(new SearchEvent(query, Constants.TYPE_ANDROID));
+                break;
+            case 1:
+                RxBus.getDefault().post(new SearchEvent(query, Constants.TYPE_IOS));
+                break;
+            case 2:
+                RxBus.getDefault().post(new SearchEvent(query, Constants.TYPE_WEB));
+                break;
+            case 3:
+                RxBus.getDefault().post(new SearchEvent(query, Constants.TYPE_GIRL));
+                break;
+        }
     }
 }

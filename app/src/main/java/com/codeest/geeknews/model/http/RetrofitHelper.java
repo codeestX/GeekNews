@@ -220,4 +220,8 @@ public class RetrofitHelper {
         return wechatApiService.getWXHot(num, page);
     }
 
+    public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatSearchListInfo(int num, int page, String word) {
+        return wechatApiService.getWXHotSearch(num, page, word);
+    }
+
 }

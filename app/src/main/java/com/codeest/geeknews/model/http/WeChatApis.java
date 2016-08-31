@@ -21,4 +21,10 @@ public interface WeChatApis {
      */
     @GET("wxhot")
     Observable<WXHttpResponse<List<WXItemBean>>> getWXHot(@Query("num") int num, @Query("page") int page);
+
+    /**
+     * 微信精选列表
+     */
+    @GET("wxhot")
+    Observable<WXHttpResponse<List<WXItemBean>>> getWXHotSearch(@Query("num") int num, @Query("page") int page, @Query("word") String word);
 }

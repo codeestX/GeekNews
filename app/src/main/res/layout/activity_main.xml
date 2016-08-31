@@ -14,8 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/view_toolbar"
-                android:id="@+id/toolbar"/>
+            <FrameLayout
+                android:id="@+id/toolbar_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/view_toolbar"
+                    android:id="@+id/toolbar"/>
+
+                <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/view_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/fl_main_content"

@@ -16,7 +16,6 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.model.bean.GankItemBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,21 +28,20 @@ import butterknife.ButterKnife;
 public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.ViewHolder>{
 
     private List<GankItemBean> mList;
-    private List<Integer> mHeights;
     private LayoutInflater inflater;
     private Context mContext;
-    OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
 
     public GirlAdapter(Context mContext,List<GankItemBean> mList) {
         inflater = LayoutInflater.from(mContext);
         this.mList = mList;
         this.mContext = mContext;
-        mHeights = new ArrayList<>();
     }
 
     /**
+     * 在StaggeredGridLayoutManager瀑布流中,当需要依据图片实际相对高度,不断动态设置ImageView的LayoutParams时,
+     * 会导致快速滑动状态下产生重新排列,重写getItemViewType并设置StaggeredGridLayoutManager.GAP_HANDLING_NONE解决了这个问题，原因目前未知
      * https://github.com/oxoooo/mr-mantou-android/blob/master/app/src/main/java/ooo/oxo/mr/MainAdapter.java
-     * 重写getItemViewType可以防止StaggeredGridLayoutManager快速滑动时重新排列的问题，原因目前未知
      * @param position
      * @return
      */

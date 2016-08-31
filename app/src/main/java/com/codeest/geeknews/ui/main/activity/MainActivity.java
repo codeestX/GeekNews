@@ -4,10 +4,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.BaseActivity;
+import com.codeest.geeknews.component.RxBus;
+import com.codeest.geeknews.model.bean.SearchEvent;
 import com.codeest.geeknews.presenter.MainPresenter;
 import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
@@ -16,6 +21,7 @@ import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.main.fragment.SettingFragment;
 import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -32,6 +38,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     Toolbar mToolbar;
     @BindView(R.id.navigation)
     NavigationView mNavigationView;
+    @BindView(R.id.view_search)
+    MaterialSearchView mSearchView;
 
     private static final String ITEM_ZHIHU = "知乎日报";
     private static final String ITEM_WECHAT = "微信精选";
@@ -74,6 +82,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mSearchView.setVisibility(View.GONE);
         mNavigationView.getMenu().findItem(R.id.drawer_setting).setChecked(false);
         mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_zhihu);
         loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mWechatFragment,mLikeFragment,mSettingFragment,mAboutFragment);
@@ -83,21 +92,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 switch (menuItem.getItemId()) {
                     case R.id.drawer_zhihu:
                         showFragment = ITEM_ZHIHU;
+                        mSearchView.setVisibility(View.GONE);
                         break;
                     case R.id.drawer_gank:
                         showFragment = ITEM_GANK;
+                        mSearchView.setVisibility(View.VISIBLE);
                         break;
                     case R.id.drawer_wechat:
                         showFragment = ITEM_WECHAT;
+                        mSearchView.setVisibility(View.VISIBLE);
                         break;
                     case R.id.drawer_setting:
                         showFragment = ITEM_SETTING;
+                        mSearchView.setVisibility(View.GONE);
                         break;
                     case R.id.drawer_like:
                         showFragment = ITEM_LIKE;
+                        mSearchView.setVisibility(View.GONE);
                         break;
                     case R.id.drawer_about:
                         showFragment = ITEM_ABOUT;
+                        mSearchView.setVisibility(View.GONE);
                         break;
                 }
                 if(mLastMenuItem != null) {
@@ -112,6 +127,30 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return true;
             }
         });
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(showFragment.equals(ITEM_GANK)) {
+                    mGankFragment.doSearch(query);
+                } else if(showFragment.equals(ITEM_WECHAT)) {
+                    RxBus.getDefault().post(new SearchEvent(query, Constants.TYPE_WECHAT));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        mSearchView.setMenuItem(item);
+        return true;
     }
 
     @Override

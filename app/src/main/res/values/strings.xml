@@ -22,6 +22,7 @@
     <string name="action_save">保存到本地</string>
     <string name="action_share">分享链接</string>
     <string name="action_like">收藏</string>
+    <string name="action_search">搜索</string>
 
     <string name="setting_cache">自动缓存</string>
     <string name="setting_image">无图模式</string>
