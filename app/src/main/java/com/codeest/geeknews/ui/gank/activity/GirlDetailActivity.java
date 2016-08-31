@@ -102,15 +102,6 @@ public class GirlDetailActivity extends SimpleActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressedSupport() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            pop();
-        } else {
-            finishAfterTransition();
-        }
-    }
-
     private void setLikeState(boolean state) {
         if(state) {
             menuItem.setIcon(R.mipmap.ic_toolbar_like_p);

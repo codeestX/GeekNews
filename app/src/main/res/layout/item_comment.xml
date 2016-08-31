@@ -49,6 +49,7 @@
                 android:id="@+id/tv_comment_time"
                 android:layout_alignParentStart="true"
                 android:textColor="@color/comment_btn"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -56,14 +57,18 @@
                 android:layout_marginStart="10dp"
                 android:id="@+id/tv_comment_expand"
                 android:text="@string/comment_expand"
+                android:layout_centerVertical="true"
                 android:textColor="@color/comment_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_comment_like"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/comment_btn"
+                android:drawableLeft="@mipmap/ic_daily_like"
+                android:drawablePadding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>

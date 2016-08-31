@@ -142,15 +142,6 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     }
 
     @Override
-    public void onBackPressedSupport() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            pop();
-        } else {
-            finishAfterTransition();
-        }
-    }
-
-    @Override
     public void showError(String msg) {
         viewLoading.stop();
         ToastUtil.shortShow("获取信息失败");

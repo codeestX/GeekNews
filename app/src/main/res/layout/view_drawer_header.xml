@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/detail_image_height">
+    android:layout_height="@dimen/drawer_image_height">
     <ImageView
         android:id="@+id/drawer_cover"
         android:layout_width="match_parent"
