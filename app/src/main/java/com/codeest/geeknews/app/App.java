@@ -8,12 +8,11 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.codeest.geeknews.component.CrashHandler;
 import com.codeest.geeknews.di.component.AppComponent;
 import com.codeest.geeknews.di.component.DaggerAppComponent;
 import com.codeest.geeknews.di.module.AppModule;
 import com.orhanobut.logger.Logger;
-import com.codeest.geeknews.component.CrashHandler;
-import com.codeest.geeknews.util.LogUtil;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,10 +34,10 @@ public class App extends Application{
         return instance;
     }
 
-//    static {
-//        AppCompatDelegate.setDefaultNightMode(
-//                AppCompatDelegate.MODE_NIGHT_NO);
-//    }
+    static {
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO);
+    }
 
     @Override
     public void onCreate() {

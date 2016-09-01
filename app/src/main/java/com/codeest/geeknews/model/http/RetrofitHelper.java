@@ -1,7 +1,5 @@
 package com.codeest.geeknews.model.http;
 
-import android.util.Log;
-
 import com.codeest.geeknews.BuildConfig;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.component.ACache;
@@ -10,6 +8,7 @@ import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.GankItemBean;
+import com.codeest.geeknews.model.bean.GankSearchItemBean;
 import com.codeest.geeknews.model.bean.HotListBean;
 import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.SectionListBean;
@@ -37,8 +36,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
-
-import static com.google.common.net.HttpHeaders.CACHE_CONTROL;
 
 /**
  * Created by codeest on 2016/8/3.
@@ -216,6 +213,10 @@ public class RetrofitHelper {
         return gankApiService.getRandomGirl(num);
     }
 
+    public Observable<GankHttpResponse<List<GankSearchItemBean>>> fetchGankSearchList(String query,String type,int num,int page) {
+        return gankApiService.getSearchList(query,type,num,page);
+    }
+
     public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatListInfo(int num, int page) {
         return wechatApiService.getWXHot(num, page);
     }
@@ -223,5 +224,4 @@ public class RetrofitHelper {
     public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatSearchListInfo(int num, int page, String word) {
         return wechatApiService.getWXHotSearch(num, page, word);
     }
-
 }

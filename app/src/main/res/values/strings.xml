@@ -32,4 +32,6 @@
     <string name="setting_update">检查更新</string>
     <string name="setting_normal">常规</string>
     <string name="setting_other">其他</string>
+
+    <string name="setting_addr">项目地址</string>
 </resources>

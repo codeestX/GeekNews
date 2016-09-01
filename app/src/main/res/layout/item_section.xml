@@ -19,7 +19,7 @@
             android:layout_height="@dimen/theme_image_height" />
         <TextView
             android:id="@+id/section_kind"
-            android:textColor="@color/colorCard"
+            android:textColor="#fff"
             android:textSize="18sp"
             android:layout_gravity="bottom|end"
             android:layout_margin="8dp"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/section_des"
-            android:textColor="@color/colorCard"
+            android:textColor="#fff"
             android:textSize="12sp"
             android:layout_gravity="top|start"
             android:layout_margin="8dp"

@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
@@ -56,6 +55,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     SettingFragment mSettingFragment;
     AboutFragment mAboutFragment;
     MenuItem mLastMenuItem;
+    MenuItem mSearchMenuItem;
 
     private String hideFragment = ITEM_ZHIHU;
     private String showFragment = ITEM_ZHIHU;
@@ -82,7 +82,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mSearchView.setVisibility(View.GONE);
         mNavigationView.getMenu().findItem(R.id.drawer_setting).setChecked(false);
         mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_zhihu);
         loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mWechatFragment,mLikeFragment,mSettingFragment,mAboutFragment);
@@ -92,27 +91,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 switch (menuItem.getItemId()) {
                     case R.id.drawer_zhihu:
                         showFragment = ITEM_ZHIHU;
-                        mSearchView.setVisibility(View.GONE);
+                        mSearchMenuItem.setVisible(false);
                         break;
                     case R.id.drawer_gank:
                         showFragment = ITEM_GANK;
-                        mSearchView.setVisibility(View.VISIBLE);
+                        mSearchMenuItem.setVisible(true);
                         break;
                     case R.id.drawer_wechat:
                         showFragment = ITEM_WECHAT;
-                        mSearchView.setVisibility(View.VISIBLE);
+                        mSearchMenuItem.setVisible(true);
                         break;
                     case R.id.drawer_setting:
                         showFragment = ITEM_SETTING;
-                        mSearchView.setVisibility(View.GONE);
+                        mSearchMenuItem.setVisible(false);
                         break;
                     case R.id.drawer_like:
                         showFragment = ITEM_LIKE;
-                        mSearchView.setVisibility(View.GONE);
+                        mSearchMenuItem.setVisible(false);
                         break;
                     case R.id.drawer_about:
                         showFragment = ITEM_ABOUT;
-                        mSearchView.setVisibility(View.GONE);
+                        mSearchMenuItem.setVisible(false);
                         break;
                 }
                 if(mLastMenuItem != null) {
@@ -149,7 +148,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(false);
         mSearchView.setMenuItem(item);
+        mSearchMenuItem = item;
         return true;
     }
 

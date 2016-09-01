@@ -20,6 +20,7 @@ import com.codeest.geeknews.presenter.ZhihuDetailPresenter;
 import com.codeest.geeknews.presenter.contract.ZhihuDetailContract;
 import com.codeest.geeknews.util.HtmlUtil;
 import com.codeest.geeknews.util.ShareUtil;
+import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -86,6 +87,9 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         mPresenter.getDetailData(id);
         mPresenter.getExtraData(id);
         viewLoading.start();
+        if (SharedPreferenceUtil.getNoImageState(mContext)) {
+            wvDetailContent.getSettings().setBlockNetworkImage(true);
+        }
         wvDetailContent.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

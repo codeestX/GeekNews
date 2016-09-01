@@ -1,6 +1,7 @@
 package com.codeest.geeknews.model.http;
 
 import com.codeest.geeknews.model.bean.GankItemBean;
+import com.codeest.geeknews.model.bean.GankSearchItemBean;
 
 import java.util.List;
 
@@ -33,5 +34,11 @@ public interface GankApis {
      */
     @GET("random/data/福利/{num}")
     Observable<GankHttpResponse<List<GankItemBean>>> getRandomGirl(@Path("num") int num);
+
+    /**
+     * 搜索
+     */
+    @GET("search/query/{query}/category/{type}/count/{count}/page/{page}")
+    Observable<GankHttpResponse<List<GankSearchItemBean>>> getSearchList(@Path("query") String query,@Path("type") String type,@Path("count") int num,@Path("page") int page);
 
 }

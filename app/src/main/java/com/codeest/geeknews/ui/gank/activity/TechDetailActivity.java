@@ -12,13 +12,12 @@ import android.webkit.WebViewClient;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.App;
-import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.presenter.TechPresenter;
-import com.codeest.geeknews.presenter.WechatPresenter;
 import com.codeest.geeknews.util.ShareUtil;
+import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -58,6 +57,9 @@ public class TechDetailActivity extends SimpleActivity {
         id = intent.getExtras().getString("id");
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
+        if (SharedPreferenceUtil.getNoImageState(mContext)) {
+            settings.setBlockNetworkImage(true);
+        }
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);
         settings.setAppCacheEnabled(true);
@@ -120,7 +122,7 @@ public class TechDetailActivity extends SimpleActivity {
                     bean.setId(this.id);
                     bean.setImage(url);
                     bean.setTitle(title);
-                    bean.setType(getTechType(tech));
+                    bean.setType(TechPresenter.getTechType(tech));
                     mRealmHelper.insertLikeBean(bean);
                 }
                 break;
@@ -131,20 +133,6 @@ public class TechDetailActivity extends SimpleActivity {
                 ShareUtil.shareText(mContext,url,"分享一篇文章");
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private int getTechType(String tech) {
-        switch (tech) {
-            case TechPresenter.TECH_ANDROID:
-                return Constants.TYPE_ANDROID;
-            case TechPresenter.TECH_IOS:
-                return Constants.TYPE_IOS;
-            case TechPresenter.TECH_WEB:
-                return Constants.TYPE_WEB;
-            case WechatPresenter.TECH_WECHAT:
-                return Constants.TYPE_WECHAT;
-        }
-        return Constants.TYPE_ANDROID;
     }
 
     private void setLikeState(boolean state) {
