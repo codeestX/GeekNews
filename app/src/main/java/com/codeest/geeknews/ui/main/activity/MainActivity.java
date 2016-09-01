@@ -164,6 +164,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
+    @Override
+    public void onBackPressedSupport() {
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
+        } else {
+            super.onBackPressedSupport();
+        }
+    }
+
     private SupportFragment getTargetFragment(String item) {
         switch (item) {
             case ITEM_ZHIHU:

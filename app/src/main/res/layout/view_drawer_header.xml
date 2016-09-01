@@ -7,13 +7,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bg_drawable"/>
+        android:src="@mipmap/bg_drawer"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="24dp"
-        android:textSize="24sp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="28sp"
         android:text="@string/app_name"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="16sp"
+        android:text="@string/app_intro"/>
 </FrameLayout>
