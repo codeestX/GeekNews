@@ -39,14 +39,12 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
                 .subscribe(new Action1<WelcomeBean>() {
                     @Override
                     public void call(WelcomeBean welcomeBean) {
-                        LogUtil.d("SUCCESS");
                         mView.showContent(welcomeBean);
                         startCountDown();
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        LogUtil.d("FAILE");
                         mView.showError("");
                         mView.jumpToMain();
                     }

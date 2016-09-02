@@ -137,7 +137,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     void startCalender() {
         Intent it = new Intent();
         it.setClass(mContext,CalendarActivity.class);
-        CircularAnimUtil.startActivity(mActivity,it,fabCalender,R.color.colorAccent);
+        CircularAnimUtil.startActivity(mActivity,it,fabCalender,R.color.fab_bg);
     }
 
     @Override

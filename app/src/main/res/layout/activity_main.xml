@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer"
@@ -11,14 +12,14 @@
 
         <LinearLayout
             android:orientation="vertical"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <FrameLayout
                 android:id="@+id/toolbar_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true">
+                android:layout_height="wrap_content">
 
                 <include layout="@layout/view_toolbar"
                     android:id="@+id/toolbar"/>
@@ -40,6 +41,7 @@
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:background="@color/drawer_item_bg_n"
             app:headerLayout="@layout/view_drawer_header"
             app:menu="@menu/drawer_menu"
             app:itemBackground="@drawable/drawer_item_bg"

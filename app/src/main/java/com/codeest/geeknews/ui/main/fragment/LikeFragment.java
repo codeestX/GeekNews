@@ -10,6 +10,7 @@ import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.presenter.LikePresenter;
 import com.codeest.geeknews.presenter.contract.LikeContract;
 import com.codeest.geeknews.ui.main.adapter.LikeAdapter;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.codeest.geeknews.widget.DefaultItemTouchHelpCallback;
 

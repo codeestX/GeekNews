@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -21,6 +22,7 @@ import com.codeest.geeknews.presenter.contract.ZhihuDetailContract;
 import com.codeest.geeknews.util.HtmlUtil;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
+import com.codeest.geeknews.util.SystemUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -87,9 +89,24 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         mPresenter.getDetailData(id);
         mPresenter.getExtraData(id);
         viewLoading.start();
-        if (SharedPreferenceUtil.getNoImageState(mContext)) {
-            wvDetailContent.getSettings().setBlockNetworkImage(true);
+        WebSettings settings = wvDetailContent.getSettings();
+        if (SharedPreferenceUtil.getNoImageState()) {
+            settings.setBlockNetworkImage(true);
         }
+        if (SharedPreferenceUtil.getAutoCacheState()) {
+            settings.setAppCacheEnabled(true);
+            settings.setDomStorageEnabled(true);
+            settings.setDatabaseEnabled(true);
+            if (SystemUtil.isNetworkConnected()) {
+                settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+            } else {
+                settings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
+            }
+        }
+        settings.setJavaScriptEnabled(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setSupportZoom(true);
         wvDetailContent.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

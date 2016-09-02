@@ -1,7 +1,5 @@
 package com.codeest.geeknews.ui.main.fragment;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -15,7 +13,6 @@ import com.codeest.geeknews.base.SimpleFragment;
 import com.codeest.geeknews.component.ACache;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.NightModeEvent;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 
@@ -49,6 +46,7 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     File cacheFile;
     boolean isNull = true;
+    boolean test = true;
 
     @Override
     protected int getLayoutId() {
@@ -59,9 +57,9 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
     protected void initEventAndData() {
         cacheFile = new File(Constants.PATH_CACHE);
         tvSettingClear.setText(ACache.getCacheSize(cacheFile));
-        cbSettingCache.setChecked(SharedPreferenceUtil.getAutoCacheState(mContext));
-        cbSettingImage.setChecked(SharedPreferenceUtil.getNoImageState(mContext));
-        cbSettingNight.setChecked(SharedPreferenceUtil.getNightModeState(mContext));
+        cbSettingCache.setChecked(SharedPreferenceUtil.getAutoCacheState());
+        cbSettingImage.setChecked(SharedPreferenceUtil.getNoImageState());
+        cbSettingNight.setChecked(SharedPreferenceUtil.getNightModeState());
         cbSettingCache.setOnCheckedChangeListener(this);
         cbSettingImage.setOnCheckedChangeListener(this);
         cbSettingNight.setOnCheckedChangeListener(this);
@@ -94,17 +92,17 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
         switch (compoundButton.getId()) {
             case R.id.cb_setting_night:
                 if (isNull) {   //防止夜间模式MainActivity执行reCreate后重复调用
+                    SharedPreferenceUtil.setNightModeState(b);
                     NightModeEvent event = new NightModeEvent();
                     event.setNightMode(b);
                     RxBus.getDefault().post(event);
-                    SharedPreferenceUtil.setNightModeState(mContext,b);
                 }
                 break;
             case R.id.cb_setting_image:
-                SharedPreferenceUtil.setNoImageState(mContext,b);
+                SharedPreferenceUtil.setNoImageState(b);
                 break;
             case R.id.cb_setting_cache:
-                SharedPreferenceUtil.setAutoCacheState(mContext,b);
+                SharedPreferenceUtil.setAutoCacheState(b);
                 break;
         }
     }

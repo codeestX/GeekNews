@@ -29,7 +29,6 @@ public class RxBus {
 
     // 提供了一个新的事件
     public void post(Object o) {
-        LogUtil.d(o.toString());
         bus.onNext(o);
     }
 

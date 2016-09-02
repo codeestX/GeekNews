@@ -57,12 +57,21 @@ public class TechDetailActivity extends SimpleActivity {
         id = intent.getExtras().getString("id");
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
-        if (SharedPreferenceUtil.getNoImageState(mContext)) {
+        if (SharedPreferenceUtil.getNoImageState()) {
             settings.setBlockNetworkImage(true);
+        }
+        if (SharedPreferenceUtil.getAutoCacheState()) {
+            settings.setAppCacheEnabled(true);
+            settings.setDomStorageEnabled(true);
+            settings.setDatabaseEnabled(true);
+            if (SystemUtil.isNetworkConnected()) {
+                settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+            } else {
+                settings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
+            }
         }
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);
-        settings.setAppCacheEnabled(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setSupportZoom(true);
         wvTechContent.setWebViewClient(new WebViewClient(){

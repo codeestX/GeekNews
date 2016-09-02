@@ -1,5 +1,7 @@
 package com.codeest.geeknews.ui.main.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +22,7 @@ import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.main.fragment.SettingFragment;
 import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
+import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import butterknife.BindView;
@@ -70,6 +73,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return R.layout.activity_main;
     }
 
+    /**
+     * 特殊处理夜间模式
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            SharedPreferenceUtil.setNightModeState(false);
+        } else {
+            mNavigationView.getMenu().findItem(R.id.drawer_setting).setChecked(false);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     protected void initEventAndData() {
         setToolBar(mToolbar,ITEM_ZHIHU);
@@ -82,7 +99,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mNavigationView.getMenu().findItem(R.id.drawer_setting).setChecked(false);
         mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_zhihu);
         loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mWechatFragment,mLikeFragment,mSettingFragment,mAboutFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

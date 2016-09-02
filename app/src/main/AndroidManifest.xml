@@ -27,7 +27,6 @@
         </activity>
         <activity android:name="com.codeest.geeknews.ui.main.activity.MainActivity"
             android:launchMode="singleTop">
-
         </activity>
 
         //知乎

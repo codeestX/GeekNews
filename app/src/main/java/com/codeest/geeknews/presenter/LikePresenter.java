@@ -20,11 +20,7 @@ public class LikePresenter extends RxPresenter<LikeContract.View> implements Lik
 
     @Override
     public void getLikeData() {
-        if (mRealmHelper.getLikeList().size() == 0) {
-//            mView.showError("还没有收藏哦~");
-        } else {
-            mView.showContent(mRealmHelper.getLikeList());
-        }
+        mView.showContent(mRealmHelper.getLikeList());
     }
 
     @Override

@@ -63,7 +63,7 @@ public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.ViewHolder>{
             layoutParams.height = mList.get(holder.getAdapterPosition()).getHeight();
         }
 
-        Glide.with(mContext).load(mList.get(position).getUrl()).asBitmap().placeholder(R.mipmap.bg_drawable).diskCacheStrategy(DiskCacheStrategy.ALL)
+        Glide.with(mContext).load(mList.get(position).getUrl()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(new SimpleTarget<Bitmap>(App.SCREEN_WIDTH / 2, App.SCREEN_WIDTH / 2) {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {

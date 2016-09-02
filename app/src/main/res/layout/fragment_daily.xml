@@ -29,6 +29,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="20dp"
             app:borderWidth="0dp"
+            android:background="@color/fab_bg"
             android:src="@mipmap/ic_fab_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

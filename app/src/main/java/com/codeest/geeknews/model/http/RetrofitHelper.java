@@ -2,7 +2,6 @@ package com.codeest.geeknews.model.http;
 
 import com.codeest.geeknews.BuildConfig;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.component.ACache;
 import com.codeest.geeknews.model.bean.CommentBean;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
@@ -17,7 +16,6 @@ import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.SystemUtil;
 
 import java.io.File;
@@ -118,9 +116,6 @@ public class RetrofitHelper {
         //错误重连
         builder.retryOnConnectionFailure(true);
         okHttpClient = builder.build();
-
-        LogUtil.d(ACache.getCacheSize(cacheFile));
-        ACache.deleteDir(cacheFile);
     }
 
     private static ZhihuApis getZhihuApiService() {
