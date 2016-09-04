@@ -29,6 +29,7 @@
                 android:title="@string/drawer_collection"/>
             <item
                 android:id="@+id/drawer_setting"
+                android:checked="false"
                 android:icon="@mipmap/ic_drawer_setting"
                 android:checkable="true"
                 android:title="@string/drawer_setting"/>

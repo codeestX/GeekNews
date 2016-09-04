@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.util.LogUtil;
+import com.codeest.geeknews.util.ToastUtil;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -39,9 +41,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         LogUtil.e(TAG, ex.toString());
         LogUtil.e(TAG, collectCrashDeviceInfo());
         LogUtil.e(TAG, getCrashInfo(ex));
-
         // 调用系统错误机制
         defaultHandler.uncaughtException(thread, ex);
+        ToastUtil.shortShow("抱歉,程序发生异常即将退出");
+        App.getInstance().exitApp();
     }
 
     /**

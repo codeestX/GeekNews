@@ -24,5 +24,4 @@
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
-
 </resources>

@@ -15,6 +15,7 @@ import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.NightModeEvent;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
+import com.codeest.geeknews.util.SnackbarUtil;
 
 import java.io.File;
 
@@ -46,7 +47,6 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     File cacheFile;
     boolean isNull = true;
-    boolean test = true;
 
     @Override
     protected int getLayoutId() {
@@ -84,7 +84,7 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     @OnClick(R.id.ll_setting_update)
     void doUpdate() {
-
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),"这个功能还没有实现哦~(>_<)~");
     }
 
     @Override

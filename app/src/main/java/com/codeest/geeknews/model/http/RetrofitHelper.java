@@ -64,7 +64,7 @@ public class RetrofitHelper {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
             builder.addInterceptor(loggingInterceptor);
         }
-        // 缓存 http://www.jianshu.com/p/93153b34310e
+        // http://www.jianshu.com/p/93153b34310e
         File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = new Interceptor() {
@@ -79,7 +79,7 @@ public class RetrofitHelper {
                 Response response = chain.proceed(request);
                 if (SystemUtil.isNetworkConnected()) {
                     int maxAge = 0;
-                    // 有网络时, 不缓存
+                    // 有网络时, 不缓存, 最大保存时长为0
                     response.newBuilder()
                             .header("Cache-Control", "public, max-age=" + maxAge)
                             .removeHeader("Pragma")

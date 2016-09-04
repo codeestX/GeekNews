@@ -22,6 +22,7 @@ import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.main.fragment.SettingFragment;
 import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -79,12 +80,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             SharedPreferenceUtil.setNightModeState(false);
         } else {
-            mNavigationView.getMenu().findItem(R.id.drawer_setting).setChecked(false);
+            showFragment = ITEM_SETTING;
+            hideFragment = ITEM_ZHIHU;
+            showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
+            mNavigationView.getMenu().findItem(R.id.drawer_zhihu).setChecked(false);
+            hideFragment = ITEM_SETTING;
         }
-        super.onCreate(savedInstanceState);
     }
 
     @Override

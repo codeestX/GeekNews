@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.WXItemBean;
+import com.codeest.geeknews.presenter.WechatPresenter;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.widget.SquareImageView;
 
@@ -54,6 +55,7 @@ public class WechatAdapter extends RecyclerView.Adapter<WechatAdapter.ViewHolder
                 intent.putExtra("id",mList.get(holder.getAdapterPosition()).getPicUrl());   //wechat API 没有id，用图片来做唯一数据库索引
                 intent.putExtra("title",mList.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("url",mList.get(holder.getAdapterPosition()).getUrl());
+                intent.putExtra("tech", WechatPresenter.TECH_WECHAT);
                 mContext.startActivity(intent);
             }
         });

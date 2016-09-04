@@ -3,6 +3,7 @@ package com.codeest.geeknews.ui.main.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
@@ -54,9 +55,9 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
             public void onSwiped(int adapterPosition) {
                 // 滑动删除的时候，从数据源移除，并刷新这个Item。
                 if (mList != null) {
+                    mPresenter.deleteLikeData(mList.get(adapterPosition).getId());
                     mList.remove(adapterPosition);
                     mAdapter.notifyItemRemoved(adapterPosition);
-                    mPresenter.deleteLikeData(mList.get(adapterPosition).getId());
                 }
             }
 
@@ -92,6 +93,7 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
 
     @Override
     public void showContent(List<RealmLikeBean> list) {
+        LogUtil.d(mList.size()+"Content");
         mList.clear();
         mList.addAll(list);
         mAdapter.notifyDataSetChanged();
