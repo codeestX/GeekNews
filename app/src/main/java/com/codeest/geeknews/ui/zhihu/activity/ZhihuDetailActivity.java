@@ -194,4 +194,13 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
             mPresenter.insertLikeData();
         }
     }
+
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            finishAfterTransition();
+        }
+    }
 }

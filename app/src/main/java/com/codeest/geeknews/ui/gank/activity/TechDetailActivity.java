@@ -153,4 +153,13 @@ public class TechDetailActivity extends SimpleActivity {
             isLiked = false;
         }
     }
+
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            finishAfterTransition();
+        }
+    }
 }

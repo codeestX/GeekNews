@@ -17,12 +17,14 @@ import io.realm.RealmResults;
 
 public class RealmHelper {
 
+    private static final String DB_NAME = "myRealm.realm";
+
     private Realm mRealm;
 
     public RealmHelper(Context mContext) {
         mRealm = Realm.getInstance(new RealmConfiguration.Builder(mContext)
                 .deleteRealmIfMigrationNeeded()
-                .name("myRealm.realm")
+                .name(DB_NAME)
                 .build());
     }
 

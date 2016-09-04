@@ -93,7 +93,6 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
 
     @Override
     public void showContent(List<RealmLikeBean> list) {
-        LogUtil.d(mList.size()+"Content");
         mList.clear();
         mList.addAll(list);
         mAdapter.notifyDataSetChanged();
