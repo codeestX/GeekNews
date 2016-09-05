@@ -15,6 +15,7 @@ import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.presenter.ThemeChildPresenter;
 import com.codeest.geeknews.presenter.contract.ThemeChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeChildAdapter;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -102,7 +103,7 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
     @Override
     public void showError(String msg) {
         viewLoading.stop();
-        ToastUtil.shortShow(msg);
+        SnackbarUtil.showShort(getWindow().getDecorView(),msg);
     }
 
     @Override

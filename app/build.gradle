@@ -22,8 +22,8 @@ android {
     }
 
     productFlavors {
-        huawei {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+        google {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "google"]
         }
     }
 }

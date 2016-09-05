@@ -15,6 +15,7 @@ import com.codeest.geeknews.model.bean.SectionListBean;
 import com.codeest.geeknews.presenter.SectionPresenter;
 import com.codeest.geeknews.presenter.contract.SectionContract;
 import com.codeest.geeknews.ui.zhihu.adapter.SectionAdapter;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -68,15 +69,21 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
 
     @Override
     public void showError(String msg) {
-        swipeRefresh.setRefreshing(false);
-        viewLoading.stop();
-        ToastUtil.shortShow(msg);
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 
     @Override
     public void showContent(SectionListBean sectionListBean) {
-        swipeRefresh.setRefreshing(false);
-        viewLoading.stop();
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         mList.clear();
         mList.addAll(sectionListBean.getData());
         mAdapter.notifyDataSetChanged();

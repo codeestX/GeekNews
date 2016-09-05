@@ -53,7 +53,7 @@ public class ThemeChildPresenter extends RxPresenter<ThemeChildContract.View> im
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("数据加载失败");
+                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);

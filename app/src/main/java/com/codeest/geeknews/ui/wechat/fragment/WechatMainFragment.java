@@ -10,6 +10,7 @@ import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.presenter.WechatPresenter;
 import com.codeest.geeknews.presenter.contract.WechatContract;
 import com.codeest.geeknews.ui.wechat.adapter.WechatAdapter;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -103,6 +104,6 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
         } else {
             viewLoading.stop();
         }
-        ToastUtil.shortShow(msg);
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 }

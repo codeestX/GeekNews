@@ -20,6 +20,7 @@ import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.DailyAdapter;
 import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.victor.loading.rotate.RotateLoading;
@@ -144,6 +145,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     public void showError(String msg) {
         swipeRefresh.setRefreshing(false);
         viewLoading.stop();
-        ToastUtil.shortShow(msg);
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 }

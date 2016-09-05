@@ -1,10 +1,23 @@
 #GeekNews
 
-A pure reading App based on Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
+GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
 
 极客日报，一款纯粹的阅读App，基于Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
 
-#Points
+出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容目前包括知乎日报、微信精选、干货集中营，知识、新闻、福利一网打尽，后期会持续更新，坚持在这个项目上实践最新的技术，也会争取拓展更多的阅读内容
+
+本项目还在测试阶段，发现bug或有好的建议欢迎issue、email，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，请勿用于其他用途
+
+###Preview
+
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part1.gif) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part2.gif) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part3.gif)
+
+###Download APK
+
+
+##Points
 
 * 使用RxJava配合Retrofit2做网络请求
 * 使用RxUtil对线程操作和网络请求结果处理做了封装
@@ -17,18 +30,18 @@ A pure reading App based on Material Design + MVP + RxJava + Retrofit + Dagger2 
 * 使用Dagger2将M层注入P层，将P层注入V层，无需new，直接调用对象
 * 使用Realm做阅读记录、收藏记录的存储和查询
 * 使用Glide做图片的处理和加载
-* 使用Fragmentation简化Fragment的操作，还有Activity滑动返回
+* 使用Fragmentation简化Fragment的操作
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
 * 使用WebView做阅览页，通过修改其配置达成各种需要的功能
 * 使用原生的夜间模式、分享、反馈
 * 包含搜索、收藏、检测更新（尚未实现）等功能
 
-#Version
+##Version
 
 ###V1.0.0
 `1.提交第一版`
 
-#Thanks
+##Thanks
 
 ###API:
 [知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -40,12 +53,12 @@ A pure reading App based on Material Design + MVP + RxJava + Retrofit + Dagger2 
 
 [知了日报](https://github.com/HotBitmapGG/RxZhiHu) 提供了部分设计思路
 
-还有其他很多大神的类似作品
+还参考了很多大神的类似作品，感谢大家的开源精神
 
 ###RES:
-[iconfont](http://www.iconfont.cn/) 提供icon素材
+[iconfont](http://www.iconfont.cn/) 提供了icon素材
 
-[material UP](http://www.material.uplabs.com/) 提供Material Design风格的素材
+[material UP](http://www.material.uplabs.com/) 提供了Material Design风格的素材
 
 ###LIB:
 	//ui
@@ -80,7 +93,6 @@ A pure reading App based on Material Design + MVP + RxJava + Retrofit + Dagger2 
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.orhanobut:logger:1.15'
     compile 'me.yokeyword:fragmentation:0.7.9'
-    compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
     compile 'com.victor:lib:1.0.4'
     compile 'com.prolificinteractive:material-calendarview:1.4.0'
     compile 'net.opacapp:multiline-collapsingtoolbar:1.2.2'
@@ -94,7 +106,7 @@ A pure reading App based on Material Design + MVP + RxJava + Retrofit + Dagger2 
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'`
 
 
-#License
+##License
 
 Copyright (c) 2016 codeestX
 

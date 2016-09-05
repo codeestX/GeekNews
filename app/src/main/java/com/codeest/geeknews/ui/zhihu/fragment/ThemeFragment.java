@@ -16,6 +16,7 @@ import com.codeest.geeknews.presenter.ThemePresenter;
 import com.codeest.geeknews.presenter.contract.ThemeContract;
 import com.codeest.geeknews.ui.zhihu.activity.ThemeActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeAdapter;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -90,9 +91,12 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
 
     @Override
     public void showError(String msg) {
-        swipeRefresh.setRefreshing(false);
-        viewLoading.stop();
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         rvThemeList.setVisibility(View.VISIBLE);
-        ToastUtil.shortShow(msg);
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 }

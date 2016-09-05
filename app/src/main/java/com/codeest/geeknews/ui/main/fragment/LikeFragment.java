@@ -12,6 +12,7 @@ import com.codeest.geeknews.presenter.LikePresenter;
 import com.codeest.geeknews.presenter.contract.LikeContract;
 import com.codeest.geeknews.ui.main.adapter.LikeAdapter;
 import com.codeest.geeknews.util.LogUtil;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.codeest.geeknews.widget.DefaultItemTouchHelpCallback;
 
@@ -88,7 +89,7 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
 
     @Override
     public void showError(String msg) {
-        ToastUtil.shortShow(msg);
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 
     @Override

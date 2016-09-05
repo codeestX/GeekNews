@@ -14,6 +14,7 @@ import com.codeest.geeknews.presenter.GirlPresenter;
 import com.codeest.geeknews.presenter.contract.GirlContract;
 import com.codeest.geeknews.ui.gank.activity.GirlDetailActivity;
 import com.codeest.geeknews.ui.gank.adapter.GirlAdapter;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -97,7 +98,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
     @Override
     public void showError(String msg) {
         viewLoading.stop();
-        ToastUtil.shortShow(msg);
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 
     @Override

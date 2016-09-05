@@ -15,6 +15,11 @@ import rx.schedulers.Schedulers;
  */
 public class RxUtil {
 
+    /**
+     * 统一线程处理
+     * @param <T>
+     * @return
+     */
     public static <T> Observable.Transformer<T, T> rxSchedulerHelper() {    //compose简化线程
         return new Observable.Transformer<T, T>() {
             @Override
@@ -25,6 +30,11 @@ public class RxUtil {
         };
     }
 
+    /**
+     * 统一返回结果处理
+     * @param <T>
+     * @return
+     */
     public static <T> Observable.Transformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
         return new Observable.Transformer<GankHttpResponse<T>, T>() {
             @Override
@@ -43,6 +53,11 @@ public class RxUtil {
         };
     }
 
+    /**
+     * 生成Observable
+     * @param <T>
+     * @return
+     */
     public static <T> Observable.Transformer<WXHttpResponse<T>, T> handleWXResult() {   //compose判断结果
         return new Observable.Transformer<WXHttpResponse<T>, T>() {
             @Override

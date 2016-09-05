@@ -14,6 +14,7 @@ import com.codeest.geeknews.presenter.HotPresenter;
 import com.codeest.geeknews.presenter.contract.HotContract;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.HotAdapter;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -79,8 +80,12 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
 
     @Override
     public void showError(String msg) {
-        viewLoading.stop();
-        ToastUtil.shortShow(msg);
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
+        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 
     @Override
