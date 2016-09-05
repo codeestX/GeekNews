@@ -84,8 +84,8 @@ public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.ViewHolder>{
             @Override
             public void onClick(View view) {
                 if(onItemClickListener != null) {
-                    ImageView iv = (ImageView) view.findViewById(R.id.iv_girl);
-                    onItemClickListener.onItemClickListener(holder.getAdapterPosition(),iv);
+                    View shareView = view.findViewById(R.id.iv_girl);
+                    onItemClickListener.onItemClickListener(holder.getAdapterPosition(),shareView);
                 }
             }
         });

@@ -4,20 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codeest.geeknews.app.App;
-import com.codeest.geeknews.di.component.DaggerFragmentComponent;
-import com.codeest.geeknews.di.component.FragmentComponent;
-import com.codeest.geeknews.di.module.FragmentModule;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportFragment;
-import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
  * Created by codeest on 16/8/11.

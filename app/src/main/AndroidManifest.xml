@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
 
         //主类
         <activity android:name=".ui.main.activity.WelcomeActivity"
@@ -26,12 +27,13 @@
             </intent-filter>
         </activity>
         <activity android:name="com.codeest.geeknews.ui.main.activity.MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/SplashTheme">
         </activity>
 
         //知乎
         <activity android:name=".ui.zhihu.activity.CalendarActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity android:name=".ui.zhihu.activity.ZhihuDetailActivity"
             android:launchMode="singleTop" />
         <activity android:name=".ui.zhihu.activity.CommentActivity"

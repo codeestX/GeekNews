@@ -46,4 +46,6 @@ public class Constants {
     public static final String SP_NO_IMAGE = "no_image";
 
     public static final String SP_AUTO_CACHE = "auto_cache";
+
+    public static final String SP_IS_CHANGE_MODE = "is_change_mode";
 }

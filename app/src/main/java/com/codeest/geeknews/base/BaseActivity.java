@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 
 import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.component.ActivityComponent;
@@ -17,13 +16,13 @@ import com.umeng.analytics.MobclickAgent;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Created by codeest on 2016/8/2.
  * MVP activity基类
  */
-public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackActivity implements BaseView{
+public abstract class BaseActivity<T extends BasePresenter> extends SupportActivity implements BaseView{
 
     @Inject
     protected T mPresenter;
@@ -31,7 +30,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         ButterKnife.bind(this);

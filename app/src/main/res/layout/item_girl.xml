@@ -8,11 +8,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:transitionName="shareView"
         app:cardElevation="3dp"
         app:cardCornerRadius="2dp">
         <ImageView
             android:id="@+id/iv_girl"
-            android:transitionName="shareView"
             android:scaleType="centerCrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

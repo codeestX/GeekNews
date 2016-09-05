@@ -7,20 +7,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.codeest.geeknews.app.App;
-import com.codeest.geeknews.di.component.ActivityComponent;
-import com.codeest.geeknews.di.component.DaggerActivityComponent;
-import com.codeest.geeknews.di.module.ActivityModule;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Created by codeest on 16/8/11.
  * 无MVP的activity基类
  */
 
-public abstract class SimpleActivity extends SwipeBackActivity {
+public abstract class SimpleActivity extends SupportActivity {
 
     protected Activity mContext;
 
@@ -48,7 +45,7 @@ public abstract class SimpleActivity extends SwipeBackActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                onBackPressedSupport();
             }
         });
     }

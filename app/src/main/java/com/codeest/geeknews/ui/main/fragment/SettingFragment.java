@@ -84,7 +84,7 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     @OnClick(R.id.ll_setting_update)
     void doUpdate() {
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),"这个功能还没有实现哦~(>_<)~");
+        SnackbarUtil.showShort(llSettingUpdate,"这个功能还没有实现哦~(>_<)~");
     }
 
     @Override
@@ -93,6 +93,7 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
             case R.id.cb_setting_night:
                 if (isNull) {   //防止夜间模式MainActivity执行reCreate后重复调用
                     SharedPreferenceUtil.setNightModeState(b);
+                    SharedPreferenceUtil.setIsChanngeMode(true);
                     NightModeEvent event = new NightModeEvent();
                     event.setNightMode(b);
                     RxBus.getDefault().post(event);

@@ -15,6 +15,7 @@ public class SharedPreferenceUtil {
     private static final boolean DEFAULT_NIGHT_MODE = false;
     private static final boolean DEFAULT_NO_IMAGE = false;
     private static final boolean DEFAULT_AUTO_SAVE = true;
+    private static final boolean DEFAULT_IS_CHANGE_MODE = false;
 
     private static final String SHAREDPREFERENCES_NAME = "my_sp";
 
@@ -44,5 +45,13 @@ public class SharedPreferenceUtil {
 
     public static void setAutoCacheState(boolean state) {
         getAppSp().edit().putBoolean(Constants.SP_AUTO_CACHE, state).commit();
+    }
+
+    public static boolean getIsChangeMode() {
+        return getAppSp().getBoolean(Constants.SP_IS_CHANGE_MODE, DEFAULT_IS_CHANGE_MODE);
+    }
+
+    public static void setIsChanngeMode(boolean state) {
+        getAppSp().edit().putBoolean(Constants.SP_IS_CHANGE_MODE, state).commit();
     }
 }

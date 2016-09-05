@@ -22,7 +22,6 @@ import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.main.fragment.SettingFragment;
 import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -75,7 +74,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     /**
-     * 特殊处理夜间模式
+     * 由于recreate 需要特殊处理夜间模式
      * @param savedInstanceState
      */
     @Override
@@ -83,7 +82,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             SharedPreferenceUtil.setNightModeState(false);
-        } else {
+        } else if(SharedPreferenceUtil.getIsChangeMode()) {
+            SharedPreferenceUtil.setIsChanngeMode(false);
             showFragment = ITEM_SETTING;
             hideFragment = ITEM_ZHIHU;
             showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
@@ -173,11 +173,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mSearchView.setMenuItem(item);
         mSearchMenuItem = item;
         return true;
-    }
-
-    @Override
-    public boolean swipeBackPriority() {
-        return false;
     }
 
     @Override

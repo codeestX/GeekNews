@@ -61,12 +61,6 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
         mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         rvGirlContent.setLayoutManager(mStaggeredGridLayoutManager);
         rvGirlContent.setAdapter(mAdapter);
-
-//        rvGirlContent.setHasFixedSize(true);
-//        rvGirlContent.setItemViewCacheSize(20);
-//        rvGirlContent.setDrawingCacheEnabled(true);
-//        rvGirlContent.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
