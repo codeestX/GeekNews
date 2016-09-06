@@ -76,6 +76,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
             bean.setImage(mData.getImage());
             bean.setTitle(mData.getTitle());
             bean.setType(Constants.TYPE_ZHIHU);
+            bean.setTime(System.currentTimeMillis());
             mRealmHelper.insertLikeBean(bean);
         } else {
             mView.showError("操作失败");

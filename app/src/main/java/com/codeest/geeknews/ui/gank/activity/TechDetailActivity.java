@@ -132,6 +132,7 @@ public class TechDetailActivity extends SimpleActivity {
                     bean.setImage(url);
                     bean.setTitle(title);
                     bean.setType(TechPresenter.getTechType(tech));
+                    bean.setTime(System.currentTimeMillis());
                     mRealmHelper.insertLikeBean(bean);
                 }
                 break;

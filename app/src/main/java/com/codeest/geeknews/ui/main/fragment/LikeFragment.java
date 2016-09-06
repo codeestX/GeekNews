@@ -54,7 +54,7 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
         mCallback = new DefaultItemTouchHelpCallback(new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
             @Override
             public void onSwiped(int adapterPosition) {
-                // 滑动删除的时候，从数据源移除，并刷新这个Item。
+                // 滑动删除的时候，从数据库、数据源移除，并刷新UI
                 if (mList != null) {
                     mPresenter.deleteLikeData(mList.get(adapterPosition).getId());
                     mList.remove(adapterPosition);
@@ -65,6 +65,9 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
             @Override
             public boolean onMove(int srcPosition, int targetPosition) {
                 if (mList != null) {
+                    // 更换数据库中的数据Item的位置
+                    boolean isPlus = srcPosition < targetPosition;
+                    mPresenter.changeLikeTime(mList.get(srcPosition).getId(),mList.get(targetPosition).getTime(),isPlus);
                     // 更换数据源中的数据Item的位置
                     Collections.swap(mList, srcPosition, targetPosition);
                     // 更新UI中的Item的位置，主要是给用户看到交互效果
@@ -82,9 +85,11 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.getLikeData();
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            mPresenter.getLikeData();
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.codeest.geeknews.model.bean.ReadStateBean;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
+import com.codeest.geeknews.util.LogUtil;
 
 import java.util.List;
 
@@ -69,7 +70,19 @@ public class RealmHelper {
     }
 
     public List<RealmLikeBean> getLikeList() {
-        RealmResults<RealmLikeBean> results = mRealm.where(RealmLikeBean.class).findAll();
+        //使用findAllSort ,先findAll再result.sort无效
+        RealmResults<RealmLikeBean> results = mRealm.where(RealmLikeBean.class).findAllSorted("time");
         return mRealm.copyFromRealm(results);
+    }
+
+    public void changeLikeTime(String id ,long time, boolean isPlus) {
+        RealmLikeBean bean = mRealm.where(RealmLikeBean.class).equalTo("id", id).findFirst();
+        mRealm.beginTransaction();
+        if (isPlus) {
+            bean.setTime(++time);
+        } else {
+            bean.setTime(--time);
+        }
+        mRealm.commitTransaction();
     }
 }

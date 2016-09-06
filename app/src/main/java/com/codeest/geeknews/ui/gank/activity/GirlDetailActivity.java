@@ -89,6 +89,7 @@ public class GirlDetailActivity extends SimpleActivity {
                     bean.setId(this.id);
                     bean.setImage(url);
                     bean.setType(Constants.TYPE_GIRL);
+                    bean.setTime(System.currentTimeMillis());
                     mRealmHelper.insertLikeBean(bean);
                 }
                 break;
