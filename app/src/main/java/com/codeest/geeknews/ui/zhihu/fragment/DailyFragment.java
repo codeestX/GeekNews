@@ -21,7 +21,6 @@ import com.codeest.geeknews.ui.zhihu.adapter.DailyAdapter;
 import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -83,9 +82,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                rvDailyList.setVisibility(View.INVISIBLE);
-                viewLoading.start();
-                if(currentDate.equals("今日热闻")) {
+                if(currentDate.equals(DateUtil.getCurrentDate())) {
                     mPresenter.getDailyData();
                 } else {
                     int year = Integer.valueOf(currentDate.substring(0,4));
@@ -98,35 +95,49 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         });
         rvDailyList.setLayoutManager(new LinearLayoutManager(mContext));
         rvDailyList.setAdapter(mAdapter);
-        rvDailyList.setVisibility(View.INVISIBLE);
         viewLoading.start();
         mPresenter.getDailyData();
     }
 
+    /**
+     * 当天数据
+     * @param info
+     */
     @Override
     public void showContent(DailyListBean info) {
-        viewLoading.stop();
-        rvDailyList.setVisibility(View.VISIBLE);
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         mList = info.getStories();
         mAdapter.addDailyDate(info);
+        mPresenter.stopInterval();
         mPresenter.startInterval();
     }
 
+    /**
+     * 过往数据
+     * @param date
+     * @param info
+     */
     @Override
     public void showMoreContent(String date,DailyBeforeListBean info) {
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         mPresenter.stopInterval();
-        swipeRefresh.setRefreshing(false);
         mList = info.getStories();
         currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
         viewLoading.stop();
-        rvDailyList.setVisibility(View.VISIBLE);
         mAdapter.addDailyBeforeDate(info);
     }
 
     @Override
     public void showProgress() {
         viewLoading.start();
-        rvDailyList.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -143,8 +154,11 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void showError(String msg) {
-        swipeRefresh.setRefreshing(false);
-        viewLoading.stop();
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 }

@@ -1,13 +1,9 @@
 package com.codeest.geeknews.ui.zhihu.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
@@ -17,14 +13,12 @@ import com.codeest.geeknews.presenter.contract.ThemeContract;
 import com.codeest.geeknews.ui.zhihu.activity.ThemeActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 2016/8/11.
@@ -72,7 +66,6 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
             }
         });
         mPresenter.getThemeData();
-        rvThemeList.setVisibility(View.INVISIBLE);
         viewLoading.start();
     }
 
@@ -83,7 +76,6 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         } else {
             viewLoading.stop();
         }
-        rvThemeList.setVisibility(View.VISIBLE);
         mList.clear();
         mList.addAll(themeListBean.getOthers());
         mAdapter.notifyDataSetChanged();
@@ -96,7 +88,6 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         } else {
             viewLoading.stop();
         }
-        rvThemeList.setVisibility(View.VISIBLE);
         SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }
 }

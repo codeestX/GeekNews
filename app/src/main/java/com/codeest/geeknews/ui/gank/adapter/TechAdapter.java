@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.codeest.geeknews.R;
-import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.presenter.TechPresenter;
-import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.ImageUtil;
-import com.codeest.geeknews.util.LogUtil;
-import com.codeest.geeknews.util.SystemUtil;
 
 import java.util.List;
 
@@ -102,12 +97,12 @@ public class TechAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
         } else if(holder instanceof TopViewHolder) {
             if (url != null) {
-                ImageLoader.load(mContext, url, ((TopViewHolder)holder).ivOrigin);
                 ivOrigin = ((TopViewHolder)holder).ivOrigin;
                 Glide.with(mContext).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        ((TopViewHolder)holder).ivBlur.setImageBitmap(ImageUtil.doBlur(resource, 50 , true));
+                        ((TopViewHolder)holder).ivOrigin.setImageBitmap(resource);
+                        ((TopViewHolder)holder).ivBlur.setImageBitmap(ImageUtil.doBlur(resource, 50 , false));
                     }
                 });
             }

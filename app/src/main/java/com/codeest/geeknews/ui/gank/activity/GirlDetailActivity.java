@@ -93,10 +93,10 @@ public class GirlDetailActivity extends SimpleActivity {
                 }
                 break;
             case R.id.action_save:
-                SystemUtil.saveBitmapToFile(mContext,url,bitmap);
+                SystemUtil.saveBitmapToFile(mContext,url,bitmap,ivGirlDetail,false);
                 break;
             case R.id.action_share:
-                ShareUtil.shareImage(mContext,SystemUtil.saveBitmapToFile(mContext,url,bitmap),"分享一只妹纸");
+                ShareUtil.shareImage(mContext,SystemUtil.saveBitmapToFile(mContext,url,bitmap,ivGirlDetail,true),"分享一只妹纸");
                 break;
         }
         return super.onOptionsItemSelected(item);

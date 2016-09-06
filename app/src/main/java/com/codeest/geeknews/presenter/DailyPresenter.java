@@ -7,6 +7,7 @@ import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.DailyContract;
+import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.RxUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -64,6 +65,16 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                             day = "0" + day;
                         }
                         return date.append(year).append(month).append(day).toString();
+                    }
+                })
+                .filter(new Func1<String, Boolean>() {
+                    @Override
+                    public Boolean call(String s) {
+                        if(s.equals(DateUtil.getCurrentDate())) {
+                            getDailyData();
+                            return false;
+                        }
+                        return true;
                     }
                 })
                 .observeOn(Schedulers.io())   //为了网络请求切到io线程
@@ -126,7 +137,6 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        LogUtil.d(throwable.toString());
                         mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
@@ -137,6 +147,16 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     public void getBeforeData(String date) {
         Subscription rxSubscription = mRetrofitHelper.fetchDailyBeforeListInfo(date)
                 .compose(RxUtil.<DailyBeforeListBean>rxSchedulerHelper())
+                .map(new Func1<DailyBeforeListBean, DailyBeforeListBean>() {
+                    @Override
+                    public DailyBeforeListBean call(DailyBeforeListBean dailyBeforeListBean) {
+                        List<DailyListBean.StoriesBean> list = dailyBeforeListBean.getStories();
+                        for(DailyListBean.StoriesBean item : list) {
+                            item.setReadState(mRealmHelper.queryNewsId(item.getId()));
+                        }
+                        return dailyBeforeListBean;
+                    }
+                })
                 .subscribe(new Action1<DailyBeforeListBean>() {
                     @Override
                     public void call(DailyBeforeListBean dailyBeforeListBean) {
@@ -171,7 +191,9 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
 
     @Override
     public void stopInterval() {
-        intervalSubscription.unsubscribe();
+        if (intervalSubscription != null) {
+            intervalSubscription.unsubscribe();
+        }
     }
 
     @Override

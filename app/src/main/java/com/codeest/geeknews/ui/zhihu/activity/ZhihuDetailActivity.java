@@ -22,8 +22,8 @@ import com.codeest.geeknews.presenter.contract.ZhihuDetailContract;
 import com.codeest.geeknews.util.HtmlUtil;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.SystemUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
@@ -165,7 +165,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @Override
     public void showError(String msg) {
         viewLoading.stop();
-        ToastUtil.shortShow("获取信息失败");
+        SnackbarUtil.showShort(getWindow().getDecorView(),msg);
     }
 
     @OnClick(R.id.tv_detail_bottom_comment)
@@ -181,7 +181,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @OnClick(R.id.tv_detail_bottom_share)
     void shareUrl() {
-        ShareUtil.shareText(mContext,shareUrl,"分享一篇文章");
+        ShareUtil.shareText(mContext,clpToolbar.getTitle() + " " +shareUrl,"分享一篇文章");
     }
 
     @OnClick(R.id.fab_like)

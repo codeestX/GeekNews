@@ -2,7 +2,6 @@ package com.codeest.geeknews.ui.zhihu.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +70,7 @@ public class ThemeChildAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ViewHolder) {
-            if (mList.get(position).getImages() != null) {
+            if (mList.get(position).getImages() != null && mList.get(position).getImages().size() > 0) {
                 ImageLoader.load(mContext,mList.get(position).getImages().get(0),((ViewHolder) holder).image);
             }
             ((ViewHolder) holder).title.setText(mList.get(position).getTitle());
@@ -79,8 +78,8 @@ public class ThemeChildAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View view) {
                     if(onItemClickListener != null) {
-                        CardView cv = (CardView) view.findViewById(R.id.cv_tech_content);
-                        onItemClickListener.onItemClick(holder.getAdapterPosition(),cv);
+                        SquareImageView iv = (SquareImageView) view.findViewById(R.id.iv_daily_item_image);
+                        onItemClickListener.onItemClick(holder.getAdapterPosition(),iv);
                     }
                 }
             });

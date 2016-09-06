@@ -1,16 +1,12 @@
 package com.codeest.geeknews.ui.zhihu.activity;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.component.RxBus;
-import com.codeest.geeknews.model.bean.CalendarBean;
 import com.codeest.geeknews.util.DateUtil;
-import com.codeest.geeknews.util.LogUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -19,7 +15,6 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.Calendar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

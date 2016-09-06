@@ -12,7 +12,10 @@ import com.codeest.geeknews.component.CrashHandler;
 import com.codeest.geeknews.di.component.AppComponent;
 import com.codeest.geeknews.di.component.DaggerAppComponent;
 import com.codeest.geeknews.di.module.AppModule;
+import com.codeest.geeknews.widget.AppBlockCanaryContext;
+import com.github.moduth.blockcanary.BlockCanary;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,6 +55,12 @@ public class App extends Application{
 
         //初始化错误收集
         CrashHandler.init(new CrashHandler(getApplicationContext()));
+
+        //初始化内存泄漏检测
+        LeakCanary.install(this);
+
+        //初始化过度绘制检测
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
     }
 
     public void addActivity(Activity act) {

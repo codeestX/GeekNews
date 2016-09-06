@@ -124,7 +124,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("加载数据失败");
+                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -147,7 +147,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("加载更多数据失败");
+                        mView.showError("加载更多数据失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);

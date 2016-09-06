@@ -2,7 +2,6 @@ package com.codeest.geeknews.ui.zhihu.activity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +15,12 @@ import com.codeest.geeknews.presenter.ThemeChildPresenter;
 import com.codeest.geeknews.presenter.contract.ThemeChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeChildAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 16/8/24.
@@ -102,14 +99,22 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
 
     @Override
     public void showError(String msg) {
-        viewLoading.stop();
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         SnackbarUtil.showShort(getWindow().getDecorView(),msg);
     }
 
     @Override
     public void showContent(ThemeChildListBean themeChildListBean) {
+        if(swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
         setToolBar(mToolBar,themeChildListBean.getName());
-        viewLoading.stop();
         mList.clear();
         mList.addAll(themeChildListBean.getStories());
         mAdapter.notifyDataSetChanged();

@@ -10,9 +10,9 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ###Preview
 
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part1.gif) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part2.gif) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part3.gif)
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF1.gif) &nbsp;&nbsp;&nbsp;
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF2.gif) &nbsp;&nbsp;&nbsp;
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF3.gif)
 
 ###Download APK
 

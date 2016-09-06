@@ -15,7 +15,6 @@ import com.codeest.geeknews.presenter.SectionChildPresenter;
 import com.codeest.geeknews.presenter.contract.SectionChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.SectionChildAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
@@ -68,7 +67,6 @@ public class SectionActivity extends BaseActivity<SectionChildPresenter> impleme
             @Override
             public void onRefresh() {
                 mPresenter.getThemeChildData(id);
-                viewLoading.start();
             }
         });
         mAdapter.setOnItemClickListener(new SectionChildAdapter.OnItemClickListener() {

@@ -64,6 +64,6 @@ public class WelcomeActivity extends BaseActivity<WelcomePresenter> implements W
 
     @Override
     public void showError(String msg) {
-        //使用默认图片
+
     }
 }

@@ -1,13 +1,8 @@
 package com.codeest.geeknews.ui.zhihu.fragment;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
@@ -16,14 +11,12 @@ import com.codeest.geeknews.presenter.SectionPresenter;
 import com.codeest.geeknews.presenter.contract.SectionContract;
 import com.codeest.geeknews.ui.zhihu.adapter.SectionAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by codeest on 2016/8/11.
@@ -59,7 +52,6 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                viewLoading.start();
                 mPresenter.getSectionData();
             }
         });

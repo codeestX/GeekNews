@@ -14,12 +14,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
+        android:theme="@style/AppTheme">
 
         //主类
         <activity android:name=".ui.main.activity.WelcomeActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,26 +28,34 @@
         </activity>
         <activity android:name="com.codeest.geeknews.ui.main.activity.MainActivity"
             android:launchMode="singleTop"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
         </activity>
 
         //知乎
         <activity android:name=".ui.zhihu.activity.CalendarActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.zhihu.activity.ZhihuDetailActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.zhihu.activity.CommentActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.zhihu.activity.ThemeActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.zhihu.activity.SectionActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         //Gank
         <activity android:name=".ui.gank.activity.TechDetailActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.gank.activity.GirlDetailActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:value="YOUR_APP_KEY"
