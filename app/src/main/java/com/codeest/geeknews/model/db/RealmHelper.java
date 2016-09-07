@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.codeest.geeknews.model.bean.ReadStateBean;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
-import com.codeest.geeknews.util.LogUtil;
 
 import java.util.List;
 
@@ -29,6 +28,10 @@ public class RealmHelper {
                 .build());
     }
 
+    /**
+     * 增加 阅读记录
+     * @param id
+     */
     public void insertNewsId(int id) {
         mRealm.beginTransaction();
         ReadStateBean bean = mRealm.createObject(ReadStateBean.class);
@@ -36,6 +39,11 @@ public class RealmHelper {
         mRealm.commitTransaction();
     }
 
+    /**
+     * 查询 阅读记录
+     * @param id
+     * @return
+     */
     public boolean queryNewsId(int id) {
         RealmResults<ReadStateBean> results = mRealm.where(ReadStateBean.class).findAll();
         for(ReadStateBean item : results) {
@@ -46,12 +54,20 @@ public class RealmHelper {
         return false;
     }
 
+    /**
+     * 增加 收藏记录
+     * @param bean
+     */
     public void insertLikeBean(RealmLikeBean bean) {
         mRealm.beginTransaction();
         mRealm.copyToRealm(bean);
         mRealm.commitTransaction();
     }
 
+    /**
+     * 删除 收藏记录
+     * @param id
+     */
     public void deleteLikeBean(String id) {
         RealmLikeBean data = mRealm.where(RealmLikeBean.class).equalTo("id",id).findFirst();
         mRealm.beginTransaction();
@@ -59,6 +75,11 @@ public class RealmHelper {
         mRealm.commitTransaction();
     }
 
+    /**
+     * 查询 收藏记录
+     * @param id
+     * @return
+     */
     public boolean queryLikeId(String id) {
         RealmResults<RealmLikeBean> results = mRealm.where(RealmLikeBean.class).findAll();
         for(RealmLikeBean item : results) {
@@ -75,6 +96,12 @@ public class RealmHelper {
         return mRealm.copyFromRealm(results);
     }
 
+    /**
+     * 修改 收藏记录 时间戳以重新排序
+     * @param id
+     * @param time
+     * @param isPlus
+     */
     public void changeLikeTime(String id ,long time, boolean isPlus) {
         RealmLikeBean bean = mRealm.where(RealmLikeBean.class).equalTo("id", id).findFirst();
         mRealm.beginTransaction();

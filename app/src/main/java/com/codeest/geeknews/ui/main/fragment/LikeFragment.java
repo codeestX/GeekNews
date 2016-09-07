@@ -3,7 +3,6 @@ package com.codeest.geeknews.ui.main.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseFragment;
@@ -11,9 +10,8 @@ import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.presenter.LikePresenter;
 import com.codeest.geeknews.presenter.contract.LikeContract;
 import com.codeest.geeknews.ui.main.adapter.LikeAdapter;
-import com.codeest.geeknews.util.LogUtil;
+import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.codeest.geeknews.widget.DefaultItemTouchHelpCallback;
 
 import java.util.ArrayList;
@@ -89,6 +87,10 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
         super.onHiddenChanged(hidden);
         if (!hidden) {
             mPresenter.getLikeData();
+            if (!SharedPreferenceUtil.getLikePoint()) {
+                SnackbarUtil.show(rvLikeList,"支持侧滑删除，长按拖曳哦(。・`ω´・)");
+                SharedPreferenceUtil.setLikePoint(true);
+            }
         }
     }
 

@@ -23,14 +23,14 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 使用RxUtil对线程操作和网络请求结果处理做了封装
 * 使用RxPresenter对订阅的生命周期做管理
 * 使用RxBus来方便组件间的通信
-* 使用RxJava其他操作符来做延时、轮询、转化等操作
+* 使用RxJava其他操作符来做延时、轮询、转化、筛选等操作
 * 使用okhttp3对网络返回内容做缓存，还有日志、超时重连、头部消息的配置
 * 使用Material Design控件和动画
 * 使用MVP架构整个项目，对应于model、ui、presenter三个包
 * 使用Dagger2将M层注入P层，将P层注入V层，无需new，直接调用对象
 * 使用Realm做阅读记录、收藏记录的存储和查询
 * 使用Glide做图片的处理和加载
-* 使用Fragmentation简化Fragment的操作
+* 使用Fragmentation简化Fragment的操作和懒加载
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
 * 使用WebView做阅览页，通过修改其配置达成各种需要的功能
 * 使用原生的夜间模式、分享、反馈
@@ -108,7 +108,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ##License
 
-Copyright (c) 2016 codeestX
+Copyright (c) 2016 codeestX &nbsp;&nbsp;&nbsp;<codeest.dev@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

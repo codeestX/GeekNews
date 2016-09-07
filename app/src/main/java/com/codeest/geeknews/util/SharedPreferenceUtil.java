@@ -15,7 +15,8 @@ public class SharedPreferenceUtil {
     private static final boolean DEFAULT_NIGHT_MODE = false;
     private static final boolean DEFAULT_NO_IMAGE = false;
     private static final boolean DEFAULT_AUTO_SAVE = true;
-    private static final boolean DEFAULT_IS_CHANGE_MODE = false;
+    private static final boolean DEFAULT_LIKE_POINT = false;
+    private static final int DEFAULT_CURRENT_ITEM = Constants.TYPE_ZHIHU;
 
     private static final String SHAREDPREFERENCES_NAME = "my_sp";
 
@@ -28,7 +29,7 @@ public class SharedPreferenceUtil {
     }
 
     public static void setNightModeState(boolean state) {
-        getAppSp().edit().clear().putBoolean(Constants.SP_NIGHT_MODE, state).commit();
+        getAppSp().edit().putBoolean(Constants.SP_NIGHT_MODE, state).commit();
     }
 
     public static boolean getNoImageState() {
@@ -47,11 +48,19 @@ public class SharedPreferenceUtil {
         getAppSp().edit().putBoolean(Constants.SP_AUTO_CACHE, state).commit();
     }
 
-    public static boolean getIsChangeMode() {
-        return getAppSp().getBoolean(Constants.SP_IS_CHANGE_MODE, DEFAULT_IS_CHANGE_MODE);
+    public static int getCurrentItem() {
+        return getAppSp().getInt(Constants.SP_CURRENT_ITEM, DEFAULT_CURRENT_ITEM);
     }
 
-    public static void setIsChanngeMode(boolean state) {
-        getAppSp().edit().putBoolean(Constants.SP_IS_CHANGE_MODE, state).commit();
+    public static void setCurrentItem(int item) {
+        getAppSp().edit().putInt(Constants.SP_CURRENT_ITEM, item).commit();
+    }
+
+    public static boolean getLikePoint() {
+        return getAppSp().getBoolean(Constants.SP_LIKE_POINT, DEFAULT_LIKE_POINT);
+    }
+
+    public static void setLikePoint(boolean isFirst) {
+        getAppSp().edit().putBoolean(Constants.SP_LIKE_POINT, isFirst).commit();
     }
 }

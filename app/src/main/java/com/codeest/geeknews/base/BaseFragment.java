@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +12,12 @@ import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.component.DaggerFragmentComponent;
 import com.codeest.geeknews.di.component.FragmentComponent;
 import com.codeest.geeknews.di.module.FragmentModule;
-import com.codeest.geeknews.util.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation.Fragmentation;
 import me.yokeyword.fragmentation.SupportFragment;
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
  * Created by codeest on 2016/8/2.
@@ -35,6 +30,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     protected View mView;
     protected Activity mActivity;
     protected Context mContext;
+    private boolean isInited = false;
 
     @Override
     public void onAttach(Context context) {
@@ -67,7 +63,26 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
         super.onViewCreated(view, savedInstanceState);
         mPresenter.attachView(this);
         ButterKnife.bind(this, view);
-        initEventAndData();
+        if (savedInstanceState == null) {
+            if (!isHidden()) {
+                isInited = true;
+                initEventAndData();
+            }
+        } else {
+            if (!isSupportHidden()) {
+                isInited = true;
+                initEventAndData();
+            }
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!isInited && !hidden) {
+            isInited = true;
+            initEventAndData();
+        }
     }
 
     @Override

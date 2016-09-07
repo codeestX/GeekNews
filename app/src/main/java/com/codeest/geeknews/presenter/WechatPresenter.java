@@ -81,7 +81,7 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
+                        mView.showError("没有更多了ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -131,7 +131,7 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("搜索失败");
+                        mView.showError("搜索失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);

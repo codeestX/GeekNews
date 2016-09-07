@@ -16,6 +16,7 @@ import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.db.RealmHelper;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
 
@@ -94,7 +95,9 @@ public class GirlDetailActivity extends SimpleActivity {
                 }
                 break;
             case R.id.action_save:
+                LogUtil.d("start");
                 SystemUtil.saveBitmapToFile(mContext,url,bitmap,ivGirlDetail,false);
+                LogUtil.d("stop");
                 break;
             case R.id.action_share:
                 ShareUtil.shareImage(mContext,SystemUtil.saveBitmapToFile(mContext,url,bitmap,ivGirlDetail,true),"分享一只妹纸");

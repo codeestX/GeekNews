@@ -15,8 +15,8 @@ import com.codeest.geeknews.presenter.contract.TechContract;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.ui.gank.adapter.TechAdapter;
 import com.codeest.geeknews.util.DateUtil;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.codeest.geeknews.R;
-import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.base.SimpleFragment;
 import com.codeest.geeknews.ui.zhihu.adapter.ZhihuMainAdapter;
 
@@ -37,7 +36,6 @@ public class ZhihuMainFragment extends SimpleFragment{
 
     @Override
     protected void initEventAndData() {
-
         fragments.add(new DailyFragment());
         fragments.add(new ThemeFragment());
         fragments.add(new SectionFragment());

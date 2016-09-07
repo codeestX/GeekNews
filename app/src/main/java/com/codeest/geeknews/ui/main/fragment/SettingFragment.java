@@ -1,5 +1,7 @@
 package com.codeest.geeknews.ui.main.fragment;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -63,6 +65,14 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
         cbSettingCache.setOnCheckedChangeListener(this);
         cbSettingImage.setOnCheckedChangeListener(this);
         cbSettingNight.setOnCheckedChangeListener(this);
+        try {
+            PackageManager pm = getActivity().getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(getActivity().getPackageName(), PackageManager.GET_ACTIVITIES);
+            String versionName = pi.versionName;
+            tvSettingUpdate.setText("当前版本号 v" + versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -93,7 +103,6 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
             case R.id.cb_setting_night:
                 if (isNull) {   //防止夜间模式MainActivity执行reCreate后重复调用
                     SharedPreferenceUtil.setNightModeState(b);
-                    SharedPreferenceUtil.setIsChanngeMode(true);
                     NightModeEvent event = new NightModeEvent();
                     event.setNightMode(b);
                     RxBus.getDefault().post(event);

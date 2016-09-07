@@ -61,9 +61,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     AboutFragment mAboutFragment;
     MenuItem mLastMenuItem;
     MenuItem mSearchMenuItem;
+    String currentTitle;
 
-    private String hideFragment = ITEM_ZHIHU;
-    private String showFragment = ITEM_ZHIHU;
+    private int hideFragment = Constants.TYPE_ZHIHU;
+    private int showFragment = Constants.TYPE_ZHIHU;
 
     @Override
     protected void initInject() {
@@ -84,13 +85,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             SharedPreferenceUtil.setNightModeState(false);
-        } else if(SharedPreferenceUtil.getIsChangeMode()) {
-            SharedPreferenceUtil.setIsChanngeMode(false);
-            showFragment = ITEM_SETTING;
-            hideFragment = ITEM_ZHIHU;
+        } else {
+            showFragment = SharedPreferenceUtil.getCurrentItem();
+            hideFragment = Constants.TYPE_ZHIHU;
             showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
             mNavigationView.getMenu().findItem(R.id.drawer_zhihu).setChecked(false);
-            hideFragment = ITEM_SETTING;
+            hideFragment = showFragment;
         }
     }
 
@@ -113,27 +113,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.drawer_zhihu:
-                        showFragment = ITEM_ZHIHU;
+                        showFragment = Constants.TYPE_ZHIHU;
                         mSearchMenuItem.setVisible(false);
                         break;
                     case R.id.drawer_gank:
-                        showFragment = ITEM_GANK;
+                        showFragment = Constants.TYPE_GANK;
                         mSearchMenuItem.setVisible(true);
                         break;
                     case R.id.drawer_wechat:
-                        showFragment = ITEM_WECHAT;
+                        showFragment = Constants.TYPE_WECHAT;
                         mSearchMenuItem.setVisible(true);
                         break;
                     case R.id.drawer_setting:
-                        showFragment = ITEM_SETTING;
+                        showFragment = Constants.TYPE_SETTING;
                         mSearchMenuItem.setVisible(false);
                         break;
                     case R.id.drawer_like:
-                        showFragment = ITEM_LIKE;
+                        showFragment = Constants.TYPE_LIKE;
                         mSearchMenuItem.setVisible(false);
                         break;
                     case R.id.drawer_about:
-                        showFragment = ITEM_ABOUT;
+                        showFragment = Constants.TYPE_ABOUT;
                         mSearchMenuItem.setVisible(false);
                         break;
                 }
@@ -141,20 +141,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     mLastMenuItem.setChecked(false);
                 }
                 mLastMenuItem = menuItem;
+                SharedPreferenceUtil.setCurrentItem(showFragment);
                 menuItem.setChecked(true);
-                mToolbar.setTitle(showFragment);
+                mToolbar.setTitle(menuItem.getTitle());
                 mDrawerLayout.closeDrawers();
                 showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
-                hideFragment = menuItem.getTitle().toString();
+                hideFragment = showFragment;
                 return true;
             }
         });
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(showFragment.equals(ITEM_GANK)) {
+                if(showFragment == Constants.TYPE_GANK) {
                     mGankFragment.doSearch(query);
-                } else if(showFragment.equals(ITEM_WECHAT)) {
+                } else if(showFragment == Constants.TYPE_WECHAT) {
                     RxBus.getDefault().post(new SearchEvent(query, Constants.TYPE_WECHAT));
                 }
                 return false;
@@ -205,19 +206,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         builder.show();
     }
 
-    private SupportFragment getTargetFragment(String item) {
+    private SupportFragment getTargetFragment(int item) {
         switch (item) {
-            case ITEM_ZHIHU:
+            case Constants.TYPE_ZHIHU:
                 return mZhihuFragment;
-            case ITEM_GANK:
+            case Constants.TYPE_GANK:
                 return mGankFragment;
-            case ITEM_WECHAT:
+            case Constants.TYPE_WECHAT:
                 return mWechatFragment;
-            case ITEM_LIKE:
+            case Constants.TYPE_LIKE:
                 return mLikeFragment;
-            case ITEM_SETTING:
+            case Constants.TYPE_SETTING:
                 return mSettingFragment;
-            case ITEM_ABOUT:
+            case Constants.TYPE_ABOUT:
                 return mAboutFragment;
         }
         return mZhihuFragment;

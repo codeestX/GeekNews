@@ -28,6 +28,6 @@ public class ShareUtil {
     public static void sendEmail(Context context, String title) {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto", EMAIL_ADDRESS, null));
-        context.startActivity(Intent.createChooser(intent, "选择邮件客户端:"));
+        context.startActivity(Intent.createChooser(intent, title));
     }
 }

@@ -12,7 +12,6 @@ import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.SearchEvent;
 import com.codeest.geeknews.presenter.TechPresenter;
 import com.codeest.geeknews.ui.gank.adapter.GankMainAdapter;
-import com.codeest.geeknews.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -23,6 +23,14 @@ public class Constants {
 
     public static final int TYPE_WECHAT = 106;
 
+    public static final int TYPE_GANK = 107;
+
+    public static final int TYPE_SETTING = 108;
+
+    public static final int TYPE_LIKE = 109;
+
+    public static final int TYPE_ABOUT = 110;
+
     //================= KEY ====================
 
     public static final String KEY_API = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
@@ -47,5 +55,7 @@ public class Constants {
 
     public static final String SP_AUTO_CACHE = "auto_cache";
 
-    public static final String SP_IS_CHANGE_MODE = "is_change_mode";
+    public static final String SP_CURRENT_ITEM = "current_item";
+
+    public static final String SP_LIKE_POINT = "like_point";
 }

@@ -62,7 +62,6 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @BindView(R.id.fab_like)
     FloatingActionButton fabLike;
 
-
     int id = 0;
     int allNum = 0;
     int shortNum = 0;
@@ -181,7 +180,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @OnClick(R.id.tv_detail_bottom_share)
     void shareUrl() {
-        ShareUtil.shareText(mContext,clpToolbar.getTitle() + " " +shareUrl,"分享一篇文章");
+        ShareUtil.shareText(mContext,shareUrl,"分享一篇文章");
     }
 
     @OnClick(R.id.fab_like)

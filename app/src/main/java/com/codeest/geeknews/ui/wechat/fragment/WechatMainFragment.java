@@ -11,7 +11,6 @@ import com.codeest.geeknews.presenter.WechatPresenter;
 import com.codeest.geeknews.presenter.contract.WechatContract;
 import com.codeest.geeknews.ui.wechat.adapter.WechatAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
