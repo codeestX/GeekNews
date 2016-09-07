@@ -25,6 +25,7 @@ import com.codeest.geeknews.ui.main.fragment.SettingFragment;
 import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
+import com.codeest.geeknews.util.SnackbarUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import butterknife.BindView;
@@ -45,13 +46,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R.id.view_search)
     MaterialSearchView mSearchView;
 
-    private static final String ITEM_ZHIHU = "知乎日报";
-    private static final String ITEM_WECHAT = "微信精选";
-    private static final String ITEM_GANK = "干货集中营";
-    private static final String ITEM_LIKE = "收藏";
-    private static final String ITEM_SETTING = "设置";
-    private static final String ITEM_ABOUT = "关于";
-
     ActionBarDrawerToggle mDrawerToggle;
     ZhihuMainFragment mZhihuFragment;
     GankMainFragment mGankFragment;
@@ -61,7 +55,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     AboutFragment mAboutFragment;
     MenuItem mLastMenuItem;
     MenuItem mSearchMenuItem;
-    String currentTitle;
 
     private int hideFragment = Constants.TYPE_ZHIHU;
     private int showFragment = Constants.TYPE_ZHIHU;
@@ -96,7 +89,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initEventAndData() {
-        setToolBar(mToolbar,ITEM_ZHIHU);
+        setToolBar(mToolbar,"知乎日报");
         mZhihuFragment = new ZhihuMainFragment();
         mGankFragment = new GankMainFragment();
         mWechatFragment = new WechatMainFragment();
@@ -180,7 +173,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showError(String msg) {
-
+        SnackbarUtil.showShort(mToolbar,msg);
     }
 
     @Override

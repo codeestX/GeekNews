@@ -85,7 +85,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         } else {
             viewLoading.stop();
         }
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
+        SnackbarUtil.showShort(rvHotContent,msg);
     }
 
     @Override

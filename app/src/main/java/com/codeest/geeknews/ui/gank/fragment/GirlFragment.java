@@ -91,14 +91,18 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
                 mContext.startActivity(intent,options.toBundle());
             }
         });
+        viewLoading.start();
         mPresenter.getGirlData();
-//        viewLoading.start();
     }
 
     @Override
     public void showError(String msg) {
-        viewLoading.stop();
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
+        if (swipeRefresh.isRefreshing()) {
+            swipeRefresh.setRefreshing(false);
+        } else {
+            viewLoading.stop();
+        }
+        SnackbarUtil.showShort(rvGirlContent,msg);
     }
 
     @Override

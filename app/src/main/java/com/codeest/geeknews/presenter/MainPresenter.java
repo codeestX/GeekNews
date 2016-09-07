@@ -43,7 +43,7 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mView.showError("切换模式失败ヽ(≧Д≦)ノ");
                     }
 
                     @Override

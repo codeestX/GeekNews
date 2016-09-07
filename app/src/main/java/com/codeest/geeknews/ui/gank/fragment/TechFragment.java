@@ -110,7 +110,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
         } else {
             viewLoading.stop();
         }
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
+        SnackbarUtil.showShort(rvTechContent,msg);
     }
 
     @Override

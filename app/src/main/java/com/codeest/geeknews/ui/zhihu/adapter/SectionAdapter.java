@@ -2,7 +2,6 @@ package com.codeest.geeknews.ui.zhihu.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.component.ImageLoader;
-import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.SectionListBean;
 import com.codeest.geeknews.ui.zhihu.activity.SectionActivity;
+import com.codeest.geeknews.util.SystemUtil;
 
 import java.util.List;
 
@@ -44,6 +44,11 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        //Glide在加载GridView等时,由于ImageView和Bitmap实际大小不符合,第一次时加载可能会变形(我这里出现了放大),必须在加载前再次固定ImageView大小
+        ViewGroup.LayoutParams lp = holder.ivBg.getLayoutParams();
+        lp.width = (App.SCREEN_WIDTH - SystemUtil.dp2px(mContext,12)) / 2;
+        lp.height = SystemUtil.dp2px(mContext,120);
+
         ImageLoader.load(mContext,mList.get(position).getThumbnail(),holder.ivBg);
         holder.tvKind.setText(mList.get(position).getName());
         holder.tvDes.setText(mList.get(position).getDescription());

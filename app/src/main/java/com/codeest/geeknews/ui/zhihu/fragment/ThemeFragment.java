@@ -88,6 +88,6 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         } else {
             viewLoading.stop();
         }
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
+        SnackbarUtil.showShort(rvThemeList,msg);
     }
 }

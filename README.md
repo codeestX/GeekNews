@@ -6,15 +6,16 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容目前包括知乎日报、微信精选、干货集中营，知识、新闻、福利一网打尽，后期会持续更新，坚持在这个项目上实践最新的技术，也会争取拓展更多的阅读内容
 
-本项目还在测试阶段，发现bug或有好的建议欢迎issue、email，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，请勿用于其他用途
+本项目还在测试阶段，发现bug或有好的建议欢迎[issue](https://github.com/codeestX/GeekNews/issues)、email(codeest.dev@gmail.com)，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
 
 ###Preview
 
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF1.gif) &nbsp;&nbsp;&nbsp;
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF2.gif) &nbsp;&nbsp;&nbsp;
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF3.gif)
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part1.gif) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part2.gif) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/part3.gif)
 
-###Download APK
+###[Download APK](http://fir.im/xt2f)
+![](https://github.com/codeestX/GeekNews/raw/master/screenshots/download.png)
 
 
 ##Points
@@ -23,14 +24,14 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 使用RxUtil对线程操作和网络请求结果处理做了封装
 * 使用RxPresenter对订阅的生命周期做管理
 * 使用RxBus来方便组件间的通信
-* 使用RxJava其他操作符来做延时、轮询、转化、筛选等操作
+* 使用RxJava其他操作符来做延时、轮询、转化等操作
 * 使用okhttp3对网络返回内容做缓存，还有日志、超时重连、头部消息的配置
 * 使用Material Design控件和动画
 * 使用MVP架构整个项目，对应于model、ui、presenter三个包
 * 使用Dagger2将M层注入P层，将P层注入V层，无需new，直接调用对象
 * 使用Realm做阅读记录、收藏记录的存储和查询
 * 使用Glide做图片的处理和加载
-* 使用Fragmentation简化Fragment的操作和懒加载
+* 使用Fragmentation简化Fragment的操作
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
 * 使用WebView做阅览页，通过修改其配置达成各种需要的功能
 * 使用原生的夜间模式、分享、反馈
@@ -38,7 +39,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ##Version
 
-###V1.0.0
+###V1.0
 `1.提交第一版`
 
 ##Thanks
@@ -108,7 +109,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ##License
 
-Copyright (c) 2016 codeestX &nbsp;&nbsp;&nbsp;<codeest.dev@gmail.com>
+Copyright (c) 2016 codeestX
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

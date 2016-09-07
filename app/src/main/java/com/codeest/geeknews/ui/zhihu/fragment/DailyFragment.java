@@ -159,6 +159,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         } else {
             viewLoading.stop();
         }
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
+        SnackbarUtil.showShort(rvDailyList,msg);
     }
 }

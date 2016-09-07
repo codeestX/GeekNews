@@ -103,6 +103,6 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
         } else {
             viewLoading.stop();
         }
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
+        SnackbarUtil.showShort(rvWechatList,msg);
     }
 }

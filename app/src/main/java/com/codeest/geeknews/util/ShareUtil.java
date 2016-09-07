@@ -26,8 +26,8 @@ public class ShareUtil {
     }
 
     public static void sendEmail(Context context, String title) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", EMAIL_ADDRESS, null));
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(
+                "mailto:" + EMAIL_ADDRESS));
         context.startActivity(Intent.createChooser(intent, title));
     }
 }

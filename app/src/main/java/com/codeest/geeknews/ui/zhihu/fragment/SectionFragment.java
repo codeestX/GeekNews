@@ -66,7 +66,7 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
         } else {
             viewLoading.stop();
         }
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
+        SnackbarUtil.showShort(rvSectionList,msg);
     }
 
     @Override
