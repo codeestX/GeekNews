@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.view.KeyEvent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -67,7 +68,10 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     int shortNum = 0;
     int longNum = 0;
     String shareUrl;
+    String imgUrl;
     boolean isBottomShow = true;
+    boolean isImageShow = false;
+    boolean isTransitionEnd = false;
 
     @Override
     protected void initInject() {
@@ -125,13 +129,43 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
                 }
             }
         });
+        (getWindow().getSharedElementEnterTransition()).addListener(new Transition.TransitionListener() {
+            @Override
+            public void onTransitionStart(Transition transition) {
+            }
+            @Override
+            public void onTransitionEnd(Transition transition) {
+                /**
+                 * 测试发现部分手机(如红米note2)上加载图片会变形,没有达到centerCrop效果
+                 * 查阅资料发现Glide配合SharedElementTransition是有坑的,需要在Transition动画结束后再加载图片
+                 * https://github.com/TWiStErRob/glide-support/blob/master/src/glide3/java/com/bumptech/glide/supportapp/github/_847_shared_transition/DetailFragment.java
+                 */
+                isTransitionEnd = true;
+                if (imgUrl != null) {
+                    isImageShow = true;
+                    ImageLoader.load(mContext, imgUrl, detailBarImage);
+                }
+            }
+            @Override
+            public void onTransitionCancel(Transition transition) {
+            }
+            @Override
+            public void onTransitionPause(Transition transition) {
+            }
+            @Override
+            public void onTransitionResume(Transition transition) {
+            }
+        });
     }
 
     @Override
     public void showContent(ZhihuDetailBean zhihuDetailBean) {
         viewLoading.stop();
+        imgUrl = zhihuDetailBean.getImage();
         shareUrl = zhihuDetailBean.getShare_url();
-        ImageLoader.load(mContext, zhihuDetailBean.getImage(), detailBarImage);
+        if (!isImageShow && isTransitionEnd) {
+            ImageLoader.load(mContext, zhihuDetailBean.getImage(), detailBarImage);
+        }
         clpToolbar.setTitle(zhihuDetailBean.getTitle());
         detailBarCopyright.setText(zhihuDetailBean.getImage_source());
         String htmlData = HtmlUtil.createHtmlData(zhihuDetailBean.getBody(),zhihuDetailBean.getCss(),zhihuDetailBean.getJs());

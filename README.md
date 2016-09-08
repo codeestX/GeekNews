@@ -6,7 +6,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容目前包括知乎日报、微信精选、干货集中营，知识、新闻、福利一网打尽，后期会持续更新，坚持在这个项目上实践最新的技术，也会争取拓展更多的阅读内容
 
-本项目还在测试阶段，发现bug或有好的建议欢迎[issue](https://github.com/codeestX/GeekNews/issues)、email(codeest.dev@gmail.com)，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
+本项目还在测试阶段，发现bug或有好的建议欢迎[issue](https://github.com/codeestX/GeekNews/issues)、email(codeest.dev@gmail.com)、PR，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
 
 ###Preview
 
@@ -29,13 +29,14 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 使用Material Design控件和动画
 * 使用MVP架构整个项目，对应于model、ui、presenter三个包
 * 使用Dagger2将M层注入P层，将P层注入V层，无需new，直接调用对象
-* 使用Realm做阅读记录、收藏记录的存储和查询
+* 使用Realm做阅读记录和收藏记录的增、删、查、改
 * 使用Glide做图片的处理和加载
 * 使用Fragmentation简化Fragment的操作和懒加载
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
 * 使用WebView做阅览页，通过修改其配置达成各种需要的功能
 * 使用原生的夜间模式、分享、反馈
 * 包含搜索、收藏、检测更新（尚未实现）等功能
+* 所有踩到的坑都在项目里做了注释
 
 ##Version
 
