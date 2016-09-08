@@ -12,4 +12,10 @@
     <color name="drawer_item_bg_n">#303030</color>
     <color name="news_unread">#999999</color>
     <color name="news_read">#6b6d72</color>
+
+    <color name="comment_text">#bdb4b3</color>
+    <color name="comment_reply">#606266</color>
+    <color name="comment_btn">#606266</color>
+    <color name="comment_line">#222222</color>
+    <color name="comment_at">#3289b3</color>
 </resources>

@@ -8,7 +8,6 @@ import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.model.http.WXHttpResponse;
 import com.codeest.geeknews.presenter.contract.WechatContract;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.RxUtil;
 
 import java.util.List;
@@ -55,7 +54,6 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        LogUtil.d(throwable.toString());
                         mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
@@ -100,7 +98,6 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        LogUtil.d(throwable.toString());
                         mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });

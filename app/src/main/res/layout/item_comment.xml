@@ -25,6 +25,7 @@
         <TextView
             android:id="@+id/tv_comment_content"
             android:textColor="@color/comment_text"
+            android:textSize="14sp"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/reply_bg"
             android:paddingStart="6dp"
+            android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <RelativeLayout

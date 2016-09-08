@@ -108,7 +108,6 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                     @Override
                     public void call(Throwable throwable) {
                         registerEvent();
-                        LogUtil.d(throwable.toString());
                         mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }});
         addSubscrebe(rxSubscription);

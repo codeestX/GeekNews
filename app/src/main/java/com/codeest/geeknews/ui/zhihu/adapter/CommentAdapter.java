@@ -1,8 +1,12 @@
 package com.codeest.geeknews.ui.zhihu.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +61,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.tvLike.setText(String.valueOf(info.getLikes()));
         if (info.getReply_to() != null && info.getReply_to().getId() != 0) {
             holder.tvReply.setVisibility(View.VISIBLE);
-            holder.tvReply.setText(String.format("@%s: %s",info.getReply_to().getAuthor(),info.getReply_to().getContent()));
+            SpannableString ss = new SpannableString("@" + info.getReply_to().getAuthor() + ": " + info.getReply_to().getContent());
+            ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.comment_at)), 0,info.getReply_to().getAuthor().length() + 2 , Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+//            holder.tvReply.setText(String.format("@%s: %s",info.getReply_to().getAuthor(),info.getReply_to().getContent()));
+            holder.tvReply.setText(ss);
             if (info.getReply_to().getExpandState() == STATE_NULL) {    //未知
                 holder.tvReply.post(new Runnable() {
                     @Override
