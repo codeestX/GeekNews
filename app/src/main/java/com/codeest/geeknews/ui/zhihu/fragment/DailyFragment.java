@@ -111,6 +111,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
             viewLoading.stop();
         }
         mList = info.getStories();
+        currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
         mAdapter.addDailyDate(info);
         mPresenter.stopInterval();
         mPresenter.startInterval();
