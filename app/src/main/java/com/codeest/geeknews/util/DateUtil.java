@@ -1,7 +1,5 @@
 package com.codeest.geeknews.util;
 
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +18,15 @@ public class DateUtil {
     public static String getCurrentDate() {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
         return df.format(new Date());
+    }
+
+    /**
+     * 获取当前日期
+     * @return
+     */
+    public static String getTomorrowDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+        return String.valueOf(Integer.valueOf(df.format(new Date())) + 1);
     }
 
     /**

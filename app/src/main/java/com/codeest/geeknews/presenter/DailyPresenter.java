@@ -8,7 +8,6 @@ import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.DailyContract;
 import com.codeest.geeknews.util.DateUtil;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.RxUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
@@ -26,6 +25,8 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by codeest on 16/8/11.
+ * 日期为明天时，取latest接口的数据
+ * 其他日期，取before接口的数据
  */
 
 public class DailyPresenter extends RxPresenter<DailyContract.View> implements DailyContract.Presenter{
@@ -57,7 +58,7 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         StringBuilder date = new StringBuilder();
                         String year = String.valueOf(calendarDay.getYear());
                         String month = String.valueOf(calendarDay.getMonth() + 1);
-                        String day = String.valueOf(calendarDay.getDay());
+                        String day = String.valueOf(calendarDay.getDay() + 1);
                         if(month.length() < 2) {
                             month = "0" + month;
                         }
@@ -70,7 +71,7 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                 .filter(new Func1<String, Boolean>() {
                     @Override
                     public Boolean call(String s) {
-                        if(s.equals(DateUtil.getCurrentDate())) {
+                        if(s.equals(DateUtil.getTomorrowDate())) {
                             getDailyData();
                             return false;
                         }

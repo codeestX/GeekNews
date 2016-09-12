@@ -60,7 +60,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     protected void initEventAndData() {
-        currentDate = DateUtil.getCurrentDate();
+        currentDate = DateUtil.getTomorrowDate();
         mAdapter = new DailyAdapter(mContext,mList);
         mAdapter.setOnItemClickListener(new DailyAdapter.OnItemClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(currentDate.equals(DateUtil.getCurrentDate())) {
+                if(currentDate.equals(DateUtil.getTomorrowDate())) {
                     mPresenter.getDailyData();
                 } else {
                     int year = Integer.valueOf(currentDate.substring(0,4));
@@ -111,6 +111,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
             viewLoading.stop();
         }
         mList = info.getStories();
+        currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
         mAdapter.addDailyDate(info);
         mPresenter.stopInterval();
         mPresenter.startInterval();
@@ -130,7 +131,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         }
         mPresenter.stopInterval();
         mList = info.getStories();
-        currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
+        currentDate = String.valueOf(Integer.valueOf(info.getDate()));
         viewLoading.stop();
         mAdapter.addDailyBeforeDate(info);
     }

@@ -42,15 +42,17 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ##Version
 
-###V1.0
-`1.提交第一版`
+###V1.0.1
+1.感谢 [@kingkingruan](https://github.com/kingkingruan)提出的过去切回今天日期未更新的bug，已修复
+
+###V1.0.0
+
+1.提交第一版
 
 ##Thanks
 
 ###API:
-[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[微信精选API](http://apistore.baidu.com/apiworks/servicedetail/632.html)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[干货集中营API](http://gank.io/api)
+[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://apistore.baidu.com/apiworks/servicedetail/632.html)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)
 
 ###APP:
 [Hot](https://github.com/zj-wukewei/Hot) 提供了Dagger2配合MVP的架构思路
