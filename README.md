@@ -15,6 +15,8 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF3.gif)
 
 ###[Download APK](http://fir.im/xt2f)
+(Android 5.0 or above)
+
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/download.png)
 
 
@@ -63,57 +65,40 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 [material UP](http://www.material.uplabs.com/) 提供了Material Design风格的素材
 
 ###LIB:
-	//ui
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
-    compile 'com.android.support:cardview-v7:24.1.1'
-
-    //rx
-    compile 'io.reactivex:rxjava:1.1.0'
-    compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-
-    //network
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-
-    //di
-    compile 'com.google.dagger:dagger:2.0.2'
-    compile 'com.google.dagger:dagger-compiler:2.0.2'
-    compile 'com.jakewharton:butterknife:8.2.1'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-
-    //other
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.orhanobut:logger:1.15'
-    compile 'me.yokeyword:fragmentation:0.7.9'
-    compile 'com.victor:lib:1.0.4'
-    compile 'com.prolificinteractive:material-calendarview:1.4.0'
-    compile 'net.opacapp:multiline-collapsingtoolbar:1.2.2'
-    compile 'com.github.chrisbanes:PhotoView:1.3.0'
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
-
-    //canary
-    debugCompile 'com.github.moduth:blockcanary-android:1.2.1'
-    releaseCompile 'com.github.moduth:blockcanary-no-op:1.2.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'`
-
+####UI
+* [MaterialCalendarView](https://github.com/prolificinteractive/material-calendarview)
+* [MaterialSearchView](https://github.com/MiguelCatalan/MaterialSearchView)
+* [multiline-collapsingtoolbar](https://github.com/opacapp/multiline-collapsingtoolbar)
+* [PhotoView](https://github.com/chrisbanes/PhotoView)
+* [Loading](https://github.com/yankai-victor/Loading)
+####RX
+* [RxJava](https://github.com/ReactiveX/RxJava)
+* [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+* [RxBinding](https://github.com/JakeWharton/RxBinding)
+####NETWORK
+* [Gson](https://github.com/google/gson)
+* [Retrofit](https://github.com/square/retrofit)
+* [OkHttp](https://github.com/square/okhttp)
+* [Glide](https://github.com/bumptech/glide)
+####DI
+* [Dagger2](https://github.com/google/dagger)
+* [ButterKnife](https://github.com/JakeWharton/butterknife)
+####FRAGMENT
+* [Fragmentation](https://github.com/YoKeyword/Fragmentation)
+####LOG
+* [Logger](https://github.com/orhanobut/logger)
+####DB
+* [Realm](https://github.com/realm/realm-java)
+####CANARY
+* [BlockCanary](https://github.com/markzhai/AndroidPerformanceMonitor)
+* [LeakCanary](https://github.com/square/leakcanary)
 
 ##License
 
-Copyright (c) 2016 codeestX
+	Copyright (c) 2016 codeestX
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

@@ -54,7 +54,7 @@ public class RxUtil {
     }
 
     /**
-     * 生成Observable
+     * 统一返回结果处理
      * @param <T>
      * @return
      */
@@ -76,6 +76,11 @@ public class RxUtil {
         };
     }
 
+    /**
+     * 生成Observable
+     * @param <T>
+     * @return
+     */
     public static <T> Observable<T> createData(final T t) {
         return Observable.create(new Observable.OnSubscribe<T>() {
             @Override
