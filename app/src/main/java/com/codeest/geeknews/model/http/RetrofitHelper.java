@@ -95,19 +95,20 @@ public class RetrofitHelper {
                 return response;
             }
         };
-        Interceptor apikey = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                request = request.newBuilder()
-                        .addHeader("apikey",Constants.KEY_API)
-                        .build();
-                return chain.proceed(request);
-            }
-        };
+//        Interceptor apikey = new Interceptor() {
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request();
+//                request = request.newBuilder()
+//                        .addHeader("apikey",Constants.KEY_API)
+//                        .build();
+//                return chain.proceed(request);
+//            }
+//        };
+//        builder.addInterceptor(apikey);
+        //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);
-        builder.addInterceptor(apikey);
         builder.cache(cache);
         //设置超时
         builder.connectTimeout(10, TimeUnit.SECONDS);
@@ -213,10 +214,10 @@ public class RetrofitHelper {
     }
 
     public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatListInfo(int num, int page) {
-        return wechatApiService.getWXHot(num, page);
+        return wechatApiService.getWXHot(Constants.KEY_API, num, page);
     }
 
     public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatSearchListInfo(int num, int page, String word) {
-        return wechatApiService.getWXHotSearch(num, page, word);
+        return wechatApiService.getWXHotSearch(Constants.KEY_API, num, page, word);
     }
 }

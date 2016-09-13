@@ -16,6 +16,7 @@ import com.codeest.geeknews.widget.AppBlockCanaryContext;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -61,6 +62,18 @@ public class App extends Application{
 
         //初始化过度绘制检测
         BlockCanary.install(this, new AppBlockCanaryContext()).start();
+
+        //初始化tbs x5 webview
+        QbSdk.allowThirdPartyAppDownload(true);
+        QbSdk.initX5Environment(getApplicationContext(), QbSdk.WebviewInitType.FIRSTUSE_AND_PRELOAD, new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+            }
+        });
     }
 
     public void addActivity(Activity act) {

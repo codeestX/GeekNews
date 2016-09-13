@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codeest.geeknews">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -37,6 +38,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.zhihu.activity.ZhihuDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.zhihu.activity.CommentActivity"
@@ -51,6 +54,8 @@
 
         //Gank
         <activity android:name=".ui.gank.activity.TechDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.gank.activity.GirlDetailActivity"

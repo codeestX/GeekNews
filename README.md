@@ -35,7 +35,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 使用Glide做图片的处理和加载
 * 使用Fragmentation简化Fragment的操作和懒加载
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
-* 使用WebView做阅览页，通过修改其配置达成各种需要的功能
+* 使用x5WebView做阅览页，比原生WebView体验更佳
 * 使用原生的夜间模式、分享、反馈
 * 包含搜索、收藏、检测更新（尚未实现）等功能
 * 所有踩到的坑都在项目里做了注释
@@ -43,7 +43,9 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ##Version
 
 ###V1.0.1
-1.感谢 [@kingkingruan](https://github.com/kingkingruan)提出的过去切回今天日期未更新的bug，已修复
+1.感谢 [@kingkingruan](https://github.com/kingkingruan) 提出的过去切回今天日期未更新的bug，已修复
+2.使用 [x5WebView](http://x5.tencent.com/doc?id=1001) 替换原生WebView，更快更稳定
+3.更新微信精选API，免费次数貌似用完了...
 
 ###V1.0.0
 
@@ -52,7 +54,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ##Thanks
 
 ###API:
-[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://apistore.baidu.com/apiworks/servicedetail/632.html)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)
+[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://www.tianapi.com/#wxnew)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)
 
 ###APP:
 [Hot](https://github.com/zj-wukewei/Hot) 提供了Dagger2配合MVP的架构思路
