@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -23,6 +24,7 @@ public abstract class SimpleFragment extends SupportFragment {
     protected View mView;
     protected Activity mActivity;
     protected Context mContext;
+    private Unbinder mUnBinder;
     private boolean isInited = false;
 
     @Override
@@ -42,7 +44,7 @@ public abstract class SimpleFragment extends SupportFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
         if (savedInstanceState == null) {
             if (!isHidden()) {
                 isInited = true;
@@ -80,6 +82,7 @@ public abstract class SimpleFragment extends SupportFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mUnBinder.unbind();
     }
 
     protected abstract int getLayoutId();

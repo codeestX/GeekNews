@@ -17,6 +17,7 @@ import com.umeng.analytics.MobclickAgent;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -30,6 +31,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     protected View mView;
     protected Activity mActivity;
     protected Context mContext;
+    private Unbinder mUnBinder;
     private boolean isInited = false;
 
     @Override
@@ -62,7 +64,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.attachView(this);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
         if (savedInstanceState == null) {
             if (!isHidden()) {
                 isInited = true;
@@ -100,8 +102,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mPresenter != null)
-            mPresenter.detachView();
+        mUnBinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) mPresenter.detachView();
     }
 
     @Override

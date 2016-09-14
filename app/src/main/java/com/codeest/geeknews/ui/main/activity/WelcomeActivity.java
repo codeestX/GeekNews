@@ -58,8 +58,8 @@ public class WelcomeActivity extends BaseActivity<WelcomePresenter> implements W
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Glide.clear(ivWelcomeBg);
+        super.onDestroy();
     }
 
     @Override

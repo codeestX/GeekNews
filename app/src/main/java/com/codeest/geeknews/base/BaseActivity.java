@@ -16,6 +16,7 @@ import com.umeng.analytics.MobclickAgent;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportActivity;
 
 /**
@@ -27,12 +28,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
     @Inject
     protected T mPresenter;
     protected Activity mContext;
+    private Unbinder mUnBinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
-        ButterKnife.bind(this);
+        mUnBinder = ButterKnife.bind(this);
         mContext = this;
         initInject();
         if (mPresenter != null)
@@ -82,6 +84,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
         super.onDestroy();
         if (mPresenter != null)
             mPresenter.detachView();
+        mUnBinder.unbind();
         App.getInstance().removeActivity(this);
     }
 
