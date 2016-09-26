@@ -43,8 +43,8 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ##Version
 
 ###V1.0.1
-1.感谢 [@kingkingruan](https://github.com/kingkingruan) 提出的过去切回今天日期未更新的bug，已修复
-2.使用 [x5WebView](http://x5.tencent.com/doc?id=1001) 替换原生WebView，更快更稳定
+1.感谢 [@kingkingruan](https://github.com/kingkingruan) 提出的过去切回今天日期未更新的bug，已修复<br>
+2.使用 [x5WebView](http://x5.tencent.com/doc?id=1001) 替换原生WebView，更快更稳定<br>
 3.更新微信精选API，免费次数貌似用完了...
 
 ###V1.0.0
