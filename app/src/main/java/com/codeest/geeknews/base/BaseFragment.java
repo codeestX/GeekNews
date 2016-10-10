@@ -32,7 +32,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     protected Activity mActivity;
     protected Context mContext;
     private Unbinder mUnBinder;
-    private boolean isInited = false;
+    protected boolean isInited = false;
 
     @Override
     public void onAttach(Context context) {

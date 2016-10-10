@@ -95,6 +95,14 @@ public class LikeFragment extends BaseFragment<LikePresenter> implements LikeCon
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (isInited) {
+            mPresenter.getLikeData();
+        }
+    }
+
+    @Override
     public void showError(String msg) {
         SnackbarUtil.showShort(getActivity().getWindow().getDecorView(),msg);
     }

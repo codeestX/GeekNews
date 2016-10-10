@@ -42,7 +42,7 @@
                     android:id="@+id/detail_bar_copyright"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_gravity="start|bottom"
                     android:padding="6dp"
                     android:layout_marginBottom="3dp"
                     android:textSize="12sp"

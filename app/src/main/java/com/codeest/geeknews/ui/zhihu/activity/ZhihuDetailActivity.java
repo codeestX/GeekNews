@@ -72,6 +72,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     boolean isBottomShow = true;
     boolean isImageShow = false;
     boolean isTransitionEnd = false;
+    boolean isNotTransition = false;
 
     @Override
     protected void initInject() {
@@ -88,6 +89,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         setToolBar(viewToolbar,"");
         Intent intent = getIntent();
         id = intent.getExtras().getInt("id");
+        isNotTransition = intent.getBooleanExtra("isNotTransition",false);
         mPresenter.queryLikeData(id);
         mPresenter.getDetailData(id);
         mPresenter.getExtraData(id);
@@ -163,8 +165,12 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         viewLoading.stop();
         imgUrl = zhihuDetailBean.getImage();
         shareUrl = zhihuDetailBean.getShare_url();
-        if (!isImageShow && isTransitionEnd) {
+        if (isNotTransition) {
             ImageLoader.load(mContext, zhihuDetailBean.getImage(), detailBarImage);
+        } else {
+            if (!isImageShow && isTransitionEnd) {
+                ImageLoader.load(mContext, zhihuDetailBean.getImage(), detailBarImage);
+            }
         }
         clpToolbar.setTitle(zhihuDetailBean.getTitle());
         detailBarCopyright.setText(zhihuDetailBean.getImage_source());

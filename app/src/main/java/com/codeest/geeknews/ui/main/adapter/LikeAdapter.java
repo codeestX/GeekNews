@@ -168,6 +168,7 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         Intent intent = new Intent();
         intent.setClass(mContext, ZhihuDetailActivity.class);
         intent.putExtra("id",id);
+        intent.putExtra("isNotTransition",true);
         mContext.startActivity(intent);
     }
 

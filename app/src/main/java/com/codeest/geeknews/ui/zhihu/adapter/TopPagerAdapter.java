@@ -13,7 +13,6 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
-import com.codeest.geeknews.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +57,7 @@ public class TopPagerAdapter extends PagerAdapter{
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
                 intent.putExtra("id",id);
+                intent.putExtra("isNotTransition",true);
                 mContext.startActivity(intent);
             }
         });

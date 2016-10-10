@@ -44,7 +44,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("加载数据失败");
+                        mView.showError("加载数据失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -62,7 +62,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("加载额外信息失败");
+                        mView.showError("加载额外信息失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
