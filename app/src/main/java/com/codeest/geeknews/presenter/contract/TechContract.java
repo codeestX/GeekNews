@@ -18,7 +18,7 @@ public interface TechContract {
 
         void showMoreContent(List<GankItemBean> mList);
 
-        void showGirlImage(String url);
+        void showGirlImage(String url, String copyright);
     }
 
     interface Presenter extends BasePresenter<View> {

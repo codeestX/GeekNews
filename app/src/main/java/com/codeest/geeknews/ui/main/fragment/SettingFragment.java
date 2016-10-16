@@ -1,5 +1,7 @@
 package com.codeest.geeknews.ui.main.fragment;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -11,10 +13,15 @@ import android.widget.TextView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.base.SimpleFragment;
+import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.component.ACache;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.NightModeEvent;
+import com.codeest.geeknews.model.bean.VersionBean;
+import com.codeest.geeknews.presenter.SettingPresenter;
+import com.codeest.geeknews.presenter.contract.SettingContract;
+import com.codeest.geeknews.ui.main.activity.MainActivity;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
@@ -28,7 +35,7 @@ import butterknife.OnClick;
  * Created by codeest on 16/8/23.
  */
 
-public class SettingFragment extends SimpleFragment implements CompoundButton.OnCheckedChangeListener{
+public class SettingFragment extends BaseFragment<SettingPresenter> implements CompoundButton.OnCheckedChangeListener, SettingContract.View{
 
     @BindView(R.id.cb_setting_cache)
     AppCompatCheckBox cbSettingCache;
@@ -47,8 +54,14 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
     @BindView(R.id.ll_setting_update)
     LinearLayout llSettingUpdate;
 
-    File cacheFile;
-    boolean isNull = true;
+    private File cacheFile;
+    private String versionName;
+    private boolean isNull = true;
+
+    @Override
+    protected void initInject() {
+        getFragmentComponent().inject(this);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -68,8 +81,8 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
         try {
             PackageManager pm = getActivity().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getActivity().getPackageName(), PackageManager.GET_ACTIVITIES);
-            String versionName = pi.versionName;
-            tvSettingUpdate.setText("当前版本号 v" + versionName);
+            versionName = pi.versionName;
+            tvSettingUpdate.setText(String.format("当前版本号 v%s",versionName));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -94,7 +107,7 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
 
     @OnClick(R.id.ll_setting_update)
     void doUpdate() {
-        SnackbarUtil.showShort(llSettingUpdate,"这个功能还没有实现哦~(>_<)~");
+        mPresenter.checkVersion(versionName);
     }
 
     @Override
@@ -115,5 +128,37 @@ public class SettingFragment extends SimpleFragment implements CompoundButton.On
                 SharedPreferenceUtil.setAutoCacheState(b);
                 break;
         }
+    }
+
+    @Override
+    public void showUpdateDialog(VersionBean bean) {
+        StringBuilder content = new StringBuilder("版本号: v");
+        content.append(bean.getCode());
+        content.append("\r\n");
+        content.append("版本大小: ");
+        content.append(bean.getSize());
+        content.append("\r\n");
+        content.append("更新内容:\r\n");
+        content.append(bean.getDes().replace("\\r\\n","\r\n"));
+        LogUtil.d(bean.getDes());
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
+        builder.setTitle("检测到新版本!");
+        builder.setMessage(content);
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("马上更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Activity mActivity = getActivity();
+                if (mActivity instanceof MainActivity) {
+                    ((MainActivity) mActivity).requestPermission();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    public void showError(String msg) {
+        SnackbarUtil.showShort(tvSettingUpdate, msg);
     }
 }

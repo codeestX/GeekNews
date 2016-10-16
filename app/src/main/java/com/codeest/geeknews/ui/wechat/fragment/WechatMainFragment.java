@@ -11,7 +11,7 @@ import com.codeest.geeknews.presenter.WechatPresenter;
 import com.codeest.geeknews.presenter.contract.WechatContract;
 import com.codeest.geeknews.ui.wechat.adapter.WechatAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,10 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
 
     @BindView(R.id.rv_wechat_list)
     RecyclerView rvWechatList;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     WechatAdapter mAdapter;
     List<WXItemBean> mList;
@@ -72,7 +72,7 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
                 mPresenter.getWechatData();
             }
         });
-        viewLoading.start();
+        ivProgress.start();
         mPresenter.getWechatData();
     }
 
@@ -81,7 +81,7 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         mList.clear();
         mList.addAll(list);
@@ -90,7 +90,7 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
 
     @Override
     public void showMoreContent(List<WXItemBean> list) {
-        viewLoading.stop();
+        ivProgress.stop();
         mList.addAll(list);
         mAdapter.notifyDataSetChanged();
         isLoadingMore = false;
@@ -101,7 +101,7 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(rvWechatList,msg);
     }

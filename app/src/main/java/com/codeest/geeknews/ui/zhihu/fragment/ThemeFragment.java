@@ -13,7 +13,7 @@ import com.codeest.geeknews.presenter.contract.ThemeContract;
 import com.codeest.geeknews.ui.zhihu.activity.ThemeActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +27,10 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
 
     @BindView(R.id.rv_theme_list)
     RecyclerView rvThemeList;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     ThemeAdapter mAdapter;
     List<ThemeListBean.OthersBean> mList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
             }
         });
         mPresenter.getThemeData();
-        viewLoading.start();
+        ivProgress.start();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         mList.clear();
         mList.addAll(themeListBean.getOthers());
@@ -86,7 +86,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(rvThemeList,msg);
     }

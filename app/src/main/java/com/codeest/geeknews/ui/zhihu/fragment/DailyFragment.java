@@ -21,8 +21,8 @@ import com.codeest.geeknews.ui.zhihu.adapter.DailyAdapter;
 import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
+import com.codeest.geeknews.widget.ProgressImageView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +35,14 @@ import butterknife.OnClick;
  */
 public class DailyFragment extends BaseFragment<DailyPresenter> implements DailyContract.View {
 
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.fab_calender)
     FloatingActionButton fabCalender;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.rv_daily_list)
     RecyclerView rvDailyList;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     String currentDate;
     DailyAdapter mAdapter;
@@ -95,7 +95,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         });
         rvDailyList.setLayoutManager(new LinearLayoutManager(mContext));
         rvDailyList.setAdapter(mAdapter);
-        viewLoading.start();
+        ivProgress.start();
         mPresenter.getDailyData();
     }
 
@@ -108,7 +108,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         mList = info.getStories();
         currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
@@ -127,18 +127,17 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         mPresenter.stopInterval();
         mList = info.getStories();
         currentDate = String.valueOf(Integer.valueOf(info.getDate()));
-        viewLoading.stop();
         mAdapter.addDailyBeforeDate(info);
     }
 
     @Override
     public void showProgress() {
-        viewLoading.start();
+        ivProgress.start();
     }
 
     @Override
@@ -158,7 +157,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(rvDailyList,msg);
     }

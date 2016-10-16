@@ -195,7 +195,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                 .subscribe(new Action1<List<GankItemBean>>() {
                     @Override
                     public void call(List<GankItemBean> gankItemBean) {
-                        mView.showGirlImage(gankItemBean.get(0).getUrl());
+                        mView.showGirlImage(gankItemBean.get(0).getUrl(), gankItemBean.get(0).getWho());
                     }
                 }, new Action1<Throwable>() {
                     @Override

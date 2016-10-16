@@ -22,7 +22,7 @@ public interface DailyContract {
         void doInterval(int currentCount);
     }
 
-    interface  Presenter extends BasePresenter<View> {
+    interface Presenter extends BasePresenter<View> {
 
         void getDailyData();
 

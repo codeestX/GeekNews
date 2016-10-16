@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.codeest.geeknews.app.App;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -33,12 +32,6 @@ public abstract class SimpleActivity extends SupportActivity {
         initEventAndData();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-
     protected void setToolBar(Toolbar toolbar, String title) {
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
@@ -50,12 +43,6 @@ public abstract class SimpleActivity extends SupportActivity {
                 onBackPressedSupport();
             }
         });
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     @Override

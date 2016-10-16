@@ -15,8 +15,7 @@ import com.codeest.geeknews.presenter.contract.HotContract;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.HotAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +29,10 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
 
     @BindView(R.id.rv_hot_content)
     RecyclerView rvHotContent;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     List<HotListBean.RecentBean> mList;
     HotAdapter mAdapter;
@@ -51,7 +50,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     @Override
     protected void initEventAndData() {
         mList = new ArrayList<>();
-        viewLoading.start();
+        ivProgress.start();
         mAdapter = new HotAdapter(mContext,mList);
         rvHotContent.setVisibility(View.INVISIBLE);
         rvHotContent.setLayoutManager(new LinearLayoutManager(mContext));
@@ -83,7 +82,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(rvHotContent,msg);
     }
@@ -93,7 +92,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         if (swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         rvHotContent.setVisibility(View.VISIBLE);
         mList.clear();

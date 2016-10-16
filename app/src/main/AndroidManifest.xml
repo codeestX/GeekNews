@@ -62,12 +62,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
-        <meta-data
-            android:value="YOUR_APP_KEY"
-            android:name="UMENG_APPKEY"/>
-        <meta-data
-            android:value="${UMENG_CHANNEL_VALUE} ID"
-            android:name="UMENG_CHANNEL"/>
+        <service android:name=".component.UpdateService"/>
+
     </application>
 
 </manifest>

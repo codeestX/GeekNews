@@ -15,7 +15,7 @@ import com.codeest.geeknews.presenter.SectionChildPresenter;
 import com.codeest.geeknews.presenter.contract.SectionChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.SectionChildAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +30,12 @@ public class SectionActivity extends BaseActivity<SectionChildPresenter> impleme
 
     @BindView(R.id.rv_section_content)
     RecyclerView rvSectionContent;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     List<SectionChildListBean.StoriesBean> mList;
     SectionChildAdapter mAdapter;
@@ -86,7 +86,7 @@ public class SectionActivity extends BaseActivity<SectionChildPresenter> impleme
             }
         });
         mPresenter.getThemeChildData(id);
-        viewLoading.start();
+        ivProgress.start();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class SectionActivity extends BaseActivity<SectionChildPresenter> impleme
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         mList.clear();
         mList.addAll(sectionChildListBean.getStories());
@@ -106,7 +106,7 @@ public class SectionActivity extends BaseActivity<SectionChildPresenter> impleme
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(getWindow().getDecorView(),msg);
     }

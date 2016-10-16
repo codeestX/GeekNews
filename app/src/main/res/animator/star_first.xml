@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together"
+    >
+    <objectAnimator
+        android:interpolator="@android:interpolator/fast_out_linear_in"
+        android:propertyName="fillAlpha"
+        android:valueFrom="0f"
+        android:valueTo="1f"
+        android:duration="900"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse" />
+    <!--<objectAnimator-->
+        <!--android:duration="1600"-->
+        <!--android:propertyName="rotation"-->
+        <!--android:startOffset="500"-->
+        <!--android:valueFrom="0"-->
+        <!--android:valueTo="360"-->
+        <!--android:repeatCount="infinite"-->
+        <!--/>-->
+    <!--<objectAnimator-->
+        <!--android:interpolator="@android:interpolator/fast_out_linear_in"-->
+        <!--android:propertyName="scaleX"-->
+        <!--android:valueFrom="0.1"-->
+        <!--android:valueTo="1.3"-->
+        <!--android:duration="800"-->
+        <!--android:repeatCount="infinite"-->
+        <!--android:repeatMode="reverse" />-->
+    <!--<objectAnimator-->
+        <!--android:interpolator="@android:interpolator/fast_out_linear_in"-->
+        <!--android:propertyName="scaleY"-->
+        <!--android:valueFrom="0.1"-->
+        <!--android:valueTo="1.3"-->
+        <!--android:duration="800"-->
+        <!--android:repeatCount="infinite"-->
+        <!--android:repeatMode="reverse" />-->
+</set>

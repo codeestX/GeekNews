@@ -5,18 +5,18 @@ import com.codeest.geeknews.base.BaseView;
 import com.codeest.geeknews.model.bean.VersionBean;
 
 /**
- * Created by codeest on 16/8/9.
+ * Created by codeest on 16/10/17.
  */
 
-public interface MainContract {
+public interface SettingContract {
 
-    interface View extends BaseView{
+    interface View extends BaseView {
 
         void showUpdateDialog(VersionBean bean);
 
     }
 
-    interface  Presenter extends BasePresenter<View> {
+    interface  Presenter extends BasePresenter<SettingContract.View> {
 
         void checkVersion(String currentVersion);
 

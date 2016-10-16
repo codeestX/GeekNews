@@ -59,4 +59,6 @@ public class Constants {
     public static final String SP_CURRENT_ITEM = "current_item";
 
     public static final String SP_LIKE_POINT = "like_point";
+
+    public static final String SP_VERSION_POINT = "version_point";
 }

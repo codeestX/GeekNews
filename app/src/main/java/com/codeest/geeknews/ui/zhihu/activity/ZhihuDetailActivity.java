@@ -22,10 +22,10 @@ import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.SystemUtil;
+import com.codeest.geeknews.widget.ProgressImageView;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
-import com.victor.loading.rotate.RotateLoading;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
@@ -48,8 +48,8 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     CollapsingToolbarLayout clpToolbar;
     @BindView(R.id.wv_detail_content)
     WebView wvDetailContent;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
     @BindView(R.id.nsv_scroller)
     NestedScrollView nsvScroller;
     @BindView(R.id.tv_detail_bottom_like)
@@ -93,7 +93,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         mPresenter.queryLikeData(id);
         mPresenter.getDetailData(id);
         mPresenter.getExtraData(id);
-        viewLoading.start();
+        ivProgress.start();
         WebSettings settings = wvDetailContent.getSettings();
         if (SharedPreferenceUtil.getNoImageState()) {
             settings.setBlockNetworkImage(true);
@@ -162,7 +162,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @Override
     public void showContent(ZhihuDetailBean zhihuDetailBean) {
-        viewLoading.stop();
+        ivProgress.stop();
         imgUrl = zhihuDetailBean.getImage();
         shareUrl = zhihuDetailBean.getShare_url();
         if (isNotTransition) {
@@ -180,7 +180,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @Override
     public void showExtraInfo(DetailExtraBean detailExtraBean) {
-        viewLoading.stop();
+        ivProgress.stop();
         tvDetailBottomLike.setText(String.format("%d个赞",detailExtraBean.getPopularity()));
         tvDetailBottomComment.setText(String.format("%d条评论",detailExtraBean.getComments()));
         allNum = detailExtraBean.getComments();
@@ -203,7 +203,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @Override
     public void showError(String msg) {
-        viewLoading.stop();
+        ivProgress.stop();
         SnackbarUtil.showShort(getWindow().getDecorView(),msg);
     }
 

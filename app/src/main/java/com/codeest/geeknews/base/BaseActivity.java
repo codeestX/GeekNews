@@ -11,7 +11,6 @@ import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.component.ActivityComponent;
 import com.codeest.geeknews.di.component.DaggerActivityComponent;
 import com.codeest.geeknews.di.module.ActivityModule;
-import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
 
@@ -46,7 +45,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
     }
 
     protected void setToolBar(Toolbar toolbar, String title) {
@@ -71,12 +69,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
 
     protected ActivityModule getActivityModule(){
         return new ActivityModule(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     @Override

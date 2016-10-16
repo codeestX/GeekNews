@@ -11,7 +11,7 @@ import com.codeest.geeknews.model.bean.CommentBean;
 import com.codeest.geeknews.presenter.CommentPresenter;
 import com.codeest.geeknews.presenter.contract.CommentContract;
 import com.codeest.geeknews.ui.zhihu.adapter.CommentAdapter;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,8 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
 
     @BindView(R.id.rv_comment_list)
     RecyclerView rvCommentList;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     CommentAdapter mAdapter;
     List<CommentBean.CommentsBean> mList;
@@ -46,7 +46,7 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
     protected void initEventAndData() {
         Bundle bundle = getArguments();
         mPresenter.getCommentData(bundle.getInt("id"),bundle.getInt("kind"));
-        viewLoading.start();
+        ivProgress.start();
         rvCommentList.setVisibility(View.INVISIBLE);
         mList = new ArrayList<>();
         mAdapter = new CommentAdapter(mContext,mList);
@@ -56,7 +56,7 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
 
     @Override
     public void showContent(CommentBean commentBean) {
-        viewLoading.stop();
+        ivProgress.stop();
         rvCommentList.setVisibility(View.VISIBLE);
         mList.clear();
         mList.addAll(commentBean.getComments());
@@ -65,7 +65,7 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
 
     @Override
     public void showError(String msg) {
-        viewLoading.stop();
+        ivProgress.stop();
         rvCommentList.setVisibility(View.VISIBLE);
     }
 }

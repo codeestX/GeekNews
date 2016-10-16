@@ -19,13 +19,9 @@
                 android:layout_height="match_parent">
 
             </android.support.v7.widget.RecyclerView>
-            <com.victor.loading.rotate.RotateLoading
-                android:id="@+id/view_loading"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:loading_width="5dp"
-                app:loading_color="@color/colorPrimary"
-                android:layout_gravity="center"/>
+
+            <include layout="@layout/view_progress" />
+
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

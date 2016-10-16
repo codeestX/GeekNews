@@ -11,7 +11,7 @@ import com.codeest.geeknews.presenter.SectionPresenter;
 import com.codeest.geeknews.presenter.contract.SectionContract;
 import com.codeest.geeknews.ui.zhihu.adapter.SectionAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,10 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
 
     @BindView(R.id.rv_section_list)
     RecyclerView rvSectionList;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     List<SectionListBean.DataBean> mList;
     SectionAdapter mAdapter;
@@ -56,7 +56,7 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
             }
         });
         mPresenter.getSectionData();
-        viewLoading.start();
+        ivProgress.start();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(rvSectionList,msg);
     }
@@ -74,7 +74,7 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         mList.clear();
         mList.addAll(sectionListBean.getData());

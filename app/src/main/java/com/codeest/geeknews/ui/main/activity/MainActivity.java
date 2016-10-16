@@ -1,6 +1,10 @@
 package com.codeest.geeknews.ui.main.activity;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -15,7 +19,9 @@ import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.component.RxBus;
+import com.codeest.geeknews.component.UpdateService;
 import com.codeest.geeknews.model.bean.SearchEvent;
+import com.codeest.geeknews.model.bean.VersionBean;
 import com.codeest.geeknews.presenter.MainPresenter;
 import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
@@ -26,16 +32,22 @@ import com.codeest.geeknews.ui.wechat.fragment.WechatMainFragment;
 import com.codeest.geeknews.ui.zhihu.fragment.ZhihuMainFragment;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
+import com.codeest.geeknews.util.SystemUtil;
+import com.codeest.geeknews.util.ToastUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by codeest on 16/8/9.
  */
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View{
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, EasyPermissions.PermissionCallbacks{
 
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
@@ -55,6 +67,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     AboutFragment mAboutFragment;
     MenuItem mLastMenuItem;
     MenuItem mSearchMenuItem;
+
+    private static final int RC_WRITE = 100;
 
     private int hideFragment = Constants.TYPE_ZHIHU;
     private int showFragment = Constants.TYPE_ZHIHU;
@@ -83,6 +97,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             hideFragment = Constants.TYPE_ZHIHU;
             showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
             mNavigationView.getMenu().findItem(R.id.drawer_zhihu).setChecked(false);
+            mToolbar.setTitle(mNavigationView.getMenu().findItem(getCurrentItem(showFragment)).getTitle().toString());
             hideFragment = showFragment;
         }
     }
@@ -159,6 +174,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return false;
             }
         });
+        if (!SharedPreferenceUtil.getVersionPoint() && SystemUtil.isWifiConnected()) {
+            SharedPreferenceUtil.setVersionPoint(true);
+            try {
+                PackageManager pm = getPackageManager();
+                PackageInfo pi = pm.getPackageInfo(getPackageName(), PackageManager.GET_ACTIVITIES);
+                String versionName = pi.versionName;
+                mPresenter.checkVersion(versionName);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -215,5 +241,75 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mAboutFragment;
         }
         return mZhihuFragment;
+    }
+
+    private int getCurrentItem(int item) {
+        switch (item) {
+            case Constants.TYPE_ZHIHU:
+                return R.id.drawer_zhihu;
+            case Constants.TYPE_GANK:
+                return R.id.drawer_gank;
+            case Constants.TYPE_WECHAT:
+                return R.id.drawer_wechat;
+            case Constants.TYPE_LIKE:
+                return R.id.drawer_like;
+            case Constants.TYPE_SETTING:
+                return R.id.drawer_setting;
+            case Constants.TYPE_ABOUT:
+                return R.id.drawer_about;
+        }
+        return R.id.drawer_zhihu;
+    }
+
+    @Override
+    public void showUpdateDialog(VersionBean bean) {
+        StringBuilder content = new StringBuilder("版本号: v");
+        content.append(bean.getCode());
+        content.append("\r\n");
+        content.append("版本大小: ");
+        content.append(bean.getSize());
+        content.append("\r\n");
+        content.append("更新内容:\r\n");
+        content.append(bean.getDes().replace("\\r\\n","\r\n"));
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setTitle("检测到新版本!");
+        builder.setMessage(content);
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("马上更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestPermission();
+            }
+        });
+        builder.show();
+    }
+
+    @AfterPermissionGranted(RC_WRITE)
+    public void requestPermission() {
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            startService(new Intent(mContext, UpdateService.class));
+        } else {
+            EasyPermissions.requestPermissions(this, "下载应用需要文件写入权限哦~",
+                    RC_WRITE, perms);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        if (RC_WRITE == requestCode) {
+            startService(new Intent(mContext, UpdateService.class));
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        ToastUtil.shortShow("取消更新 T T");
     }
 }

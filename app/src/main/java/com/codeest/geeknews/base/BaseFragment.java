@@ -12,7 +12,6 @@ import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.component.DaggerFragmentComponent;
 import com.codeest.geeknews.di.component.FragmentComponent;
 import com.codeest.geeknews.di.module.FragmentModule;
-import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
 
@@ -85,18 +84,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
             isInited = true;
             initEventAndData();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart("Fragment");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd("Fragment");
     }
 
     @Override

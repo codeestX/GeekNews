@@ -3,15 +3,17 @@ package com.codeest.geeknews.presenter;
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.NightModeEvent;
+import com.codeest.geeknews.model.bean.VersionBean;
+import com.codeest.geeknews.model.http.MyHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.MainContract;
+import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.RxUtil;
 
 import javax.inject.Inject;
 
 import rx.Observer;
 import rx.Subscription;
-import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -21,8 +23,11 @@ import rx.functions.Func1;
 
 public class MainPresenter extends RxPresenter<MainContract.View> implements MainContract.Presenter{
 
+    private RetrofitHelper mRetrofitHelper;
+
     @Inject
-    public MainPresenter() {
+    public MainPresenter(RetrofitHelper mRetrofitHelper) {
+        this.mRetrofitHelper = mRetrofitHelper;
         registerEvent();
     }
 
@@ -54,4 +59,26 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
         addSubscrebe(rxSubscription);
     }
 
+    @Override
+    public void checkVersion(final String currentVersion) {
+        Subscription rxSubscription = mRetrofitHelper.fetchVersionInfo()
+                .compose(RxUtil.<MyHttpResponse<VersionBean>>rxSchedulerHelper())
+                .compose(RxUtil.<VersionBean>handleMyResult())
+                .subscribe(new Action1<VersionBean>() {
+                    @Override
+                    public void call(VersionBean versionBean) {
+                        if (Integer.valueOf(currentVersion.replace(".", "")) < Integer.valueOf(versionBean.getCode().replace(".", ""))) {
+                            mView.showUpdateDialog(versionBean);
+                        } else {
+                            mView.showError("已经是最新版本");
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        LogUtil.d(throwable.toString());
+                    }
+                });
+        addSubscrebe(rxSubscription);
+    }
 }

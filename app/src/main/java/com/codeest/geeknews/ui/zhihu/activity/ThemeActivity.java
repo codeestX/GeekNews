@@ -15,7 +15,7 @@ import com.codeest.geeknews.presenter.ThemeChildPresenter;
 import com.codeest.geeknews.presenter.contract.ThemeChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeChildAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +30,12 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
 
     @BindView(R.id.rv_theme_child_list)
     RecyclerView rvThemeChildList;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     ThemeChildAdapter mAdapter;
     List<ThemeChildListBean.StoriesBean> mList;
@@ -56,7 +56,7 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
     protected void initEventAndData() {
         Intent intent = getIntent();
         id = intent.getExtras().getInt("id");
-        viewLoading.start();
+        ivProgress.start();
         mList = new ArrayList<>();
         mAdapter = new ThemeChildAdapter(mContext, mList);
         rvThemeChildList.setLayoutManager(new LinearLayoutManager(mContext));
@@ -102,7 +102,7 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(getWindow().getDecorView(),msg);
     }
@@ -112,7 +112,7 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         setToolBar(mToolBar,themeChildListBean.getName());
         mList.clear();

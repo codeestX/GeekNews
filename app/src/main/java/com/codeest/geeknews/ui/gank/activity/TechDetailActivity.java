@@ -5,6 +5,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.App;
@@ -19,7 +22,6 @@ import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
-import com.victor.loading.rotate.RotateLoading;
 
 import butterknife.BindView;
 
@@ -33,8 +35,8 @@ public class TechDetailActivity extends SimpleActivity {
     Toolbar toolBar;
     @BindView(R.id.wv_tech_content)
     WebView wvTechContent;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
+    @BindView(R.id.tv_progress)
+    TextView tvProgress;
 
     RealmHelper mRealmHelper;
     MenuItem menuItem;
@@ -86,11 +88,11 @@ public class TechDetailActivity extends SimpleActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 if (newProgress == 100) {
-                    viewLoading.stop();
+                    tvProgress.setVisibility(View.GONE);
                 } else {
-                    if (!viewLoading.isStart()) {
-                        viewLoading.start();
-                    }
+                    tvProgress.setVisibility(View.VISIBLE);
+                    ViewGroup.LayoutParams lp = tvProgress.getLayoutParams();
+                    lp.width = App.SCREEN_WIDTH * newProgress / 100;
                 }
             }
             @Override

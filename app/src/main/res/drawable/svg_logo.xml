@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="70"
+    android:viewportHeight="70">
+
+    <path
+        android:name="star_1"
+        android:fillColor="#FED530"
+        android:pathData="
+        M5,5 Q5,10 0,10 Q5,10 5,15 Q5,9 10,10 Z
+        "/>
+
+    <path
+        android:name="star_2"
+        android:fillColor="#FED530"
+        android:pathData="
+        M60,42 Q63,46 58,49 Q63,47 66,51 Q61,46 66,45
+        "/>
+
+    <path
+        android:name="star_3"
+        android:fillColor="#FED530"
+        android:pathData="
+        M17,62 Q18,68 15,70 Q17,68 21,67
+        "/>
+
+    <clip-path
+        android:name="lightning_clip"
+        android:pathData="M55,65 L15,69 L15,70 L55,61 Z">
+            <path
+                android:name="lightning"
+                android:pathData="
+		M40,5 L15,42 L30,40 L30,65 L55,28 L40,30 Z
+		"
+                android:fillColor="#FED530"
+                />
+    </clip-path>
+
+</vector>

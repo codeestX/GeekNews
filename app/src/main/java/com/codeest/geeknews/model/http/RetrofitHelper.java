@@ -13,6 +13,7 @@ import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.SectionListBean;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.model.bean.ThemeListBean;
+import com.codeest.geeknews.model.bean.VersionBean;
 import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
@@ -44,12 +45,14 @@ public class RetrofitHelper {
     private static ZhihuApis zhihuApiService = null;
     private static GankApis gankApiService = null;
     private static WeChatApis wechatApiService = null;
+    private static MyApis myApiService = null;
 
     private void init() {
         initOkHttp();
         zhihuApiService = getZhihuApiService();
         gankApiService = getGankApiService();
         wechatApiService = getWechatApiService();
+        myApiService = getMyApiService();
     }
 
     public RetrofitHelper() {
@@ -149,6 +152,16 @@ public class RetrofitHelper {
         return gankRetrofit.create(WeChatApis.class);
     }
 
+    private static MyApis getMyApiService() {
+        Retrofit myRetrofit = new Retrofit.Builder()
+                .baseUrl(MyApis.HOST)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return myRetrofit.create(MyApis.class);
+    }
+
     public Observable<DailyListBean> fetchDailyListInfo() {
         return zhihuApiService.getDailyList();
     }
@@ -219,5 +232,9 @@ public class RetrofitHelper {
 
     public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatSearchListInfo(int num, int page, String word) {
         return wechatApiService.getWXHotSearch(Constants.KEY_API, num, page, word);
+    }
+
+    public Observable<MyHttpResponse<VersionBean>> fetchVersionInfo() {
+        return myApiService.getVersionInfo();
     }
 }

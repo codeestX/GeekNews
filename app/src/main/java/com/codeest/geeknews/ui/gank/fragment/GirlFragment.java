@@ -15,8 +15,7 @@ import com.codeest.geeknews.presenter.contract.GirlContract;
 import com.codeest.geeknews.ui.gank.activity.GirlDetailActivity;
 import com.codeest.geeknews.ui.gank.adapter.GirlAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.util.ToastUtil;
-import com.victor.loading.rotate.RotateLoading;
+import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +30,10 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
 
     @BindView(R.id.rv_girl_content)
     RecyclerView rvGirlContent;
-    @BindView(R.id.view_loading)
-    RotateLoading viewLoading;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.iv_progress)
+    ProgressImageView ivProgress;
 
     private static final int SPAN_COUNT = 2;
 
@@ -91,7 +90,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
                 mContext.startActivity(intent,options.toBundle());
             }
         });
-        viewLoading.start();
+        ivProgress.start();
         mPresenter.getGirlData();
     }
 
@@ -100,7 +99,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
         if (swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         SnackbarUtil.showShort(rvGirlContent,msg);
     }
@@ -110,7 +109,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
         if (swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
         } else {
-            viewLoading.stop();
+            ivProgress.stop();
         }
         mList.clear();
         mList.addAll(list);
@@ -120,7 +119,7 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
     @Override
     public void showMoreContent(List<GankItemBean> list) {
         isLoadingMore = false;
-        viewLoading.stop();
+        ivProgress.stop();
         mList.addAll(list);
         for(int i =mList.size() - GirlPresenter.NUM_OF_PAGE ; i < mList.size(); i++) {    //使用notifyDataSetChanged已加载的图片会有闪烁，遂使用inserted逐个插入
             mAdapter.notifyItemInserted(i);
