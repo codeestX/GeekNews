@@ -2,25 +2,32 @@ package com.codeest.geeknews.ui.zhihu.activity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseActivity;
+import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.presenter.ThemeChildPresenter;
 import com.codeest.geeknews.presenter.contract.ThemeChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeChildAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
+import com.codeest.geeknews.util.SystemUtil;
 import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * Created by codeest on 16/8/24.
@@ -36,6 +43,14 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
     Toolbar mToolBar;
     @BindView(R.id.iv_progress)
     ProgressImageView ivProgress;
+    @BindView(R.id.iv_theme_child_blur)
+    ImageView ivBlur;
+    @BindView(R.id.iv_theme_child_origin)
+    ImageView ivOrigin;
+    @BindView(R.id.tv_theme_child_des)
+    TextView tvDes;
+    @BindView(R.id.theme_child_appbar)
+    AppBarLayout appbar;
 
     ThemeChildAdapter mAdapter;
     List<ThemeChildListBean.StoriesBean> mList;
@@ -78,15 +93,17 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
                 }
             }
         });
-        rvThemeChildList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                View firstVisibleItem = recyclerView.getChildAt(0);
-                int firstItemPosition = ((LinearLayoutManager) rvThemeChildList.getLayoutManager()).findFirstVisibleItemPosition();
-                int itemHeight = firstVisibleItem.getHeight();
-                int firstItemBottom = rvThemeChildList.getLayoutManager().getDecoratedBottom(firstVisibleItem);
-                mAdapter.setTopAlpha(((firstItemPosition + 1) * itemHeight - firstItemBottom) * 2.0 / recyclerView.getChildAt(0).getHeight());
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset >= 0) {
+                    swipeRefresh.setEnabled(true);
+                } else {
+                    swipeRefresh.setEnabled(false);
+                    float rate = (float)(SystemUtil.dp2px(mContext, 256) + verticalOffset * 2) / SystemUtil.dp2px(mContext, 256);
+                    if (rate >= 0)
+                        ivOrigin.setAlpha(rate);
+                }
             }
         });
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -118,6 +135,8 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
         mList.clear();
         mList.addAll(themeChildListBean.getStories());
         mAdapter.notifyDataSetChanged();
-        mAdapter.setTopInfo(themeChildListBean.getBackground(), themeChildListBean.getDescription());
+        ImageLoader.load(mContext, themeChildListBean.getBackground(), ivOrigin);
+        Glide.with(mContext).load(themeChildListBean.getBackground()).bitmapTransform(new BlurTransformation(mContext)).into(ivBlur);
+        tvDes.setText(themeChildListBean.getDescription());
     }
 }

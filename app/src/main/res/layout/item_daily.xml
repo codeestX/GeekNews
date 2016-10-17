@@ -23,6 +23,7 @@
             <com.codeest.geeknews.widget.SquareImageView
                 android:id="@+id/iv_daily_item_image"
                 android:transitionName="shareView"
+                android:src="@mipmap/ic_launcher"
                 android:layout_width="@dimen/list_image_size"
                 android:layout_height="@dimen/list_image_size" />
             <TextView

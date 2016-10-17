@@ -69,8 +69,6 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                     public void call(VersionBean versionBean) {
                         if (Integer.valueOf(currentVersion.replace(".", "")) < Integer.valueOf(versionBean.getCode().replace(".", ""))) {
                             mView.showUpdateDialog(versionBean);
-                        } else {
-                            mView.showError("已经是最新版本");
                         }
                     }
                 }, new Action1<Throwable>() {

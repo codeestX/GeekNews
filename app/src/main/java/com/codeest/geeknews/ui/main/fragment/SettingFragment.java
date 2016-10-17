@@ -140,7 +140,6 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements C
         content.append("\r\n");
         content.append("更新内容:\r\n");
         content.append(bean.getDes().replace("\\r\\n","\r\n"));
-        LogUtil.d(bean.getDes());
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
         builder.setTitle("检测到新版本!");
         builder.setMessage(content);

@@ -53,6 +53,7 @@
                 app:contentPadding="3dp"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="2dp">
+
                 <TextView
                     android:text="@string/about_author"
                     android:textSize="16sp"
@@ -60,7 +61,8 @@
                     android:padding="10dp"
                     android:gravity="start"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -106,6 +108,30 @@
                     android:gravity="start"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_about_award"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorCard"
+                app:contentPadding="3dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+                <TextView
+                    android:textColor="@color/colorText"
+                    android:text="@string/about_award"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="3dp"
+                    android:drawableEnd="@mipmap/ic_alipay"/>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
