@@ -36,11 +36,20 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 使用Fragmentation简化Fragment的操作和懒加载
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
 * 使用x5WebView做阅览页，比原生WebView体验更佳
+* 使用SVG及其动画实现progressbar的效果
+* 使用EasyPermissions做5.0+动态权限适配
 * 使用原生的夜间模式、分享、反馈
-* 包含搜索、收藏、检测更新（尚未实现）等功能
+* 包含搜索、收藏、检测更新等功能
 * 所有踩到的坑都在项目里做了注释
 
 ##Version
+
+###V1.1.0
+1.使用 SVG动画替换了部分progressbar<br>
+2.使用 [EasyPermissions](https://github.com/googlesamples/easypermissions)来做5.0+动态权限适配<br>
+3.新增 版本更新检测、支付宝打赏<br>
+4.调整 部分界面UI<br>
+5.修复 部分已知BUG
 
 ###V1.0.1
 1.感谢 [@kingkingruan](https://github.com/kingkingruan) 提出的过去切回今天日期未更新的bug，已修复<br>
@@ -72,9 +81,9 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ####UI
 * [MaterialCalendarView](https://github.com/prolificinteractive/material-calendarview)
 * [MaterialSearchView](https://github.com/MiguelCatalan/MaterialSearchView)
-* [multiline-collapsingtoolbar](https://github.com/opacapp/multiline-collapsingtoolbar)
 * [PhotoView](https://github.com/chrisbanes/PhotoView)
-* [Loading](https://github.com/yankai-victor/Loading)
+* [multiline-collapsingtoolbar](https://github.com/opacapp/multiline-collapsingtoolbar)
+* [glide-transformations](https://github.com/wasabeef/glide-transformations)
 
 ####RX
 
@@ -84,10 +93,10 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ####NETWORK
 
-* [Gson](https://github.com/google/gson)
 * [Retrofit](https://github.com/square/retrofit)
 * [OkHttp](https://github.com/square/okhttp)
 * [Glide](https://github.com/bumptech/glide)
+* [Gson](https://github.com/google/gson)
 
 ####DI
 
@@ -105,6 +114,10 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ####DB
 
 * [Realm](https://github.com/realm/realm-java)
+
+####PERMISSION
+
+* [EasyPermissions](https://github.com/googlesamples/easypermissions)
 
 ####CANARY
 
