@@ -3,6 +3,7 @@ package com.codeest.geeknews.model.bean;
 import java.io.Serializable;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by codeest on 16/8/23.
@@ -13,6 +14,7 @@ public class RealmLikeBean extends RealmObject implements Serializable{
 
     public RealmLikeBean() { }
 
+    @PrimaryKey
     private String id;
 
     private String image;

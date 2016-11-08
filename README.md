@@ -37,7 +37,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
 * 使用x5WebView做阅览页，比原生WebView体验更佳
 * 使用SVG及其动画实现progressbar的效果
-* 使用EasyPermissions做5.0+动态权限适配
+* 使用EasyPermissions做6.0+动态权限适配
 * 使用原生的夜间模式、分享、反馈
 * 包含搜索、收藏、检测更新等功能
 * 所有踩到的坑都在项目里做了注释
@@ -46,7 +46,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ###V1.1.0
 1.使用 SVG动画替换了部分progressbar<br>
-2.使用 [EasyPermissions](https://github.com/googlesamples/easypermissions)来做5.0+动态权限适配<br>
+2.使用 [EasyPermissions](https://github.com/googlesamples/easypermissions)来做6.0+动态权限适配<br>
 3.新增 版本更新检测、支付宝打赏<br>
 4.调整 部分界面UI<br>
 5.修复 部分已知BUG

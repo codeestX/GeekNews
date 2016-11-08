@@ -21,7 +21,6 @@ import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.component.UpdateService;
 import com.codeest.geeknews.model.bean.SearchEvent;
-import com.codeest.geeknews.model.bean.VersionBean;
 import com.codeest.geeknews.presenter.MainPresenter;
 import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
@@ -262,18 +261,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    public void showUpdateDialog(VersionBean bean) {
-        StringBuilder content = new StringBuilder("版本号: v");
-        content.append(bean.getCode());
-        content.append("\r\n");
-        content.append("版本大小: ");
-        content.append(bean.getSize());
-        content.append("\r\n");
-        content.append("更新内容:\r\n");
-        content.append(bean.getDes().replace("\\r\\n","\r\n"));
+    public void showUpdateDialog(String versionContent) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
         builder.setTitle("检测到新版本!");
-        builder.setMessage(content);
+        builder.setMessage(versionContent);
         builder.setNegativeButton("取消", null);
         builder.setPositiveButton("马上更新", new DialogInterface.OnClickListener() {
             @Override

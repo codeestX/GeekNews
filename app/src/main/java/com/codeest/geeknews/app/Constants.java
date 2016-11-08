@@ -46,10 +46,6 @@ public class Constants {
 
     public static final String PATH_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "codeest" + File.separator + "GeekNews";
 
-    //================= UMENG ====================
-
-    public static final String EVENT_TAB_HOME = "tab_home";
-
     //================= PREFERENCE ====================
 
     public static final String SP_NIGHT_MODE = "night_mode";
