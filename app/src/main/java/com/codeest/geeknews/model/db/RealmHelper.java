@@ -31,11 +31,13 @@ public class RealmHelper {
     /**
      * 增加 阅读记录
      * @param id
+     * 使用@PrimaryKey注解后copyToRealm需要替换为copyToRealmOrUpdate
      */
     public void insertNewsId(int id) {
-        mRealm.beginTransaction();
-        ReadStateBean bean = mRealm.createObject(ReadStateBean.class);
+        ReadStateBean bean = new ReadStateBean();
         bean.setId(id);
+        mRealm.beginTransaction();
+        mRealm.copyToRealmOrUpdate(bean);
         mRealm.commitTransaction();
     }
 
@@ -60,7 +62,7 @@ public class RealmHelper {
      */
     public void insertLikeBean(RealmLikeBean bean) {
         mRealm.beginTransaction();
-        mRealm.copyToRealm(bean);
+        mRealm.copyToRealmOrUpdate(bean);
         mRealm.commitTransaction();
     }
 
