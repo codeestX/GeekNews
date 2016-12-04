@@ -13,9 +13,9 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF1.gif) &nbsp;&nbsp;&nbsp;
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF2.gif) &nbsp;&nbsp;&nbsp;
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF3.gif)
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/PNG1.png)
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/PNG2.png)
-![](https://github.com/codeestX/GeekNews/raw/master/screenshots/PNG3.png)
+<img src="screenshots/PNG1.png" width = "40%" />
+<img src="screenshots/PNG2.png" width = "40%" />
+<img src="screenshots/PNG3.png" width = "40%" />
 
 ###[Download APK](http://fir.im/xt2f)
 (Android 5.0 or above)
