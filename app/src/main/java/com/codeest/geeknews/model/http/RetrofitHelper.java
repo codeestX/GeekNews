@@ -8,6 +8,7 @@ import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.model.bean.GankSearchItemBean;
+import com.codeest.geeknews.model.bean.GoldListBean;
 import com.codeest.geeknews.model.bean.HotListBean;
 import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.SectionListBean;
@@ -46,6 +47,7 @@ public class RetrofitHelper {
     private static GankApis gankApiService = null;
     private static WeChatApis wechatApiService = null;
     private static MyApis myApiService = null;
+    private static GoldApis goldApiService = null;
 
     private void init() {
         initOkHttp();
@@ -53,6 +55,7 @@ public class RetrofitHelper {
         gankApiService = getGankApiService();
         wechatApiService = getWechatApiService();
         myApiService = getMyApiService();
+        goldApiService = getGoldApiService();
     }
 
     public RetrofitHelper() {
@@ -98,17 +101,19 @@ public class RetrofitHelper {
                 return response;
             }
         };
-//        Interceptor apikey = new Interceptor() {
-//            @Override
-//            public Response intercept(Chain chain) throws IOException {
-//                Request request = chain.request();
-//                request = request.newBuilder()
+        Interceptor apikey = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                request = request.newBuilder()
 //                        .addHeader("apikey",Constants.KEY_API)
-//                        .build();
-//                return chain.proceed(request);
-//            }
-//        };
-//        builder.addInterceptor(apikey);
+                        .addHeader("X-LC-Id",Constants.LEANCLOUD_ID)
+                        .addHeader("X-LC-Sign",Constants.LEANCLOUD_SIGN)
+                        .build();
+                return chain.proceed(request);
+            }
+        };
+        builder.addInterceptor(apikey);
         //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);
@@ -160,6 +165,16 @@ public class RetrofitHelper {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return myRetrofit.create(MyApis.class);
+    }
+
+    private static GoldApis getGoldApiService() {
+        Retrofit goldRetrofit = new Retrofit.Builder()
+                .baseUrl(GoldApis.HOST)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return goldRetrofit.create(GoldApis.class);
     }
 
     public Observable<DailyListBean> fetchDailyListInfo() {
@@ -236,5 +251,14 @@ public class RetrofitHelper {
 
     public Observable<MyHttpResponse<VersionBean>> fetchVersionInfo() {
         return myApiService.getVersionInfo();
+    }
+
+    public Observable<GoldHttpResponse<List<GoldListBean>>> fetchGoldList(String type, int num, int page) {
+        return goldApiService.getGoldList("{\"category\":\"" + type + "\"}", "-createdAt", "user,user.installation", num, page * num);
+    }
+
+    public Observable<GoldHttpResponse<List<GoldListBean>>> fetchGoldHotList(String type, String dataTime, int limit) {
+        return goldApiService.getGoldHot("{\"category\":\"" + type + "\",\"createdAt\":{\"$gt\":{\"__type\":\"Date\",\"iso\":\"" + dataTime + "T00:00:00.000Z\"}},\"objectId\":{\"$nin\":[\"58362f160ce463005890753e\",\"583659fcc59e0d005775cc8c\",\"5836b7358ac2470065d3df62\"]}}",
+                "-hotIndex", "user,user.installation", limit);
     }
 }

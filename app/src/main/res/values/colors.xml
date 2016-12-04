@@ -24,4 +24,5 @@
     <color name="comment_line">#dddddd</color>
     <color name="comment_at">#5d8698</color>
     <color name="preferences_title">#00618c</color>
+    <color name="gold_title">#3F51B5</color>
 </resources>

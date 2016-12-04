@@ -1,7 +1,5 @@
 package com.codeest.geeknews.ui.gank.fragment;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.GankItemBean;
@@ -55,6 +54,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
 
     boolean isLoadingMore = false;
     String tech;
+    int type;
 
     @Override
     protected void initInject() {
@@ -70,23 +70,23 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
     protected void initEventAndData() {
         mPresenter.getGirlImage();
         mList = new ArrayList<>();
-        tech = getArguments().getString("tech");
+        tech = getArguments().getString(Constants.IT_GANK_TYPE);
+        type = getArguments().getInt(Constants.IT_GANK_TYPE_CODE);
         mAdapter = new TechAdapter(mContext,mList,tech);
         rvTechContent.setLayoutManager(new LinearLayoutManager(mContext));
         rvTechContent.setAdapter(mAdapter);
         ivProgress.start();
-        mPresenter.getGankData(tech);
+        mPresenter.getGankData(tech, type);
         mAdapter.setOnItemClickListener(new TechAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View shareView) {
-                Intent intent = new Intent();
-                intent.setClass(mContext, TechDetailActivity.class);
-                intent.putExtra("url",mList.get(position).getUrl());
-                intent.putExtra("title",mList.get(position).getDesc());
-                intent.putExtra("id",mList.get(position).get_id());
-                intent.putExtra("tech",tech);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
-                mContext.startActivity(intent,options.toBundle());
+                TechDetailActivity.launch(new TechDetailActivity.Builder()
+                        .setContext(mContext)
+                        .setId(mList.get(position).get_id())
+                        .setTitle(mList.get(position).getDesc())
+                        .setUrl(mList.get(position).getUrl())
+                        .setType(type)
+                .setAnimConfig(mActivity, shareView));
             }
         });
         rvTechContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -119,7 +119,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getGankData(tech);
+                mPresenter.getGankData(tech, type);
             }
         });
     }

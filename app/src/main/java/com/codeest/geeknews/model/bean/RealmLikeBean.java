@@ -21,6 +21,8 @@ public class RealmLikeBean extends RealmObject implements Serializable{
 
     private String title;
 
+    private String url;
+
     private int type;
 
     private long time;
@@ -63,5 +65,13 @@ public class RealmLikeBean extends RealmObject implements Serializable{
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

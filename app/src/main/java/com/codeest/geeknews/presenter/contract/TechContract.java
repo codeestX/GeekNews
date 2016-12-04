@@ -23,7 +23,7 @@ public interface TechContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getGankData(String tech);
+        void getGankData(String tech, int type);
 
         void getMoreGankData(String tech);
 

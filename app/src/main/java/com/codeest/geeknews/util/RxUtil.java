@@ -2,6 +2,7 @@ package com.codeest.geeknews.util;
 
 import com.codeest.geeknews.model.http.ApiException;
 import com.codeest.geeknews.model.http.GankHttpResponse;
+import com.codeest.geeknews.model.http.GoldHttpResponse;
 import com.codeest.geeknews.model.http.MyHttpResponse;
 import com.codeest.geeknews.model.http.WXHttpResponse;
 
@@ -91,6 +92,29 @@ public class RxUtil {
                     public Observable<T> call(MyHttpResponse<T> tMyHttpResponse) {
                         if(tMyHttpResponse.getCode() == 200) {
                             return createData(tMyHttpResponse.getData());
+                        } else {
+                            return Observable.error(new ApiException("服务器返回error"));
+                        }
+                    }
+                });
+            }
+        };
+    }
+
+    /**
+     * 统一返回结果处理
+     * @param <T>
+     * @return
+     */
+    public static <T> Observable.Transformer<GoldHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
+        return new Observable.Transformer<GoldHttpResponse<T>, T>() {
+            @Override
+            public Observable<T> call(Observable<GoldHttpResponse<T>> httpResponseObservable) {
+                return httpResponseObservable.flatMap(new Func1<GoldHttpResponse<T>, Observable<T>>() {
+                    @Override
+                    public Observable<T> call(GoldHttpResponse<T> tGoldHttpResponse) {
+                        if(tGoldHttpResponse.getResults() != null) {
+                            return createData(tGoldHttpResponse.getResults());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
                         }

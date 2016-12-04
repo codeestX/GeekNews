@@ -9,6 +9,7 @@ import com.codeest.geeknews.model.bean.SearchEvent;
 import com.codeest.geeknews.model.http.GankHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.TechContract;
+import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
 import com.codeest.geeknews.util.RxUtil;
 
 import java.util.ArrayList;
@@ -27,15 +28,12 @@ import rx.functions.Func1;
 public class TechPresenter extends RxPresenter<TechContract.View> implements TechContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
-
-    public static final String TECH_ANDROID = "Android";
-    public static final String TECH_IOS = "iOS";
-    public static final String TECH_WEB = "前端";
     private static final int NUM_OF_PAGE = 20;
 
     private int currentPage = 1;
     private String queryStr = null;
-    private String currentTech = TECH_ANDROID;
+    private String currentTech = GankMainFragment.tabTitle[0];
+    private int currentType = Constants.TYPE_ANDROID;
 
     @Inject
     public TechPresenter(RetrofitHelper mRetrofitHelper) {
@@ -49,7 +47,7 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                 .filter(new Func1<SearchEvent, Boolean>() {
                     @Override
                     public Boolean call(SearchEvent searchEvent) {
-                        return searchEvent.getType() == getTechType(currentTech);
+                        return searchEvent.getType() == currentType;
                     }
                 })
                 .map(new Func1<SearchEvent, String>() {
@@ -109,10 +107,11 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
     }
 
     @Override
-    public void getGankData(String tech) {
+    public void getGankData(String tech, int type) {
         queryStr = null;
         currentPage = 1;
         currentTech = tech;
+        currentType = type;
         Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
@@ -204,19 +203,5 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                     }
                 });
         addSubscrebe(rxSubscription);
-    }
-
-    public static int getTechType(String tech) {
-        switch (tech) {
-            case TechPresenter.TECH_ANDROID:
-                return Constants.TYPE_ANDROID;
-            case TechPresenter.TECH_IOS:
-                return Constants.TYPE_IOS;
-            case TechPresenter.TECH_WEB:
-                return Constants.TYPE_WEB;
-            case WechatPresenter.TECH_WECHAT:
-                return Constants.TYPE_WECHAT;
-        }
-        return Constants.TYPE_ANDROID;
     }
 }

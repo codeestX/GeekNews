@@ -10,8 +10,8 @@ android {
         applicationId "com.codeest.geeknews"
         minSdkVersion 21
         targetSdkVersion 24
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 120
+        versionName "1.2.0"
 
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
@@ -46,8 +46,8 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.1.1'
 
     //rx
-    compile 'io.reactivex:rxjava:1.1.0'
-    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
     //network

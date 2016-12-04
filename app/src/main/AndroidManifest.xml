@@ -62,6 +62,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
+        //掘金
+        <activity android:name=".ui.gold.activity.GoldManagerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <service android:name=".component.UpdateService"/>
 
     </application>

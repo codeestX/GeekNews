@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.model.bean.GankItemBean;
-import com.codeest.geeknews.presenter.TechPresenter;
+import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
 import com.codeest.geeknews.util.DateUtil;
 
 import java.util.List;
@@ -44,11 +44,11 @@ public class TechAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if(tech.equals(TechPresenter.TECH_ANDROID)) {
+        if(tech.equals(GankMainFragment.tabTitle[0])) {
             ((ViewHolder)holder).ivIcon.setImageResource(R.mipmap.ic_android);
-        } else if(tech.equals(TechPresenter.TECH_IOS)) {
+        } else if(tech.equals(GankMainFragment.tabTitle[1])) {
             ((ViewHolder)holder).ivIcon.setImageResource(R.mipmap.ic_ios);
-        } else if(tech.equals(TechPresenter.TECH_WEB)) {
+        } else if(tech.equals(GankMainFragment.tabTitle[2])) {
             ((ViewHolder)holder).ivIcon.setImageResource(R.mipmap.ic_web);
         }
         ((ViewHolder)holder).tvContent.setText(mList.get(position).getDesc());

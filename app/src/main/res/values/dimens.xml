@@ -15,4 +15,6 @@
     <dimen name="tech_icon_size">32dp</dimen>
     <dimen name="theme_image_height">120dp</dimen>
     <dimen name="section_image_height">140dp</dimen>
+    <dimen name="gold_image_size">60dp</dimen>
+    <dimen name="gold_icon_size">16dp</dimen>
 </resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/colorCard"
+    android:padding="12dp">
+
+    <ImageView
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@mipmap/ic_hot"/>
+
+    <TextView
+        android:id="@+id/tv_gold_hot_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gold_title"
+        android:textSize="16sp"
+        android:layout_marginStart="30dp"
+        android:text="Android 热门"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_gold_hot_close"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:background="@mipmap/ic_close"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

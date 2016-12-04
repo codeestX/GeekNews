@@ -21,7 +21,6 @@ import com.codeest.geeknews.model.bean.VersionBean;
 import com.codeest.geeknews.presenter.SettingPresenter;
 import com.codeest.geeknews.presenter.contract.SettingContract;
 import com.codeest.geeknews.ui.main.activity.MainActivity;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
