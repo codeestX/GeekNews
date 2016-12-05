@@ -74,7 +74,9 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                rvGoldList.addItemDecoration(mDecoration);
+                if (!mAdapter.getHotFlag()) {
+                    rvGoldList.addItemDecoration(mDecoration);
+                }
                 mAdapter.setHotFlag(true);
                 mPresenter.getGoldData(mType);
             }

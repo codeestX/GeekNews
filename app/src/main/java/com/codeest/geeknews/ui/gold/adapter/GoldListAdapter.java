@@ -223,6 +223,10 @@ public class GoldListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mHotFlag = hotFlag;
     }
 
+    public boolean getHotFlag() {
+        return mHotFlag;
+    }
+
     public interface OnHotCloseListener {
         void onClose();
     }
