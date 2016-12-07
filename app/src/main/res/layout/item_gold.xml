@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorCard"
+    android:foreground="?attr/selectableItemBackground"
     android:padding="12dp">
     <com.codeest.geeknews.widget.SquareImageView
         android:id="@+id/iv_gold_item_img"
