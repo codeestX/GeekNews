@@ -10,7 +10,6 @@ import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleFragment;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.SearchEvent;
-import com.codeest.geeknews.presenter.TechPresenter;
 import com.codeest.geeknews.ui.gank.adapter.GankMainAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class GankMainFragment extends SimpleFragment{
     @BindView(R.id.vp_gank_main)
     ViewPager mViewPager;
 
-    String[] tabTitle = new String[]{"Android","iOS","Web","福利"};
+    public static String[] tabTitle = new String[]{"Android","iOS","前端","福利"};
     List<Fragment> fragments = new ArrayList<>();
 
     GankMainAdapter mAdapter;
@@ -50,13 +49,16 @@ public class GankMainFragment extends SimpleFragment{
         webFragment = new TechFragment();
         girlFragment = new GirlFragment();
         Bundle androidBundle = new Bundle();
-        androidBundle.putString("tech", TechPresenter.TECH_ANDROID);
+        androidBundle.putString(Constants.IT_GANK_TYPE, tabTitle[0]);
+        androidBundle.putInt(Constants.IT_GANK_TYPE_CODE, Constants.TYPE_ANDROID);
         androidFragment.setArguments(androidBundle);
         Bundle iosBundle = new Bundle();
-        iosBundle.putString("tech", TechPresenter.TECH_IOS);
+        iosBundle.putString(Constants.IT_GANK_TYPE, tabTitle[1]);
+        iosBundle.putInt(Constants.IT_GANK_TYPE_CODE, Constants.TYPE_IOS);
         iOSFragment.setArguments(iosBundle);
         Bundle webBundle = new Bundle();
-        webBundle.putString("tech", TechPresenter.TECH_WEB);
+        webBundle.putString(Constants.IT_GANK_TYPE, tabTitle[2]);
+        webBundle.putInt(Constants.IT_GANK_TYPE_CODE, Constants.TYPE_WEB);
         webFragment.setArguments(webBundle);
 
         fragments.add(androidFragment);

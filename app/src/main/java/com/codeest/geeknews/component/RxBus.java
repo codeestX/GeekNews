@@ -1,7 +1,5 @@
 package com.codeest.geeknews.component;
 
-import com.codeest.geeknews.util.LogUtil;
-
 import rx.Observable;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;

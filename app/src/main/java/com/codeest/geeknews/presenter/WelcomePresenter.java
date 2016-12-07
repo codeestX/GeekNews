@@ -4,7 +4,6 @@ import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.WelcomeContract;
-import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.RxUtil;
 
 import java.util.concurrent.TimeUnit;

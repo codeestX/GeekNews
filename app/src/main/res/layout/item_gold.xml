@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorCard"
+    android:padding="12dp">
+    <com.codeest.geeknews.widget.SquareImageView
+        android:id="@+id/iv_gold_item_img"
+        android:layout_width="@dimen/gold_image_size"
+        android:layout_height="@dimen/gold_image_size"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        />
+    <TextView
+        android:id="@+id/tv_gold_item_title"
+        android:layout_toEndOf="@id/iv_gold_item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:maxLines="2"
+        android:lineSpacingMultiplier="1.2"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:textColor="@color/colorText"/>
+    <TextView
+        android:id="@+id/tv_gold_item_info"
+        android:layout_toEndOf="@id/iv_gold_item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignBottom="@id/iv_gold_item_img"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        android:textColor="@color/comment_reply"/>
+</RelativeLayout>

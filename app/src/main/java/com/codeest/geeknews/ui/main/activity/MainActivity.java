@@ -24,6 +24,7 @@ import com.codeest.geeknews.model.bean.SearchEvent;
 import com.codeest.geeknews.presenter.MainPresenter;
 import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
+import com.codeest.geeknews.ui.gold.fragment.GoldMainFragment;
 import com.codeest.geeknews.ui.main.fragment.AboutFragment;
 import com.codeest.geeknews.ui.main.fragment.LikeFragment;
 import com.codeest.geeknews.ui.main.fragment.SettingFragment;
@@ -61,6 +62,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     ZhihuMainFragment mZhihuFragment;
     GankMainFragment mGankFragment;
     WechatMainFragment mWechatFragment;
+    GoldMainFragment mGoldFragment;
     LikeFragment mLikeFragment;
     SettingFragment mSettingFragment;
     AboutFragment mAboutFragment;
@@ -107,6 +109,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mZhihuFragment = new ZhihuMainFragment();
         mGankFragment = new GankMainFragment();
         mWechatFragment = new WechatMainFragment();
+        mGoldFragment = new GoldMainFragment();
         mLikeFragment = new LikeFragment();
         mSettingFragment = new SettingFragment();
         mAboutFragment = new AboutFragment();
@@ -114,7 +117,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_zhihu);
-        loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mGankFragment,mWechatFragment,mLikeFragment,mSettingFragment,mAboutFragment);
+        loadMultipleRootFragment(R.id.fl_main_content,0,mZhihuFragment,mWechatFragment,mGankFragment,mGoldFragment,mLikeFragment,mSettingFragment,mAboutFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -130,6 +133,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     case R.id.drawer_wechat:
                         showFragment = Constants.TYPE_WECHAT;
                         mSearchMenuItem.setVisible(true);
+                        break;
+                    case R.id.drawer_gold:
+                        showFragment = Constants.TYPE_GOLD;
+                        mSearchMenuItem.setVisible(false);
                         break;
                     case R.id.drawer_setting:
                         showFragment = Constants.TYPE_SETTING;
@@ -232,6 +239,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mGankFragment;
             case Constants.TYPE_WECHAT:
                 return mWechatFragment;
+            case Constants.TYPE_GOLD:
+                return mGoldFragment;
             case Constants.TYPE_LIKE:
                 return mLikeFragment;
             case Constants.TYPE_SETTING:
@@ -250,6 +259,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return R.id.drawer_gank;
             case Constants.TYPE_WECHAT:
                 return R.id.drawer_wechat;
+            case Constants.TYPE_GOLD:
+                return R.id.drawer_gold;
             case Constants.TYPE_LIKE:
                 return R.id.drawer_like;
             case Constants.TYPE_SETTING:

@@ -25,7 +25,6 @@ import rx.functions.Func1;
 
 public class WechatPresenter extends RxPresenter<WechatContract.View> implements WechatContract.Presenter {
 
-    public static final String TECH_WECHAT = "微信";
     private static final int NUM_OF_PAGE = 20;
 
     private int currentPage = 1;

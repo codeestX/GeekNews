@@ -18,6 +18,11 @@
                 android:icon="@mipmap/ic_drawer_gank"
                 android:checkable="true"
                 android:title="@string/gank"/>
+            <item
+                android:id="@+id/drawer_gold"
+                android:icon="@mipmap/ic_drawer_gold"
+                android:checkable="true"
+                android:title="@string/gold"/>
         </menu>
     </item>
     <item android:title="@string/drawer_group_options">

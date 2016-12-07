@@ -2,6 +2,7 @@ package com.codeest.geeknews.model.db;
 
 import android.content.Context;
 
+import com.codeest.geeknews.model.bean.GoldManagerBean;
 import com.codeest.geeknews.model.bean.ReadStateBean;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 
@@ -113,5 +114,30 @@ public class RealmHelper {
             bean.setTime(--time);
         }
         mRealm.commitTransaction();
+    }
+
+    /**
+     * 更新 掘金首页管理列表
+     * @param bean
+     */
+    public void updateGoldManagerList(GoldManagerBean bean) {
+        GoldManagerBean data = mRealm.where(GoldManagerBean.class).findFirst();
+        mRealm.beginTransaction();
+        if (data != null) {
+            data.deleteFromRealm();
+        }
+        mRealm.copyToRealm(bean);
+        mRealm.commitTransaction();
+    }
+
+    /**
+     * 获取 掘金首页管理列表
+     * @return
+     */
+    public GoldManagerBean getGoldManagerList() {
+        GoldManagerBean bean = mRealm.where(GoldManagerBean.class).findFirst();
+        if (bean == null)
+            return null;
+        return mRealm.copyFromRealm(bean);
     }
 }

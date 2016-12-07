@@ -1,5 +1,8 @@
 package com.codeest.geeknews.ui.gank.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -11,10 +14,10 @@ import android.widget.TextView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.App;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.db.RealmHelper;
-import com.codeest.geeknews.presenter.TechPresenter;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SystemUtil;
@@ -41,7 +44,8 @@ public class TechDetailActivity extends SimpleActivity {
     RealmHelper mRealmHelper;
     MenuItem menuItem;
 
-    String title,url,id,tech;
+    String title,url,imgUrl,id;
+    int type;
     boolean isLiked;
 
     @Override
@@ -53,10 +57,11 @@ public class TechDetailActivity extends SimpleActivity {
     protected void initEventAndData() {
         mRealmHelper = App.getAppComponent().realmHelper();
         Intent intent = getIntent();
-        tech = intent.getExtras().getString("tech");
-        title = intent.getExtras().getString("title");
-        url = intent.getExtras().getString("url");
-        id = intent.getExtras().getString("id");
+        type = intent.getExtras().getInt(Constants.IT_DETAIL_TYPE);
+        title = intent.getExtras().getString(Constants.IT_DETAIL_TITLE);
+        url = intent.getExtras().getString(Constants.IT_DETAIL_URL);
+        imgUrl = intent.getExtras().getString(Constants.IT_DETAIL_IMG_URL);
+        id = intent.getExtras().getString(Constants.IT_DETAIL_ID);
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
         if (SharedPreferenceUtil.getNoImageState()) {
@@ -87,6 +92,8 @@ public class TechDetailActivity extends SimpleActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                if (tvProgress == null)
+                    return;
                 if (newProgress == 100) {
                     tvProgress.setVisibility(View.GONE);
                 } else {
@@ -131,9 +138,10 @@ public class TechDetailActivity extends SimpleActivity {
                     item.setIcon(R.mipmap.ic_toolbar_like_p);
                     RealmLikeBean bean = new RealmLikeBean();
                     bean.setId(this.id);
-                    bean.setImage(url);
+                    bean.setImage(imgUrl);
+                    bean.setUrl(url);
                     bean.setTitle(title);
-                    bean.setType(TechPresenter.getTechType(tech));
+                    bean.setType(type);
                     bean.setTime(System.currentTimeMillis());
                     mRealmHelper.insertLikeBean(bean);
                 }
@@ -163,6 +171,81 @@ public class TechDetailActivity extends SimpleActivity {
             pop();
         } else {
             finishAfterTransition();
+        }
+    }
+
+    public static class Builder {
+
+        private String title;
+        private String url;
+        private String imgUrl;
+        private String id;
+        private int type;
+        private View shareView;
+        private Context mContext;
+        private Activity mActivity;
+
+        public Builder() {
+
+        }
+
+        public Builder setContext(Context mContext) {
+            this.mContext = mContext;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public Builder setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
+            return this;
+        }
+
+        public Builder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setType(int type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder setAnimConfig(Activity mActivity, View shareView) {
+            this.mActivity = mActivity;
+            this.shareView = shareView;
+            return this;
+        }
+    }
+
+    public static void launch(Builder builder) {
+        if (builder.shareView != null) {
+            Intent intent = new Intent();
+            intent.setClass(builder.mContext, TechDetailActivity.class);
+            intent.putExtra(Constants.IT_DETAIL_URL, builder.url);
+            intent.putExtra(Constants.IT_DETAIL_IMG_URL, builder.imgUrl);
+            intent.putExtra(Constants.IT_DETAIL_TITLE, builder.title);
+            intent.putExtra(Constants.IT_DETAIL_ID, builder.id);
+            intent.putExtra(Constants.IT_DETAIL_TYPE, builder.type);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(builder.mActivity, builder.shareView, "shareView");
+            builder.mContext.startActivity(intent,options.toBundle());
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(builder.mContext, TechDetailActivity.class);
+            intent.putExtra(Constants.IT_DETAIL_URL, builder.url);
+            intent.putExtra(Constants.IT_DETAIL_IMG_URL, builder.imgUrl);
+            intent.putExtra(Constants.IT_DETAIL_TITLE, builder.title);
+            intent.putExtra(Constants.IT_DETAIL_ID, builder.id);
+            intent.putExtra(Constants.IT_DETAIL_TYPE, builder.type);
+            builder.mContext.startActivity(intent);
         }
     }
 }

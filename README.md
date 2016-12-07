@@ -4,7 +4,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 极客日报，一款纯粹的阅读App，基于Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
 
-出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容目前包括知乎日报、微信精选、干货集中营，知识、新闻、福利一网打尽，后期会持续更新，坚持在这个项目上实践最新的技术，也会争取拓展更多的阅读内容
+出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容目前包括[知乎日报](http://daily.zhihu.com/)、[微信精选](http://www.tianapi.com/#wxnew)、[干货集中营](http://gank.io/)、[稀土掘金](https://gold.xitu.io/)，知识、新闻、福利一网打尽，后期会持续更新，坚持在这个项目上实践最新的技术，也会争取拓展更多的阅读内容
 
 本项目还在测试阶段，发现bug或有好的建议欢迎[issue](https://github.com/codeestX/GeekNews/issues)、email(codeest.dev@gmail.com)、PR，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
 
@@ -13,6 +13,9 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF1.gif) &nbsp;&nbsp;&nbsp;
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF2.gif) &nbsp;&nbsp;&nbsp;
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF3.gif)
+<img src="screenshots/PNG1.png" width = "40%" />
+<img src="screenshots/PNG2.png" width = "40%" />
+<img src="screenshots/PNG3.png" width = "40%" />
 
 ###[Download APK](http://fir.im/xt2f)
 (Android 5.0 or above)
@@ -44,6 +47,10 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ##Version
 
+###V1.2.0
+1.新增 [稀土掘金](https://gold.xitu.io/)板块  
+2.修复 部分已知BUG
+
 ###V1.1.0
 1.使用 SVG动画替换了部分progressbar<br>
 2.使用 [EasyPermissions](https://github.com/googlesamples/easypermissions)来做6.0+动态权限适配<br>
@@ -63,7 +70,8 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ##Thanks
 
 ###API:
-[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://www.tianapi.com/#wxnew)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)
+[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://www.tianapi.com/#wxnew)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)  
+稀土掘金API为本人抓包获取，将掘金板块接入该应用有征得官方同意
 
 ###APP:
 [Hot](https://github.com/zj-wukewei/Hot) 提供了Dagger2配合MVP的架构思路

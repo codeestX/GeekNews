@@ -18,6 +18,7 @@ public class SharedPreferenceUtil {
 
     private static final boolean DEFAULT_LIKE_POINT = false;
     private static final boolean DEFAULT_VERSION_POINT = false;
+    private static final boolean DEFAULT_MANAGER_POINT = false;
 
     private static final int DEFAULT_CURRENT_ITEM = Constants.TYPE_ZHIHU;
 
@@ -73,5 +74,13 @@ public class SharedPreferenceUtil {
 
     public static void setVersionPoint(boolean isFirst) {
         getAppSp().edit().putBoolean(Constants.SP_VERSION_POINT, isFirst).apply();
+    }
+
+    public static boolean getManagerPoint() {
+        return getAppSp().getBoolean(Constants.SP_MANAGER_POINT, DEFAULT_MANAGER_POINT);
+    }
+
+    public static void setManagerPoint(boolean isFirst) {
+        getAppSp().edit().putBoolean(Constants.SP_MANAGER_POINT, isFirst).apply();
     }
 }
