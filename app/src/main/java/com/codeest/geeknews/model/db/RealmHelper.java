@@ -74,7 +74,9 @@ public class RealmHelper {
     public void deleteLikeBean(String id) {
         RealmLikeBean data = mRealm.where(RealmLikeBean.class).equalTo("id",id).findFirst();
         mRealm.beginTransaction();
-        data.deleteFromRealm();
+        if (data != null) {
+            data.deleteFromRealm();
+        }
         mRealm.commitTransaction();
     }
 

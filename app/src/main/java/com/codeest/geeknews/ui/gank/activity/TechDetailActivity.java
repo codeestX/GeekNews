@@ -134,6 +134,7 @@ public class TechDetailActivity extends SimpleActivity {
                 if(isLiked) {
                     item.setIcon(R.mipmap.ic_toolbar_like_n);
                     mRealmHelper.deleteLikeBean(this.id);
+                    isLiked = false;
                 } else {
                     item.setIcon(R.mipmap.ic_toolbar_like_p);
                     RealmLikeBean bean = new RealmLikeBean();
@@ -144,6 +145,7 @@ public class TechDetailActivity extends SimpleActivity {
                     bean.setType(type);
                     bean.setTime(System.currentTimeMillis());
                     mRealmHelper.insertLikeBean(bean);
+                    isLiked = true;
                 }
                 break;
             case R.id.action_copy:
