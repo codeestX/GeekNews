@@ -101,19 +101,18 @@ public class RetrofitHelper {
                 return response;
             }
         };
-        Interceptor apikey = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                request = request.newBuilder()
+//        Interceptor apikey = new Interceptor() {
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request();
+//                request = request.newBuilder()
 //                        .addHeader("apikey",Constants.KEY_API)
-                        .addHeader("X-LC-Id",Constants.LEANCLOUD_ID)
-                        .addHeader("X-LC-Sign",Constants.LEANCLOUD_SIGN)
-                        .build();
-                return chain.proceed(request);
-            }
-        };
-        builder.addInterceptor(apikey);
+//                        .build();
+//                return chain.proceed(request);
+//            }
+//        }
+//        设置统一的请求头部参数
+//        builder.addInterceptor(apikey);
         //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);
@@ -254,11 +253,13 @@ public class RetrofitHelper {
     }
 
     public Observable<GoldHttpResponse<List<GoldListBean>>> fetchGoldList(String type, int num, int page) {
-        return goldApiService.getGoldList("{\"category\":\"" + type + "\"}", "-createdAt", "user,user.installation", num, page * num);
+        return goldApiService.getGoldList(Constants.LEANCLOUD_ID, Constants.LEANCLOUD_SIGN,
+                "{\"category\":\"" + type + "\"}", "-createdAt", "user,user.installation", num, page * num);
     }
 
     public Observable<GoldHttpResponse<List<GoldListBean>>> fetchGoldHotList(String type, String dataTime, int limit) {
-        return goldApiService.getGoldHot("{\"category\":\"" + type + "\",\"createdAt\":{\"$gt\":{\"__type\":\"Date\",\"iso\":\"" + dataTime + "T00:00:00.000Z\"}},\"objectId\":{\"$nin\":[\"58362f160ce463005890753e\",\"583659fcc59e0d005775cc8c\",\"5836b7358ac2470065d3df62\"]}}",
+        return goldApiService.getGoldHot(Constants.LEANCLOUD_ID, Constants.LEANCLOUD_SIGN,
+                "{\"category\":\"" + type + "\",\"createdAt\":{\"$gt\":{\"__type\":\"Date\",\"iso\":\"" + dataTime + "T00:00:00.000Z\"}},\"objectId\":{\"$nin\":[\"58362f160ce463005890753e\",\"583659fcc59e0d005775cc8c\",\"5836b7358ac2470065d3df62\"]}}",
                 "-hotIndex", "user,user.installation", limit);
     }
 }
