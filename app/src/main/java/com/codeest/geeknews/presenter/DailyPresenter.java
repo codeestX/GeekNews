@@ -50,11 +50,9 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     private void registerEvent() {
         Subscription rxSubscription = RxBus.getDefault().toObservable(CalendarDay.class)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())  //为了显示progress切到主线程
                 .map(new Func1<CalendarDay, String>() {
                     @Override
                     public String call(CalendarDay calendarDay) {
-                        mView.showProgress();
                         StringBuilder date = new StringBuilder();
                         String year = String.valueOf(calendarDay.getYear());
                         String month = String.valueOf(calendarDay.getMonth() + 1);

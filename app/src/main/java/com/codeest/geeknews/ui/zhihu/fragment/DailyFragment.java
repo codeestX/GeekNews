@@ -136,11 +136,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     }
 
     @Override
-    public void showProgress() {
-        ivProgress.start();
-    }
-
-    @Override
     public void doInterval(int currentCount) {
         mAdapter.changeTopPager(currentCount);
     }
