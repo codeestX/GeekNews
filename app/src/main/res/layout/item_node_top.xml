@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="2dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:background="@color/colorCard">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.codeest.geeknews.widget.CircleImageView
+            android:id="@+id/iv_node_face"
+            android:layout_width="@dimen/vtex_node_image_size"
+            android:layout_height="@dimen/vtex_node_image_size"
+            android:src="@mipmap/ic_launcher"
+            android:background="@drawable/round_face_bg"/>
+        <TextView
+            android:id="@+id/tv_node_name"
+            tools:text="程序员"
+            android:layout_toEndOf="@id/iv_node_face"
+            android:layout_marginStart="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tv_nodes_tips"
+            tools:text="主题总数233\n收藏总数233"
+            android:layout_toEndOf="@id/iv_node_face"
+            android:layout_alignBottom="@id/iv_node_face"
+            android:layout_marginStart="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/topic_text"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_node_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="网速很重要。比快更快。"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorText"/>
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include layout="@layout/view_node_title" />
+    <com.codeest.geeknews.widget.FlowLayout
+        android:id="@+id/fl_node_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+
+    </com.codeest.geeknews.widget.FlowLayout>
+</LinearLayout>

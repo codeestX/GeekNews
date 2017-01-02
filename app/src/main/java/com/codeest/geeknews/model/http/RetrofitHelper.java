@@ -10,6 +10,9 @@ import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.model.bean.GankSearchItemBean;
 import com.codeest.geeknews.model.bean.GoldListBean;
 import com.codeest.geeknews.model.bean.HotListBean;
+import com.codeest.geeknews.model.bean.NodeBean;
+import com.codeest.geeknews.model.bean.NodeListBean;
+import com.codeest.geeknews.model.bean.RepliesListBean;
 import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.SectionListBean;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
@@ -48,14 +51,16 @@ public class RetrofitHelper {
     private static WeChatApis wechatApiService = null;
     private static MyApis myApiService = null;
     private static GoldApis goldApiService = null;
+    private static VtexApis vtexApiService = null;
 
     private void init() {
         initOkHttp();
-        zhihuApiService = getZhihuApiService();
-        gankApiService = getGankApiService();
-        wechatApiService = getWechatApiService();
-        myApiService = getMyApiService();
-        goldApiService = getGoldApiService();
+        zhihuApiService = getApiService(ZhihuApis.HOST, ZhihuApis.class);
+        gankApiService = getApiService(GankApis.HOST, GankApis.class);
+        wechatApiService = getApiService(WeChatApis.HOST, WeChatApis.class);
+        myApiService = getApiService(MyApis.HOST, MyApis.class);
+        goldApiService = getApiService(GoldApis.HOST, GoldApis.class);
+        vtexApiService = getApiService(VtexApis.HOST, VtexApis.class);
     }
 
     public RetrofitHelper() {
@@ -126,54 +131,14 @@ public class RetrofitHelper {
         okHttpClient = builder.build();
     }
 
-    private static ZhihuApis getZhihuApiService() {
-        Retrofit zhihuRetrofit = new Retrofit.Builder()
-                .baseUrl(ZhihuApis.HOST)
+    private <T> T getApiService(String baseUrl, Class<T> clz) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-        return zhihuRetrofit.create(ZhihuApis.class);
-    }
-
-    private static GankApis getGankApiService() {
-        Retrofit gankRetrofit = new Retrofit.Builder()
-                .baseUrl(GankApis.HOST)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        return gankRetrofit.create(GankApis.class);
-    }
-
-    private static WeChatApis getWechatApiService() {
-        Retrofit gankRetrofit = new Retrofit.Builder()
-                .baseUrl(WeChatApis.HOST)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        return gankRetrofit.create(WeChatApis.class);
-    }
-
-    private static MyApis getMyApiService() {
-        Retrofit myRetrofit = new Retrofit.Builder()
-                .baseUrl(MyApis.HOST)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        return myRetrofit.create(MyApis.class);
-    }
-
-    private static GoldApis getGoldApiService() {
-        Retrofit goldRetrofit = new Retrofit.Builder()
-                .baseUrl(GoldApis.HOST)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        return goldRetrofit.create(GoldApis.class);
+        return retrofit.create(clz);
     }
 
     public Observable<DailyListBean> fetchDailyListInfo() {
@@ -261,5 +226,21 @@ public class RetrofitHelper {
         return goldApiService.getGoldHot(Constants.LEANCLOUD_ID, Constants.LEANCLOUD_SIGN,
                 "{\"category\":\"" + type + "\",\"createdAt\":{\"$gt\":{\"__type\":\"Date\",\"iso\":\"" + dataTime + "T00:00:00.000Z\"}},\"objectId\":{\"$nin\":[\"58362f160ce463005890753e\",\"583659fcc59e0d005775cc8c\",\"5836b7358ac2470065d3df62\"]}}",
                 "-hotIndex", "user,user.installation", limit);
+    }
+
+    public Observable<NodeBean> fetchNodeInfo(String name) {
+        return vtexApiService.getNodeInfo(name);
+    }
+
+    public Observable<List<NodeListBean>> fetchTopicList(String name) {
+        return vtexApiService.getTopicList(name);
+    }
+
+    public Observable<List<NodeListBean>> fetchTopicInfo(String id) {
+        return vtexApiService.getTopicInfo(id);
+    }
+
+    public Observable<List<RepliesListBean>> fetchRepliesList(String id){
+        return vtexApiService.getRepliesList(id);
     }
 }

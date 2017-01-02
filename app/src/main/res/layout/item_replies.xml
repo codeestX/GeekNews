@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:background="@color/colorCard">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.codeest.geeknews.widget.SquareImageView
+            android:id="@+id/iv_replies_face"
+            android:layout_width="@dimen/vtex_image_size"
+            android:layout_height="@dimen/vtex_image_size"
+            android:src="@mipmap/ic_launcher"
+            android:background="@drawable/round_face_bg"/>
+        <TextView
+            android:id="@+id/tv_replies_name"
+            tools:text="TEST"
+            android:layout_toEndOf="@id/iv_replies_face"
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/tv_replies_tips"
+            tools:text="TEST"
+            android:layout_toEndOf="@id/iv_replies_face"
+            android:layout_alignBottom="@id/iv_replies_face"
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/topic_text"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_replies_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="TEST"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:lineSpacingMultiplier="1.3"
+        android:textColor="@color/colorText"/>
+</LinearLayout>

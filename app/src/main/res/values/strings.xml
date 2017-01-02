@@ -7,6 +7,7 @@
     <string name="wechat">微信精选</string>
     <string name="gank">干货集中营</string>
     <string name="gold">稀土掘金</string>
+    <string name="vtex">V2EX</string>
     <string name="drawer_about">关于</string>
     <string name="drawer_collection">收藏</string>
     <string name="drawer_setting">设置</string>
@@ -40,5 +41,5 @@
     <string name="about_project">项目简介:\n极客日报,一个纯粹的阅读App\n为了熟悉当前Android端主流框架的使用,也为了能有一款将新闻、技术文章、福利一网打尽的简洁的阅读应用,利用闲暇时间做了这个项目n(*≧▽≦*)n\n
         本着学习的目的,该项目会持续迭代与优化,加入更丰富的阅读内容与功能,并不断尝试最新的技术,欢迎star、fork、issue、email</string>
     <string name="about_award">请作者吃糖(￣▽￣)</string>
-    <string name="about_info">GeekNews\t\t\tV1.2.0</string>
+    <string name="about_info">GeekNews\t\t\tV1.3.0</string>
 </resources>

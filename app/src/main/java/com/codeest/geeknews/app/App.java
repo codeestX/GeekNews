@@ -27,6 +27,7 @@ import java.util.Set;
 public class App extends Application{
 
     private static App instance;
+    public static AppComponent appComponent;
     private Set<Activity> allActivities;
 
     public static int SCREEN_WIDTH = -1;
@@ -118,8 +119,11 @@ public class App extends Application{
     }
 
     public static AppComponent getAppComponent(){
-        return DaggerAppComponent.builder()
-                .appModule(new AppModule(instance))
-                .build();
+        if (appComponent == null) {
+            appComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(instance))
+                    .build();
+        }
+        return appComponent;
     }
 }

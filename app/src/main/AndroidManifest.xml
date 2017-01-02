@@ -66,6 +66,18 @@
         <activity android:name=".ui.gold.activity.GoldManagerActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
+
+        //v2ex
+        <activity android:name=".ui.vtex.activity.NodeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.vtex.activity.NodeListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.vtex.activity.RepliesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
         <service android:name=".component.UpdateService"/>
 
     </application>

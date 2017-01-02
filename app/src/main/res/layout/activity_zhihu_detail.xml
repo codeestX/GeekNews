@@ -82,6 +82,7 @@
         android:id="@+id/ll_detail_bottom"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
+        app:layout_behavior="@string/bottom_sheet_behavior"
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_bottom_height">
         <LinearLayout
@@ -90,7 +91,7 @@
             android:padding="6dp"
             android:orientation="horizontal"
             >
-            <View
+            <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="2"/>
@@ -102,7 +103,7 @@
                 android:drawableTop="@mipmap/ic_daily_like"
                 android:drawablePadding="3dp"
                 android:text="@string/detail_bottom_like"/>
-            <View
+            <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="3"/>
@@ -114,7 +115,7 @@
                 android:drawableTop="@mipmap/ic_daily_comment"
                 android:drawablePadding="3dp"
                 android:text="@string/detail_bottom_commit"/>
-            <View
+            <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="3"/>
@@ -126,7 +127,7 @@
                 android:drawableTop="@mipmap/ic_daily_share"
                 android:drawablePadding="3dp"
                 android:text="@string/detail_bottom_share"/>
-            <View
+            <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="2"/>

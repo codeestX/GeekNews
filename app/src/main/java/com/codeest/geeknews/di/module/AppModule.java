@@ -1,7 +1,6 @@
 package com.codeest.geeknews.di.module;
 
 import com.codeest.geeknews.app.App;
-import com.codeest.geeknews.di.ContextLife;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 
@@ -24,7 +23,6 @@ public class AppModule {
 
     @Provides
     @Singleton
-    @ContextLife("Application")
     App provideApplicationContext() {
         return application;
     }

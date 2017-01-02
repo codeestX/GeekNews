@@ -23,6 +23,11 @@
                 android:icon="@mipmap/ic_drawer_gold"
                 android:checkable="true"
                 android:title="@string/gold"/>
+            <item
+                android:id="@+id/drawer_vtex"
+                android:icon="@mipmap/ic_drawer_vtex"
+                android:checkable="true"
+                android:title="@string/vtex"/>
         </menu>
     </item>
     <item android:title="@string/drawer_group_options">

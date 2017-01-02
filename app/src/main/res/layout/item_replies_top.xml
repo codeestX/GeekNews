@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/colorCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_replies_top_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="TEST"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorText"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="12dp"
+        />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <com.codeest.geeknews.widget.SquareImageView
+            android:id="@+id/iv_replies_top_face"
+            android:layout_width="@dimen/vtex_author_image_size"
+            android:layout_height="@dimen/vtex_author_image_size"
+            android:background="@drawable/round_face_bg"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:id="@+id/tv_replies_top_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            tools:text="TEST"
+            android:textSize="12sp"
+            android:textColor="@color/topic_text"/>
+        <TextView
+            android:id="@+id/tv_replies_top_num"
+            android:gravity="end"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            tools:text="TEST"
+            android:textSize="12sp"
+            android:textColor="@color/topic_text"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_replies_top_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.4"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        tools:text="TEST"
+        android:textColor="@color/colorText"/>
+
+</LinearLayout>

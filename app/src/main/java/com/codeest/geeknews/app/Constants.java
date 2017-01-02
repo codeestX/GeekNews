@@ -27,11 +27,13 @@ public class Constants {
 
     public static final int TYPE_GOLD = 108;
 
-    public static final int TYPE_SETTING = 109;
+    public static final int TYPE_VTEX = 109;
 
-    public static final int TYPE_LIKE = 110;
+    public static final int TYPE_SETTING = 110;
 
-    public static final int TYPE_ABOUT = 111;
+    public static final int TYPE_LIKE = 111;
+
+    public static final int TYPE_ABOUT = 112;
 
     //================= KEY ====================
 
@@ -88,4 +90,14 @@ public class Constants {
     public static final String IT_GOLD_TYPE_STR = "type_str";
 
     public static final String IT_GOLD_MANAGER = "manager";
+
+    public static final String IT_VTEX_TYPE = "type";
+
+    public static final String IT_VTEX_TOPIC_ID = "id";
+
+    public static final String IT_VTEX_TOPIC_CONTENT = "content";
+
+    public static final String IT_VTEX_REPLIES_TOP = "top_info";
+
+    public static final String IT_VTEX_NODE_NAME = "node_name";
 }

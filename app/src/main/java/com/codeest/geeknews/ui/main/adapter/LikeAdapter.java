@@ -13,8 +13,10 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
+import com.codeest.geeknews.presenter.VtexPresenter;
 import com.codeest.geeknews.ui.gank.activity.GirlDetailActivity;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
+import com.codeest.geeknews.ui.vtex.activity.RepliesActivity;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 
 import java.util.List;
@@ -137,6 +139,20 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                     });
                     break;
+                case Constants.TYPE_VTEX:
+                    if (mList.get(position).getImage() != null) {
+                        ImageLoader.load(mContext, VtexPresenter.parseImg(mList.get(position).getImage()), ((ArticleViewHolder) holder).image);
+                    } else {
+                        ((ArticleViewHolder) holder).image.setImageResource(R.mipmap.ic_launcher);
+                    }
+                    ((ArticleViewHolder) holder).from.setText("来自 V2EX");
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            gotoVtexDetail(mList.get(holder.getAdapterPosition()).getId());
+                        }
+                    });
+                    break;
             }
         } else if(holder instanceof GirlViewHolder) {
             ImageLoader.load(mContext, mList.get(position).getImage(), ((GirlViewHolder) holder).image);
@@ -204,6 +220,13 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         intent.setClass(mContext, GirlDetailActivity.class);
         intent.putExtra("url",url);
         intent.putExtra("id",id);
+        mContext.startActivity(intent);
+    }
+
+    public void gotoVtexDetail(String topicId) {
+        Intent intent = new Intent();
+        intent.setClass(mContext, RepliesActivity.class);
+        intent.putExtra(Constants.IT_VTEX_TOPIC_ID,topicId);
         mContext.startActivity(intent);
     }
 }
