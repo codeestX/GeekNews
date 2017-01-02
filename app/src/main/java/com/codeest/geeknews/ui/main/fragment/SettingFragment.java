@@ -148,7 +148,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements C
             public void onClick(DialogInterface dialogInterface, int i) {
                 Activity mActivity = getActivity();
                 if (mActivity instanceof MainActivity) {
-                    ((MainActivity) mActivity).requestPermission();
+                    ((MainActivity) mActivity).checkPermissions();
                 }
             }
         });

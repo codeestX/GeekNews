@@ -46,6 +46,8 @@ public class Constants {
 
     public static final String LEANCLOUD_SIGN = "badc5461a25a46291054b902887a68eb,1480438132702";
 
+    public static final String BUGLY_ID = "257700f3f8";
+
     //================= PATH ====================
 
     public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
@@ -94,8 +96,6 @@ public class Constants {
     public static final String IT_VTEX_TYPE = "type";
 
     public static final String IT_VTEX_TOPIC_ID = "id";
-
-    public static final String IT_VTEX_TOPIC_CONTENT = "content";
 
     public static final String IT_VTEX_REPLIES_TOP = "top_info";
 

@@ -3,6 +3,7 @@ package com.codeest.geeknews.ui.zhihu.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.widget.SquareImageView;
+import com.codeest.geeknews.widget.ZhihuDiffCallback;
 
 import java.util.List;
 
@@ -163,17 +165,21 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public void addDailyDate(DailyListBean info) {
         currentTitle = "今日热闻";
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ZhihuDiffCallback(mList, info.getStories()), true);
         mList = info.getStories();
         mTopList = info.getTop_stories();
         isBefore = false;
-        notifyDataSetChanged();
+        diffResult.dispatchUpdatesTo(this);
+//        notifyDataSetChanged();
     }
 
     public void addDailyBeforeDate(DailyBeforeListBean info) {
         currentTitle = info.getDate();
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ZhihuDiffCallback(mList, info.getStories()), true);
         mList = info.getStories();
         isBefore = true;
-        notifyDataSetChanged();
+        diffResult.dispatchUpdatesTo(this);
+//        notifyDataSetChanged();
     }
 
     public boolean getIsBefore() {

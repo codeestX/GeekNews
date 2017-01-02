@@ -1,5 +1,7 @@
 package com.codeest.geeknews.presenter;
 
+import android.Manifest;
+
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.NightModeEvent;
@@ -9,6 +11,7 @@ import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.util.LogUtil;
 import com.codeest.geeknews.util.RxUtil;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import javax.inject.Inject;
 
@@ -93,6 +96,22 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                     @Override
                     public void call(Throwable throwable) {
                         LogUtil.d(throwable.toString());
+                    }
+                });
+        addSubscrebe(rxSubscription);
+    }
+
+    @Override
+    public void checkPermissions(RxPermissions rxPermissions) {
+        Subscription rxSubscription = rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean granted) {
+                        if (granted) {
+                            mView.startDownloadService();
+                        } else {
+                            mView.showError("下载应用需要文件写入权限哦~");
+                        }
                     }
                 });
         addSubscrebe(rxSubscription);
