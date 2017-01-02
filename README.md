@@ -4,8 +4,13 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 极客日报，一款纯粹的阅读App，基于Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
 
-出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容目前包括[知乎日报](http://daily.zhihu.com/)、[微信精选](http://www.tianapi.com/#wxnew)、[干货集中营](http://gank.io/)、[稀土掘金](https://gold.xitu.io/)，知识、新闻、福利一网打尽，后期会持续更新，坚持在这个项目上实践最新的技术，也会争取拓展更多的阅读内容
-
+出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容主要面向程序员/极客，目前包括:  
+[知乎日报](http://daily.zhihu.com/)——汇集知乎上的热门话题与新鲜事，板块众多  
+[微信精选](http://www.tianapi.com/#wxnew)——汇集微信上的海量精选新闻资讯，支持搜索  
+[干货集中营](http://gank.io/)——或许是国内第三方客户端最多的干货分享地  
+[稀土掘金](https://gold.xitu.io/)——目前最火热的技术分发平台  
+[V2EX](https://gold.xitu.io/)——一个关于分享和探索的地方，创意工作者们的社区  
+<br/>
 本项目还在测试阶段，发现bug或有好的建议欢迎[issue](https://github.com/codeestX/GeekNews/issues)、email(codeest.dev@gmail.com)、PR，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
 
 ###Preview
@@ -16,6 +21,8 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 <img src="screenshots/PNG1.png" width = "40%" />
 <img src="screenshots/PNG2.png" width = "40%" />
 <img src="screenshots/PNG3.png" width = "40%" />
+<img src="screenshots/PNG4.png" width = "40%" />
+<img src="screenshots/PNG5.png" width = "40%" />
 
 ###[Download APK](http://fir.im/xt2f)
 (Android 5.0 or above)
@@ -40,12 +47,18 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 使用RecyclerView实现下拉刷新、上拉加载、侧滑删除、长按拖曳
 * 使用x5WebView做阅览页，比原生WebView体验更佳
 * 使用SVG及其动画实现progressbar的效果
-* 使用EasyPermissions做6.0+动态权限适配
+* 使用RxPermissions做6.0+动态权限适配
+* 使用Jsoup解析V2EX站点DOM
 * 使用原生的夜间模式、分享、反馈
 * 包含搜索、收藏、检测更新等功能
 * 所有踩到的坑都在项目里做了注释
 
 ##Version
+
+###V1.3.0
+1.新增 [V2EX](https://www.v2ex.com/)板块  
+2.修复 部分已知BUG  
+3.调整 使用[Bugly](https://bugly.qq.com)做Crash收集，使用[RxPermissions](https://github.com/tbruyelle/RxPermissions)替换EasyPermissions
 
 ###V1.2.0
 1.新增 [稀土掘金](https://gold.xitu.io/)板块  
@@ -70,7 +83,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ##Thanks
 
 ###API:
-[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://www.tianapi.com/#wxnew)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)  
+[知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://www.tianapi.com/#wxnew)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[V2EX-API](https://github.com/djyde/V2EX-API)  
 稀土掘金API为本人抓包获取，将掘金板块接入该应用有征得官方同意
 
 ###APP:
@@ -105,6 +118,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * [OkHttp](https://github.com/square/okhttp)
 * [Glide](https://github.com/bumptech/glide)
 * [Gson](https://github.com/google/gson)
+* [Jsoup](https://github.com/jhy/jsoup)
 
 ####DI
 
@@ -125,7 +139,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 ####PERMISSION
 
-* [EasyPermissions](https://github.com/googlesamples/easypermissions)
+* [RxPermissions](https://github.com/tbruyelle/RxPermissions)
 
 ####CANARY
 
