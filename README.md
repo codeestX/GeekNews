@@ -5,13 +5,18 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 极客日报，一款纯粹的阅读App，基于Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
 
 出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容主要面向程序员/极客，目前包括:  
+
 [知乎日报](http://daily.zhihu.com/)——汇集知乎上的热门话题与新鲜事，板块众多  
 [微信精选](http://www.tianapi.com/#wxnew)——汇集微信上的海量精选新闻资讯，支持搜索  
-[干货集中营](http://gank.io/)——或许是国内第三方客户端最多的干货分享地  
+[干货集中营](http://gank.io/)——或许是国内第三方客户端最多的干货分享地，内含福利  
 [稀土掘金](https://gold.xitu.io/)——目前最火热的技术分发平台  
 [V2EX](https://www.v2ex.com/)——一个关于分享和探索的地方，创意工作者们的社区  
 <br/>
-本项目还在测试阶段，发现bug或有好的建议欢迎[issue](https://github.com/codeestX/GeekNews/issues)、email(codeest.dev@gmail.com)、PR，如果感觉对你有帮助也欢迎点个star、fork，本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
+<b>tips:</b>  
+
+* 本项目还在测试阶段，发现bug或有好的建议欢迎[issue](https://github.com/codeestX/GeekNews/issues)、email(codeest.dev@gmail.com)、PR
+* IDE提示缺少Dagger开头的Class直接编译即可，会由Dagger2自动生成
+* 本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
 
 ###Preview
 
