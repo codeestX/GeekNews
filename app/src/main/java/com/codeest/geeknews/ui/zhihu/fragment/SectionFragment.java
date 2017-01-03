@@ -23,7 +23,7 @@ import butterknife.BindView;
  */
 public class SectionFragment extends BaseFragment<SectionPresenter> implements SectionContract.View {
 
-    @BindView(R.id.rv_section_list)
+    @BindView(R.id.rv_content)
     RecyclerView rvSectionList;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
@@ -40,7 +40,7 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_section;
+        return R.layout.view_common_list;
     }
 
     @Override

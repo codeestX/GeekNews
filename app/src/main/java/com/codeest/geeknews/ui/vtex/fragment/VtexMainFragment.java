@@ -47,14 +47,11 @@ public class VtexMainFragment extends SimpleFragment {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.IT_VTEX_TYPE, type[i]);
             fragment.setArguments(bundle);
-            mTabLayout.addTab(mTabLayout.newTab().setText(typeStr[i]));
+            mTabLayout.addTab(mTabLayout.newTab());
             fragments.add(fragment);
         }
         VtexPagerAdapter mAdapter = new VtexPagerAdapter(getChildFragmentManager(), fragments);
         mViewPager.setAdapter(mAdapter);
-        for (int i = 0; i < type.length; i++) {
-            mTabLayout.getTabAt(i).setText(typeStr[i]);
-        }
     }
 
     @OnClick(R.id.iv_vtex_menu)

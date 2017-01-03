@@ -27,7 +27,7 @@ import butterknife.BindView;
  */
 public class HotFragment extends BaseFragment<HotPresenter> implements HotContract.View {
 
-    @BindView(R.id.rv_hot_content)
+    @BindView(R.id.rv_content)
     RecyclerView rvHotContent;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
@@ -44,7 +44,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_hot;
+        return R.layout.view_common_list;
     }
 
     @Override

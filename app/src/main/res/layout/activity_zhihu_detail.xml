@@ -82,7 +82,6 @@
         android:id="@+id/ll_detail_bottom"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
-        app:layout_behavior="@string/bottom_sheet_behavior"
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_bottom_height">
         <LinearLayout

@@ -26,7 +26,7 @@ import butterknife.BindView;
 
 public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements GoldContract.View {
 
-    @BindView(R.id.rv_gold_list)
+    @BindView(R.id.rv_content)
     RecyclerView rvGoldList;
     @BindView(R.id.iv_progress)
     ProgressImageView ivProgress;
@@ -46,7 +46,7 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_gold;
+        return R.layout.view_common_list;
     }
 
     @Override

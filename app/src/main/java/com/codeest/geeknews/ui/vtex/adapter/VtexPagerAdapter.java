@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.ViewGroup;
 
+import com.codeest.geeknews.ui.vtex.fragment.VtexMainFragment;
 import com.codeest.geeknews.ui.vtex.fragment.VtexPagerFragment;
 
 import java.util.List;
@@ -26,6 +27,11 @@ public class VtexPagerAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return VtexMainFragment.typeStr[position];
     }
 
     @Override

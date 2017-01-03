@@ -25,7 +25,7 @@ import butterknife.BindView;
  */
 public class ThemeFragment extends BaseFragment<ThemePresenter> implements ThemeContract.View {
 
-    @BindView(R.id.rv_theme_list)
+    @BindView(R.id.rv_content)
     RecyclerView rvThemeList;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
@@ -42,7 +42,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_theme;
+        return R.layout.view_common_list;
     }
 
     @Override

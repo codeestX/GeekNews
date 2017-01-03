@@ -24,7 +24,7 @@ import butterknife.BindView;
 
 public class WechatMainFragment extends BaseFragment<WechatPresenter> implements WechatContract.View {
 
-    @BindView(R.id.rv_wechat_list)
+    @BindView(R.id.rv_content)
     RecyclerView rvWechatList;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
@@ -43,7 +43,7 @@ public class WechatMainFragment extends BaseFragment<WechatPresenter> implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_wechat;
+        return R.layout.view_common_list;
     }
 
     @Override
