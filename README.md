@@ -6,11 +6,11 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 出于学习的目的做了这款Material Design风格的简洁的阅读应用，基本涵盖了当前Android端开发最常用的主流框架，阅读内容主要面向程序员/极客，目前包括:  
 
-[知乎日报](http://daily.zhihu.com/)——汇集知乎上的热门话题与新鲜事，板块众多  
-[微信精选](http://www.tianapi.com/#wxnew)——汇集微信上的海量精选新闻资讯，支持搜索  
-[干货集中营](http://gank.io/)——或许是国内第三方客户端最多的干货分享地，内含福利  
-[稀土掘金](https://gold.xitu.io/)——目前最火热的技术分发平台  
-[V2EX](https://www.v2ex.com/)——一个关于分享和探索的地方，创意工作者们的社区  
+[知乎日报](http://daily.zhihu.com/)&nbsp;&nbsp;—&nbsp;&nbsp;汇集知乎上的热门话题与新鲜事，板块众多  
+[微信精选](http://www.tianapi.com/#wxnew)&nbsp;&nbsp;—&nbsp;&nbsp;汇集微信上的海量精选新闻资讯，支持搜索  
+[干货集中营](http://gank.io/)&nbsp;&nbsp;—&nbsp;&nbsp;或许是国内第三方客户端最多的干货分享地，内含福利  
+[稀土掘金](https://gold.xitu.io/)&nbsp;&nbsp;—&nbsp;&nbsp;目前最火热的技术分发平台  
+[V2EX](https://www.v2ex.com/)&nbsp;&nbsp;—&nbsp;&nbsp;一个关于分享和探索的地方，创意工作者们的社区  
 <br/>
 <b>tips:</b>  
 
@@ -110,6 +110,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * [PhotoView](https://github.com/chrisbanes/PhotoView)
 * [multiline-collapsingtoolbar](https://github.com/opacapp/multiline-collapsingtoolbar)
 * [glide-transformations](https://github.com/wasabeef/glide-transformations)
+* [html-textview](https://github.com/SufficientlySecure/html-textview)
 
 ####RX
 
