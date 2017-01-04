@@ -13,6 +13,7 @@ android {
         versionCode 130
         versionName "1.3.0"
 
+        multiDexEnabled true
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }
@@ -68,6 +69,7 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     //other
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.orhanobut:logger:1.15'
     compile 'me.yokeyword:fragmentation:0.7.9'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
