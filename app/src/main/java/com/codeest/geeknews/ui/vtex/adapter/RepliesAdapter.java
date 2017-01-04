@@ -15,6 +15,9 @@ import com.codeest.geeknews.presenter.VtexPresenter;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.widget.SquareImageView;
 
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,7 +70,7 @@ public class RepliesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return;
             }
             ImageLoader.load(mContext, VtexPresenter.parseImg(mTopBean.getMember().getavatar_normal()), topHolder.ivRepliesTopFace);
-            topHolder.tvRepliesTopContent.setText(mTopBean.getContent());
+            topHolder.tvRepliesTopContent.setHtml(mTopBean.getContent_rendered(), new HtmlHttpImageGetter(topHolder.tvRepliesTopContent));
             topHolder.tvRepliesTopName.setText(mTopBean.getMember().getUsername());
             topHolder.tvRepliesTopTitle.setText(mTopBean.getTitle());
             topHolder.tvRepliesTopNum.setText(String.format("%s,   共%s条回复", DateUtil.formatTime2String(mTopBean.getCreated()), mTopBean.getReplies()));
@@ -79,7 +82,7 @@ public class RepliesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ImageLoader.load(mContext, VtexPresenter.parseImg(bean.getMember().getavatar_normal()), contentHolder.ivRepliesFace);
             contentHolder.tvRepliesName.setText(bean.getMember().getUsername());
             contentHolder.tvRepliesTips.setText(String.format("%d楼 %s", position, DateUtil.formatTime2String(bean.getCreated())));
-            contentHolder.tvRepliesContent.setText(bean.getContent());
+            contentHolder.tvRepliesContent.setHtml(bean.getContent_rendered(), new HtmlHttpImageGetter(contentHolder.tvRepliesContent));
         }
     }
 
@@ -99,7 +102,7 @@ public class RepliesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @BindView(R.id.tv_replies_top_num)
         TextView tvRepliesTopNum;
         @BindView(R.id.tv_replies_top_content)
-        TextView tvRepliesTopContent;
+        HtmlTextView tvRepliesTopContent;
 
         public TopViewHolder(View itemView) {
             super(itemView);
@@ -116,7 +119,7 @@ public class RepliesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @BindView(R.id.tv_replies_tips)
         TextView tvRepliesTips;
         @BindView(R.id.tv_replies_content)
-        TextView tvRepliesContent;
+        HtmlTextView tvRepliesContent;
 
         public ViewHolder(View itemView) {
             super(itemView);

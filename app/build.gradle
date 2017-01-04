@@ -80,6 +80,7 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:1.3.0'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'jp.wasabeef:glide-transformations:1.2.1'
+    compile 'org.sufficientlysecure:html-textview:3.1'
 
     //canary
     debugCompile 'com.github.moduth:blockcanary-android:1.2.1'

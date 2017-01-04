@@ -38,11 +38,10 @@
             android:textSize="12sp"/>
     </RelativeLayout>
 
-    <TextView
+    <org.sufficientlysecure.htmltextview.HtmlTextView
         android:id="@+id/tv_replies_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="TEST"
         android:textSize="14sp"
         android:layout_marginTop="10dp"
         android:lineSpacingMultiplier="1.3"

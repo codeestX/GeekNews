@@ -18,7 +18,6 @@ public class RepliesListBean {
      */
 
     private int thanks;
-    private String content;
     private String content_rendered;
     private MemberBean member;
     private int created;
@@ -29,14 +28,6 @@ public class RepliesListBean {
 
     public void setThanks(int thanks) {
         this.thanks = thanks;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getContent_rendered() {

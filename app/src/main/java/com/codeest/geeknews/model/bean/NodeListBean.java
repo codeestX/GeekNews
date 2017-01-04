@@ -25,7 +25,6 @@ public class NodeListBean implements Parcelable{
 
     private String id;
     private String title;
-    private String content;
     private String content_rendered;
     private int replies;
     private MemberBean member;
@@ -160,20 +159,12 @@ public class NodeListBean implements Parcelable{
         return member;
     }
 
-    public String getContent() {
-        return content;
-    }
-
     public String getContent_rendered() {
         return content_rendered;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public void setContent_rendered(String content_rendered) {
@@ -217,7 +208,6 @@ public class NodeListBean implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.title);
-        dest.writeString(this.content);
         dest.writeString(this.content_rendered);
         dest.writeInt(this.replies);
         dest.writeParcelable(this.member, flags);
@@ -232,7 +222,6 @@ public class NodeListBean implements Parcelable{
     protected NodeListBean(Parcel in) {
         this.id = in.readString();
         this.title = in.readString();
-        this.content = in.readString();
         this.content_rendered = in.readString();
         this.replies = in.readInt();
         this.member = in.readParcelable(MemberBean.class.getClassLoader());
