@@ -1,4 +1,4 @@
-package com.codeest.geeknews.model.http;
+package com.codeest.geeknews.model.http.api;
 
 import com.codeest.geeknews.model.bean.NodeBean;
 import com.codeest.geeknews.model.bean.RepliesListBean;

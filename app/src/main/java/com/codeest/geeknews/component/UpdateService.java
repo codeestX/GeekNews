@@ -12,7 +12,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.codeest.geeknews.model.http.MyApis;
+import com.codeest.geeknews.model.http.api.MyApis;
 import com.codeest.geeknews.util.ToastUtil;
 
 import java.io.File;

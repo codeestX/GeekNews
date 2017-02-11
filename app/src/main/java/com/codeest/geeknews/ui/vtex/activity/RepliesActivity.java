@@ -13,7 +13,7 @@ import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.model.bean.NodeListBean;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.bean.RepliesListBean;
-import com.codeest.geeknews.model.http.VtexApis;
+import com.codeest.geeknews.model.http.api.VtexApis;
 import com.codeest.geeknews.presenter.RepliesPresenter;
 import com.codeest.geeknews.presenter.contract.RepliesContract;
 import com.codeest.geeknews.ui.vtex.adapter.RepliesAdapter;

@@ -2,7 +2,7 @@ package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.GoldListBean;
-import com.codeest.geeknews.model.http.GoldHttpResponse;
+import com.codeest.geeknews.model.http.response.GoldHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.GoldContract;
 import com.codeest.geeknews.util.RxUtil;

@@ -1,6 +1,7 @@
-package com.codeest.geeknews.model.http;
+package com.codeest.geeknews.model.http.api;
 
 import com.codeest.geeknews.model.bean.VersionBean;
+import com.codeest.geeknews.model.http.response.MyHttpResponse;
 
 import retrofit2.http.GET;
 import rx.Observable;

@@ -44,7 +44,6 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        mView.showError("");
                         mView.jumpToMain();
                     }
                 });

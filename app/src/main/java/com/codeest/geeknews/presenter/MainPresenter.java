@@ -4,9 +4,9 @@ import android.Manifest;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.component.RxBus;
-import com.codeest.geeknews.model.bean.NightModeEvent;
+import com.codeest.geeknews.model.event.NightModeEvent;
 import com.codeest.geeknews.model.bean.VersionBean;
-import com.codeest.geeknews.model.http.MyHttpResponse;
+import com.codeest.geeknews.model.http.response.MyHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.MainContract;
 import com.codeest.geeknews.util.LogUtil;

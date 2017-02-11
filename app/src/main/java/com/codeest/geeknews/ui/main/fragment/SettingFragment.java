@@ -16,7 +16,7 @@ import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.component.ACache;
 import com.codeest.geeknews.component.RxBus;
-import com.codeest.geeknews.model.bean.NightModeEvent;
+import com.codeest.geeknews.model.event.NightModeEvent;
 import com.codeest.geeknews.model.bean.VersionBean;
 import com.codeest.geeknews.presenter.SettingPresenter;
 import com.codeest.geeknews.presenter.contract.SettingContract;

@@ -1,4 +1,4 @@
-package com.codeest.geeknews.model.bean;
+package com.codeest.geeknews.model.event;
 
 /**
  * Created by codeest on 16/8/27.
