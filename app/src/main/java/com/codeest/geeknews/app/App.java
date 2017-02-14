@@ -48,10 +48,12 @@ public class App extends Application{
         //初始化屏幕宽高
         getScreenSize();
 
-        //在子线程中初始化
+        //在子线程中初始化，application中也不可以做耗时的操作
+        // InitializeService继承自IntentService，在service中的子线程中做各种初始化的操作。
         InitializeService.start(this);
     }
 
+    //解决文件方法数越界问题
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
