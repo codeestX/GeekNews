@@ -53,10 +53,7 @@ public class TechAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         ((ViewHolder)holder).tvContent.setText(mList.get(position).getDesc());
         ((ViewHolder)holder).tvAuthor.setText(mList.get(position).getWho());
-        String date = mList.get(position).getPublishedAt();
-        int idx = date.indexOf(".");
-        date = date.substring(0,idx).replace("T"," ");
-        ((ViewHolder)holder).tvTime.setText(DateUtil.formatDateTime(date,true));
+        ((ViewHolder)holder).tvTime.setText(DateUtil.formatDateTime(DateUtil.subStandardTime(mList.get(position).getPublishedAt()), true));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
