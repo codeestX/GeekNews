@@ -1,4 +1,4 @@
-package com.codeest.geeknews.model.http;
+package com.codeest.geeknews.model.http.exception;
 
 /**
  * Created by codeest on 2016/8/4.

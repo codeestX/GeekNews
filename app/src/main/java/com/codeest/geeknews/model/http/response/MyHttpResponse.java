@@ -1,4 +1,4 @@
-package com.codeest.geeknews.model.http;
+package com.codeest.geeknews.model.http.response;
 
 /**
  * Created by codeest on 16/10/10.

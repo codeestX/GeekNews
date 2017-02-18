@@ -2,7 +2,7 @@ package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.VersionBean;
-import com.codeest.geeknews.model.http.MyHttpResponse;
+import com.codeest.geeknews.model.http.response.MyHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.SettingContract;
 import com.codeest.geeknews.util.RxUtil;

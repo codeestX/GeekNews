@@ -9,7 +9,7 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleFragment;
 import com.codeest.geeknews.component.RxBus;
-import com.codeest.geeknews.model.bean.SearchEvent;
+import com.codeest.geeknews.model.event.SearchEvent;
 import com.codeest.geeknews.ui.gank.adapter.GankMainAdapter;
 
 import java.util.ArrayList;

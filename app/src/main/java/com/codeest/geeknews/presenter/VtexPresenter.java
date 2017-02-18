@@ -2,7 +2,7 @@ package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.TopicListBean;
-import com.codeest.geeknews.model.http.VtexApis;
+import com.codeest.geeknews.model.http.api.VtexApis;
 import com.codeest.geeknews.presenter.contract.VtexContract;
 import com.codeest.geeknews.util.LogUtil;
 

@@ -59,6 +59,8 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
         mAdapter = new GirlAdapter(mContext, mList);
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(SPAN_COUNT,StaggeredGridLayoutManager.VERTICAL);
         mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        //fix issue #52 https://github.com/codeestX/GeekNews/issues/52
+        mStaggeredGridLayoutManager.setItemPrefetchEnabled(false);
         rvGirlContent.setLayoutManager(mStaggeredGridLayoutManager);
         rvGirlContent.setAdapter(mAdapter);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

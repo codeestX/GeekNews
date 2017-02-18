@@ -1,10 +1,10 @@
 package com.codeest.geeknews.util;
 
-import com.codeest.geeknews.model.http.ApiException;
-import com.codeest.geeknews.model.http.GankHttpResponse;
-import com.codeest.geeknews.model.http.GoldHttpResponse;
-import com.codeest.geeknews.model.http.MyHttpResponse;
-import com.codeest.geeknews.model.http.WXHttpResponse;
+import com.codeest.geeknews.model.http.exception.ApiException;
+import com.codeest.geeknews.model.http.response.GankHttpResponse;
+import com.codeest.geeknews.model.http.response.GoldHttpResponse;
+import com.codeest.geeknews.model.http.response.MyHttpResponse;
+import com.codeest.geeknews.model.http.response.WXHttpResponse;
 
 import rx.Observable;
 import rx.Subscriber;

@@ -1,5 +1,7 @@
 #GeekNews
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
 
 极客日报，一款纯粹的阅读App，基于Material Design + MVP + RxJava + Retrofit + Dagger2 + Realm + Glide
@@ -116,7 +118,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
-* [RxBinding](https://github.com/JakeWharton/RxBinding)
+* [RxPermissions](https://github.com/tbruyelle/RxPermissions)
 
 ####NETWORK
 
@@ -142,10 +144,6 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 ####DB
 
 * [Realm](https://github.com/realm/realm-java)
-
-####PERMISSION
-
-* [RxPermissions](https://github.com/tbruyelle/RxPermissions)
 
 ####CANARY
 

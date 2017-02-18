@@ -86,13 +86,10 @@ public class GoldListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 ((ContentViewHolder) holder).ivImg.setImageResource(R.mipmap.ic_launcher);
             }
             ((ContentViewHolder) holder).tvTitle.setText(bean.getTitle());
-            String date = bean.getCreatedAt();
-            int idx = date.indexOf(".");
-            date = date.substring(0,idx).replace("T"," ");
             ((ContentViewHolder) holder).tvInfo.setText(getItemInfoStr(bean.getCollectionCount(),
                     bean.getCommentsCount(),
                     bean.getUser().getUsername(),
-                    DateUtil.formatDate2String(date)));
+                    DateUtil.formatDate2String(DateUtil.subStandardTime(bean.getCreatedAt()))));
             holder.itemView.setOnClickListener(new MyOnClickListener(--position));
         } else if (holder instanceof HotViewHolder) {
             if (bean.getScreenshot() != null && bean.getScreenshot().getUrl() != null) {
@@ -103,10 +100,7 @@ public class GoldListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((HotViewHolder) holder).tvTitle.setText(bean.getTitle());
             ((HotViewHolder) holder).tvLike.setText(String.valueOf(bean.getCollectionCount()));
             ((HotViewHolder) holder).tvAuthor.setText(String.valueOf(bean.getUser().getUsername()));
-            String date = bean.getCreatedAt();
-            int idx = date.indexOf(".");
-            date = date.substring(0,idx).replace("T"," ");
-            ((HotViewHolder) holder).tvTime.setText(DateUtil.formatDate2String(date));
+            ((HotViewHolder) holder).tvTime.setText(DateUtil.formatDate2String(DateUtil.subStandardTime(bean.getCreatedAt())));
             holder.itemView.setOnClickListener(new MyOnClickListener(--position));
         } else {
             ((TitleViewHolder) holder).tvTitle.setText(String.format("%s 热门", mType));

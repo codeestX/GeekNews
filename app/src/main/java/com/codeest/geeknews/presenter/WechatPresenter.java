@@ -3,10 +3,10 @@ package com.codeest.geeknews.presenter;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.component.RxBus;
-import com.codeest.geeknews.model.bean.SearchEvent;
+import com.codeest.geeknews.model.event.SearchEvent;
 import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.model.http.RetrofitHelper;
-import com.codeest.geeknews.model.http.WXHttpResponse;
+import com.codeest.geeknews.model.http.response.WXHttpResponse;
 import com.codeest.geeknews.presenter.contract.WechatContract;
 import com.codeest.geeknews.util.RxUtil;
 

@@ -1,7 +1,8 @@
-package com.codeest.geeknews.model.http;
+package com.codeest.geeknews.model.http.api;
 
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.model.bean.GankSearchItemBean;
+import com.codeest.geeknews.model.http.response.GankHttpResponse;
 
 import java.util.List;
 

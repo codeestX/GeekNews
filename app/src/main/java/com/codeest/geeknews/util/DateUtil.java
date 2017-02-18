@@ -1,5 +1,7 @@
 package com.codeest.geeknews.util;
 
+import android.support.annotation.Nullable;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -68,6 +70,20 @@ public class DateUtil {
     }
 
     /**
+     * 切割标准时间
+     * @param time
+     * @return
+     */
+    @Nullable
+    public static String subStandardTime(String time) {
+        int idx = time.indexOf(".");
+        if (idx > 0) {
+            return time.substring(0, idx).replace("T"," ");
+        }
+        return null;
+    }
+
+    /**
      * 将时间戳转化为字符串
      * @param showTime
      * @return
@@ -98,7 +114,7 @@ public class DateUtil {
     }
 
     public static String formatDate2String(String time) {
-        SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(time == null){
             return "未知";
         }
@@ -117,15 +133,16 @@ public class DateUtil {
     }
 
     public static String formatDateTime(String time ,boolean haveYear) {
-        SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(time == null){
             return "";
         }
-        Date date = null;
+        Date date;
         try {
             date = format.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
+            return "";
         }
 
         Calendar current = Calendar.getInstance();

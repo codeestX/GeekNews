@@ -2,7 +2,7 @@ package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.GankItemBean;
-import com.codeest.geeknews.model.http.GankHttpResponse;
+import com.codeest.geeknews.model.http.response.GankHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.GirlContract;
 import com.codeest.geeknews.util.RxUtil;

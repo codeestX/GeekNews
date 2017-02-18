@@ -1,6 +1,7 @@
-package com.codeest.geeknews.model.http;
+package com.codeest.geeknews.model.http.api;
 
 import com.codeest.geeknews.model.bean.GoldListBean;
+import com.codeest.geeknews.model.http.response.GoldHttpResponse;
 
 import java.util.List;
 
@@ -23,11 +24,11 @@ public interface GoldApis {
     @GET("1.1/classes/Entry")
     Observable<GoldHttpResponse<List<GoldListBean>>> getGoldList(@Header("X-LC-Id") String id,
                                                                  @Header("X-LC-Sign") String sign,
-                                                                  @Query("where") String where,
-                                                                  @Query("order") String order,
-                                                                  @Query("include") String include,
-                                                                  @Query("limit") int limit,
-                                                                  @Query("skip") int skip);
+                                                                 @Query("where") String where,
+                                                                 @Query("order") String order,
+                                                                 @Query("include") String include,
+                                                                 @Query("limit") int limit,
+                                                                 @Query("skip") int skip);
 
     /**
      * 热门推荐

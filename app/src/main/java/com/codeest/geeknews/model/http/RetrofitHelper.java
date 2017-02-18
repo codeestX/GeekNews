@@ -21,6 +21,16 @@ import com.codeest.geeknews.model.bean.VersionBean;
 import com.codeest.geeknews.model.bean.WXItemBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
+import com.codeest.geeknews.model.http.api.GankApis;
+import com.codeest.geeknews.model.http.api.GoldApis;
+import com.codeest.geeknews.model.http.api.MyApis;
+import com.codeest.geeknews.model.http.api.VtexApis;
+import com.codeest.geeknews.model.http.api.WeChatApis;
+import com.codeest.geeknews.model.http.api.ZhihuApis;
+import com.codeest.geeknews.model.http.response.GankHttpResponse;
+import com.codeest.geeknews.model.http.response.GoldHttpResponse;
+import com.codeest.geeknews.model.http.response.MyHttpResponse;
+import com.codeest.geeknews.model.http.response.WXHttpResponse;
 import com.codeest.geeknews.util.SystemUtil;
 
 import java.io.File;
