@@ -9,6 +9,7 @@ import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.DailyContract;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.List;
@@ -94,21 +95,15 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return dailyBeforeListBean;
                     }
                 })
-                .subscribe(new Action1<DailyBeforeListBean>() {
-                   @Override
-                   public void call(DailyBeforeListBean dailyBeforeListBean) {
-                       int year = Integer.valueOf(dailyBeforeListBean.getDate().substring(0,4));
-                       int month = Integer.valueOf(dailyBeforeListBean.getDate().substring(4,6));
-                       int day = Integer.valueOf(dailyBeforeListBean.getDate().substring(6,8));
-                       mView.showMoreContent(String.format("%d年%d月%d日",year,month,day),dailyBeforeListBean);
-                   }
-                },
-                new Action1<Throwable>() {
+                .subscribe(new CommonSubscriber<DailyBeforeListBean>(mView) {
                     @Override
-                    public void call(Throwable throwable) {
-                        registerEvent();
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }});
+                    public void onNext(DailyBeforeListBean dailyBeforeListBean) {
+                        int year = Integer.valueOf(dailyBeforeListBean.getDate().substring(0,4));
+                        int month = Integer.valueOf(dailyBeforeListBean.getDate().substring(4,6));
+                        int day = Integer.valueOf(dailyBeforeListBean.getDate().substring(6,8));
+                        mView.showMoreContent(String.format("%d年%d月%d日",year,month,day),dailyBeforeListBean);
+                    }
+                });
         addSubscrebe(rxSubscription);
     }
 
@@ -126,16 +121,11 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return dailyListBean;
                     }
                 })
-                .subscribe(new Action1<DailyListBean>() {
+                .subscribe(new CommonSubscriber<DailyListBean>(mView) {
                     @Override
-                    public void call(DailyListBean dailyListBean) {
+                    public void onNext(DailyListBean dailyListBean) {
                         topCount = dailyListBean.getTop_stories().size();
                         mView.showContent(dailyListBean);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -155,18 +145,13 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return dailyBeforeListBean;
                     }
                 })
-                .subscribe(new Action1<DailyBeforeListBean>() {
+                .subscribe(new CommonSubscriber<DailyBeforeListBean>(mView) {
                     @Override
-                    public void call(DailyBeforeListBean dailyBeforeListBean) {
+                    public void onNext(DailyBeforeListBean dailyBeforeListBean) {
                         int year = Integer.valueOf(dailyBeforeListBean.getDate().substring(0,4));
                         int month = Integer.valueOf(dailyBeforeListBean.getDate().substring(4,6));
                         int day = Integer.valueOf(dailyBeforeListBean.getDate().substring(6,8));
                         mView.showMoreContent(String.format("%d年%d月%d日",year,month,day),dailyBeforeListBean);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);

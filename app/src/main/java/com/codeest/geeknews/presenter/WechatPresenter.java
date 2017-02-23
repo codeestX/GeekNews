@@ -3,12 +3,13 @@ package com.codeest.geeknews.presenter;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.component.RxBus;
-import com.codeest.geeknews.model.event.SearchEvent;
 import com.codeest.geeknews.model.bean.WXItemBean;
+import com.codeest.geeknews.model.event.SearchEvent;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.model.http.response.WXHttpResponse;
 import com.codeest.geeknews.presenter.contract.WechatContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.List;
 
@@ -16,7 +17,6 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Subscription;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
@@ -45,15 +45,10 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
         Subscription rxSubscription = mRetrofitHelper.fetchWechatListInfo(NUM_OF_PAGE,currentPage)
                 .compose(RxUtil.<WXHttpResponse<List<WXItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<WXItemBean>>handleWXResult())
-                .subscribe(new Action1<List<WXItemBean>>() {
+                .subscribe(new CommonSubscriber<List<WXItemBean>>(mView) {
                     @Override
-                    public void call(List<WXItemBean> wxItemBeen) {
+                    public void onNext(List<WXItemBean> wxItemBeen) {
                         mView.showContent(wxItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -70,15 +65,10 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
         Subscription rxSubscription = observable
                 .compose(RxUtil.<WXHttpResponse<List<WXItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<WXItemBean>>handleWXResult())
-                .subscribe(new Action1<List<WXItemBean>>() {
+                .subscribe(new CommonSubscriber<List<WXItemBean>>(mView, "没有更多了ヽ(≧Д≦)ノ") {
                     @Override
-                    public void call(List<WXItemBean> wxItemBeen) {
+                    public void onNext(List<WXItemBean> wxItemBeen) {
                         mView.showMoreContent(wxItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("没有更多了ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -89,15 +79,10 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
         Subscription rxSubscription = mRetrofitHelper.fetchWechatSearchListInfo(NUM_OF_PAGE,currentPage,query)
                 .compose(RxUtil.<WXHttpResponse<List<WXItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<WXItemBean>>handleWXResult())
-                .subscribe(new Action1<List<WXItemBean>>() {
+                .subscribe(new CommonSubscriber<List<WXItemBean>>(mView) {
                     @Override
-                    public void call(List<WXItemBean> wxItemBeen) {
+                    public void onNext(List<WXItemBean> wxItemBeen) {
                         mView.showContent(wxItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -118,16 +103,11 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
                         return searchEvent.getQuery();
                     }
                 })
-                .subscribe(new Action1<String>() {
+                .subscribe(new CommonSubscriber<String>(mView, "搜索失败ヽ(≧Д≦)ノ") {
                     @Override
-                    public void call(String s) {
+                    public void onNext(String s) {
                         queryStr = s;
                         getSearchWechatData(s);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("搜索失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);

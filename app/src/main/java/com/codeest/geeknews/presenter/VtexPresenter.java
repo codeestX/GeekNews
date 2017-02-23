@@ -5,6 +5,7 @@ import com.codeest.geeknews.model.bean.TopicListBean;
 import com.codeest.geeknews.model.http.api.VtexApis;
 import com.codeest.geeknews.presenter.contract.VtexContract;
 import com.codeest.geeknews.util.LogUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,7 +19,6 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -101,15 +101,10 @@ public class VtexPresenter extends RxPresenter<VtexContract.View> implements Vte
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<TopicListBean>>() {
+                .subscribe(new CommonSubscriber<List<TopicListBean>>(mView) {
                     @Override
-                    public void call(List<TopicListBean> mList) {
+                    public void onNext(List<TopicListBean> mList) {
                         mView.showContent(mList);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败");
                     }
                 });
     }

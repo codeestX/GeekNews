@@ -2,17 +2,17 @@ package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.GankItemBean;
-import com.codeest.geeknews.model.http.response.GankHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
+import com.codeest.geeknews.model.http.response.GankHttpResponse;
 import com.codeest.geeknews.presenter.contract.GirlContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by codeest on 16/8/19.
@@ -37,15 +37,10 @@ public class GirlPresenter extends RxPresenter<GirlContract.View> implements Gir
         Subscription rxSubscription = mRetrofitHelper.fetchGirlList(NUM_OF_PAGE,currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new Action1<List<GankItemBean>>() {
+                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
-                    public void call(List<GankItemBean> gankItemBeen) {
+                    public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showContent(gankItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -56,15 +51,10 @@ public class GirlPresenter extends RxPresenter<GirlContract.View> implements Gir
         Subscription rxSubscription = mRetrofitHelper.fetchGirlList(NUM_OF_PAGE,++currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new Action1<List<GankItemBean>>() {
+                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
-                    public void call(List<GankItemBean> gankItemBeen) {
+                    public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showMoreContent(gankItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("加载更多数据失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);

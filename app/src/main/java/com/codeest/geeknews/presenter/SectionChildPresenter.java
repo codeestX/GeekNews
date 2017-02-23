@@ -1,19 +1,18 @@
 package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
-import com.codeest.geeknews.model.bean.HotListBean;
 import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.SectionChildContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Subscription;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
@@ -45,15 +44,10 @@ public class SectionChildPresenter extends RxPresenter<SectionChildContract.View
                         return sectionChildListBean;
                     }
                 })
-                .subscribe(new Action1<SectionChildListBean>() {
+                .subscribe(new CommonSubscriber<SectionChildListBean>(mView) {
                     @Override
-                    public void call(SectionChildListBean sectionChildListBean) {
+                    public void onNext(SectionChildListBean sectionChildListBean) {
                         mView.showContent(sectionChildListBean);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("加载数据失败");
                     }
                 });
         addSubscrebe(rxSubscription);

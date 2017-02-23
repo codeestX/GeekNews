@@ -5,10 +5,9 @@ import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.ThemeContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import javax.inject.Inject;
-
-import rx.functions.Action1;
 
 /**
  * Created by codeest on 16/8/12.
@@ -27,15 +26,10 @@ public class ThemePresenter extends RxPresenter<ThemeContract.View> implements T
     public void getThemeData() {
         mRetrofitHelper.fetchDailyThemeListInfo()
                 .compose(RxUtil.<ThemeListBean>rxSchedulerHelper())
-                .subscribe(new Action1<ThemeListBean>() {
+                .subscribe(new CommonSubscriber<ThemeListBean>(mView) {
                     @Override
-                    public void call(ThemeListBean themeListBean) {
+                    public void onNext(ThemeListBean themeListBean) {
                         mView.showContent(themeListBean);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
     }

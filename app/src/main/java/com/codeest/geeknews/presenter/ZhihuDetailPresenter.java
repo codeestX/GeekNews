@@ -9,11 +9,11 @@ import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.ZhihuDetailContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import javax.inject.Inject;
 
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by codeest on 16/8/13.
@@ -35,16 +35,11 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
     public void getDetailData(int id) {
         Subscription rxSubscription =  mRetrofitHelper.fetchDetailInfo(id)
                 .compose(RxUtil.<ZhihuDetailBean>rxSchedulerHelper())
-                .subscribe(new Action1<ZhihuDetailBean>() {
+                .subscribe(new CommonSubscriber<ZhihuDetailBean>(mView) {
                     @Override
-                    public void call(ZhihuDetailBean zhihuDetailBean) {
+                    public void onNext(ZhihuDetailBean zhihuDetailBean) {
                         mData = zhihuDetailBean;
                         mView.showContent(zhihuDetailBean);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("加载数据失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -54,15 +49,10 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
     public void getExtraData(int id) {
         Subscription rxSubscription =  mRetrofitHelper.fetchDetailExtraInfo(id)
                 .compose(RxUtil.<DetailExtraBean>rxSchedulerHelper())
-                .subscribe(new Action1<DetailExtraBean>() {
+                .subscribe(new CommonSubscriber<DetailExtraBean>(mView, "加载额外信息失败ヽ(≧Д≦)ノ") {
                     @Override
-                    public void call(DetailExtraBean detailExtraBean) {
+                    public void onNext(DetailExtraBean detailExtraBean) {
                         mView.showExtraInfo(detailExtraBean);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("加载额外信息失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);

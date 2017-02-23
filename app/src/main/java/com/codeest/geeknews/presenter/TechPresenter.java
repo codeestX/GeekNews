@@ -6,11 +6,12 @@ import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.model.bean.GankSearchItemBean;
 import com.codeest.geeknews.model.event.SearchEvent;
-import com.codeest.geeknews.model.http.response.GankHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
+import com.codeest.geeknews.model.http.response.GankHttpResponse;
 import com.codeest.geeknews.presenter.contract.TechContract;
 import com.codeest.geeknews.ui.gank.fragment.GankMainFragment;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Subscription;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
@@ -56,16 +56,11 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                         return searchEvent.getQuery();
                     }
                 })
-                .subscribe(new Action1<String>() {
+                .subscribe(new CommonSubscriber<String>(mView, "搜索失败") {
                     @Override
-                    public void call(String s) {
+                    public void onNext(String s) {
                         queryStr = s;
                         getSearchTechData();
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("搜索失败");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -92,15 +87,10 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                         return newList;
                     }
                 })
-                .subscribe(new Action1<List<GankItemBean>>() {
+                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
-                    public void call(List<GankItemBean> gankItemBeen) {
+                    public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showContent(gankItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -115,15 +105,10 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
         Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new Action1<List<GankItemBean>>() {
+                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
-                    public void call(List<GankItemBean> gankItemBeen) {
+                    public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showContent(gankItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -138,15 +123,10 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
         Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,++currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new Action1<List<GankItemBean>>() {
+                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView, "加载更多数据失败ヽ(≧Д≦)ノ") {
                     @Override
-                    public void call(List<GankItemBean> gankItemBeen) {
+                    public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showMoreContent(gankItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("加载更多数据失败ヽ(≧Д≦)ノ");
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -172,15 +152,10 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                         return newList;
                     }
                 })
-                .subscribe(new Action1<List<GankItemBean>>() {
+                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
-                    public void call(List<GankItemBean> gankItemBeen) {
+                    public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showMoreContent(gankItemBeen);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -191,15 +166,10 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
         Subscription rxSubscription = mRetrofitHelper.fetchRandomGirl(1)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new Action1<List<GankItemBean>>() {
+                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView, "加载封面失败") {
                     @Override
-                    public void call(List<GankItemBean> gankItemBean) {
+                    public void onNext(List<GankItemBean> gankItemBean) {
                         mView.showGirlImage(gankItemBean.get(0).getUrl(), gankItemBean.get(0).getWho());
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("加载封面失败");
                     }
                 });
         addSubscrebe(rxSubscription);

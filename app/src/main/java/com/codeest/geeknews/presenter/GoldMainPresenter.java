@@ -1,18 +1,15 @@
 package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
-import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.GoldManagerBean;
 import com.codeest.geeknews.model.bean.GoldManagerItemBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.presenter.contract.GoldMainContract;
-import com.codeest.geeknews.util.RxUtil;
 import com.codeest.geeknews.util.SharedPreferenceUtil;
 
 import javax.inject.Inject;
 
 import io.realm.RealmList;
-import rx.Subscription;
 import rx.functions.Action1;
 
 /**
@@ -31,16 +28,13 @@ public class GoldMainPresenter extends RxPresenter<GoldMainContract.View> implem
     }
 
     private void registerEvent() {
-        Subscription rxSubscription = RxBus.getDefault().toObservable(GoldManagerBean.class)
-                .compose(RxUtil.<GoldManagerBean>rxSchedulerHelper())
-                .subscribe(new Action1<GoldManagerBean>() {
-                    @Override
-                    public void call(GoldManagerBean goldManagerBean) {
-                        mRealmHelper.updateGoldManagerList(goldManagerBean);
-                        mView.updateTab(goldManagerBean.getManagerList());
-                    }
-                });
-        addSubscrebe(rxSubscription);
+        addRxBusSubscribe(GoldManagerBean.class, new Action1<GoldManagerBean>() {
+            @Override
+            public void call(GoldManagerBean goldManagerBean) {
+                mRealmHelper.updateGoldManagerList(goldManagerBean);
+                mView.updateTab(goldManagerBean.getManagerList());
+            }
+        });
     }
 
     @Override

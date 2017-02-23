@@ -1,6 +1,9 @@
 package com.codeest.geeknews.base;
 
+import com.codeest.geeknews.component.RxBus;
+
 import rx.Subscription;
+import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -23,6 +26,13 @@ public class RxPresenter<T extends BaseView> implements BasePresenter<T> {
             mCompositeSubscription = new CompositeSubscription();
         }
         mCompositeSubscription.add(subscription);
+    }
+
+    protected <U> void addRxBusSubscribe(Class<U> eventType, Action1<U> act) {
+        if (mCompositeSubscription == null) {
+            mCompositeSubscription = new CompositeSubscription();
+        }
+        mCompositeSubscription.add(RxBus.getDefault().toDefaultObservable(eventType, act));
     }
 
     @Override
