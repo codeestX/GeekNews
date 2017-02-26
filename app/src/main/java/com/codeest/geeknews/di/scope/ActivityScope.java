@@ -1,4 +1,4 @@
-package com.codeest.geeknews.di;
+package com.codeest.geeknews.di.scope;
 
 import java.lang.annotation.Retention;
 
@@ -12,5 +12,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Scope
 @Retention(RUNTIME)
-public @interface FragmentScope {
+public @interface ActivityScope {
 }

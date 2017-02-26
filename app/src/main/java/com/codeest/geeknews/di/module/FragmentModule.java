@@ -3,7 +3,7 @@ package com.codeest.geeknews.di.module;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
-import com.codeest.geeknews.di.FragmentScope;
+import com.codeest.geeknews.di.scope.FragmentScope;
 
 import dagger.Module;
 import dagger.Provides;

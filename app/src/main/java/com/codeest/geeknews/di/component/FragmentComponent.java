@@ -2,7 +2,7 @@ package com.codeest.geeknews.di.component;
 
 import android.app.Activity;
 
-import com.codeest.geeknews.di.FragmentScope;
+import com.codeest.geeknews.di.scope.FragmentScope;
 import com.codeest.geeknews.di.module.FragmentModule;
 import com.codeest.geeknews.ui.gank.fragment.GirlFragment;
 import com.codeest.geeknews.ui.gank.fragment.TechFragment;
