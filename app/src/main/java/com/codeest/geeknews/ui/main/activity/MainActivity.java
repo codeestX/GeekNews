@@ -36,8 +36,6 @@ import com.codeest.geeknews.util.SystemUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -56,21 +54,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R.id.view_search)
     MaterialSearchView mSearchView;
 
-    @Inject
     ZhihuMainFragment mZhihuFragment;
-    @Inject
     GankMainFragment mGankFragment;
-    @Inject
     WechatMainFragment mWechatFragment;
-    @Inject
     GoldMainFragment mGoldFragment;
-    @Inject
     VtexMainFragment mVtexFragment;
-    @Inject
     LikeFragment mLikeFragment;
-    @Inject
     SettingFragment mSettingFragment;
-    @Inject
     AboutFragment mAboutFragment;
 
     MenuItem mLastMenuItem;
@@ -112,6 +102,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         setToolBar(mToolbar,"知乎日报");
+        mZhihuFragment = new ZhihuMainFragment();
+        mGankFragment = new GankMainFragment();
+        mWechatFragment = new WechatMainFragment();
+        mGoldFragment = new GoldMainFragment();
+        mVtexFragment = new VtexMainFragment();
+        mLikeFragment = new LikeFragment();
+        mSettingFragment = new SettingFragment();
+        mAboutFragment = new AboutFragment();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
