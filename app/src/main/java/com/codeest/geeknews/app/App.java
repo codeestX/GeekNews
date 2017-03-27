@@ -14,7 +14,6 @@ import com.codeest.geeknews.di.component.AppComponent;
 import com.codeest.geeknews.di.component.DaggerAppComponent;
 import com.codeest.geeknews.di.module.AppModule;
 import com.codeest.geeknews.di.module.HttpModule;
-import com.codeest.geeknews.di.module.PageModule;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -105,7 +104,6 @@ public class App extends Application{
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(instance))
                     .httpModule(new HttpModule())
-                    .pageModule(new PageModule())
                     .build();
         }
         return appComponent;

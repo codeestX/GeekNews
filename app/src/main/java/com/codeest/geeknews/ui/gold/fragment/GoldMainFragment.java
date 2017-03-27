@@ -47,7 +47,7 @@ public class GoldMainFragment extends BaseFragment<GoldMainPresenter> implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.frgament_gold_main;
+        return R.layout.fragment_gold_main;
     }
 
     @Override

@@ -1,4 +1,4 @@
-#GeekNews
+# GeekNews
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -20,7 +20,7 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * IDE提示缺少Dagger开头的Class直接编译即可，会由Dagger2自动生成
 * 本项目仅做学习交流使用，API数据内容所有权归原作公司所有，请勿用于其他用途
 
-###Preview
+### Preview
 
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF1.gif) &nbsp;&nbsp;&nbsp;
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/GIF2.gif) &nbsp;&nbsp;&nbsp;
@@ -31,13 +31,13 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 <img src="screenshots/PNG4.png" width = "40%" />
 <img src="screenshots/PNG5.png" width = "40%" />
 
-###[Download APK](http://fir.im/xt2f)
+### [Download APK](http://fir.im/xt2f)
 (Android 5.0 or above)
 
 ![](https://github.com/codeestX/GeekNews/raw/master/screenshots/download.png)
 
 
-##Points
+## Points
 
 * 使用RxJava配合Retrofit2做网络请求
 * 使用RxUtil对线程操作和网络请求结果处理做了封装
@@ -60,53 +60,53 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * 包含搜索、收藏、检测更新等功能
 * 所有踩到的坑都在项目里做了注释
 
-##Version
+## Version
 
-###V1.3.0
+### V1.3.0
 1.新增 [V2EX](https://www.v2ex.com/)板块  
 2.修复 部分已知BUG  
 3.调整 使用[Bugly](https://bugly.qq.com)做Crash收集，使用[RxPermissions](https://github.com/tbruyelle/RxPermissions)替换EasyPermissions
 
-###V1.2.0
+### V1.2.0
 1.新增 [稀土掘金](https://gold.xitu.io/)板块  
 2.修复 部分已知BUG
 
-###V1.1.0
+### V1.1.0
 1.使用 SVG动画替换了部分progressbar<br>
 2.使用 [EasyPermissions](https://github.com/googlesamples/easypermissions)来做6.0+动态权限适配<br>
 3.新增 版本更新检测、支付宝打赏<br>
 4.调整 部分界面UI<br>
 5.修复 部分已知BUG
 
-###V1.0.1
+### V1.0.1
 1.感谢 [@kingkingruan](https://github.com/kingkingruan) 提出的过去切回今天日期未更新的bug，已修复<br>
 2.使用 [x5WebView](http://x5.tencent.com/doc?id=1001) 替换原生WebView，更快更稳定<br>
 3.更新微信精选API，免费次数貌似用完了...
 
-###V1.0.0
+### V1.0.0
 
 1.提交第一版
 
-##Thanks
+## Thanks
 
-###API:
+### API:
 [知乎日报API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信精选API](http://www.tianapi.com/#wxnew)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[干货集中营API](http://gank.io/api)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[V2EX-API](https://github.com/djyde/V2EX-API)  
 稀土掘金API为本人抓包获取，将掘金板块接入该应用有征得官方同意
 
-###APP:
+### APP:
 [Hot](https://github.com/zj-wukewei/Hot) 提供了Dagger2配合MVP的架构思路
 
 [知了日报](https://github.com/HotBitmapGG/RxZhiHu) 提供了部分设计思路
 
 还参考了很多大神的类似作品，感谢大家的开源精神
 
-###RES:
+### RES:
 [iconfont](http://www.iconfont.cn/) 提供了icon素材
 
 [material UP](http://www.material.uplabs.com/) 提供了Material Design风格的素材
 
-###LIB:
-####UI
+### LIB:
+#### UI
 * [MaterialCalendarView](https://github.com/prolificinteractive/material-calendarview)
 * [MaterialSearchView](https://github.com/MiguelCatalan/MaterialSearchView)
 * [PhotoView](https://github.com/chrisbanes/PhotoView)
@@ -114,13 +114,13 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * [glide-transformations](https://github.com/wasabeef/glide-transformations)
 * [html-textview](https://github.com/SufficientlySecure/html-textview)
 
-####RX
+#### RX
 
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 * [RxPermissions](https://github.com/tbruyelle/RxPermissions)
 
-####NETWORK
+#### NETWORK
 
 * [Retrofit](https://github.com/square/retrofit)
 * [OkHttp](https://github.com/square/okhttp)
@@ -128,29 +128,29 @@ GeekNews, A pure reading App based on Material Design + MVP + RxJava + Retrofit 
 * [Gson](https://github.com/google/gson)
 * [Jsoup](https://github.com/jhy/jsoup)
 
-####DI
+#### DI
 
 * [Dagger2](https://github.com/google/dagger)
 * [ButterKnife](https://github.com/JakeWharton/butterknife)
 
-####FRAGMENT
+#### FRAGMENT
 
 * [Fragmentation](https://github.com/YoKeyword/Fragmentation)
 
-####LOG
+#### LOG
 
 * [Logger](https://github.com/orhanobut/logger)
 
-####DB
+#### DB
 
 * [Realm](https://github.com/realm/realm-java)
 
-####CANARY
+#### CANARY
 
 * [BlockCanary](https://github.com/markzhai/AndroidPerformanceMonitor)
 * [LeakCanary](https://github.com/square/leakcanary)
 
-##License
+## License
 
 Copyright (c) 2016 codeestX
 
