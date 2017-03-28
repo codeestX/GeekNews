@@ -12,8 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Func1;
+import io.reactivex.functions.Function;
 
 /**
  * Created by codeest on 16/8/28.
@@ -32,11 +31,11 @@ public class SectionChildPresenter extends RxPresenter<SectionChildContract.View
 
     @Override
     public void getThemeChildData(int id) {
-        Subscription rxSubscription = mRetrofitHelper.fetchSectionChildListInfo(id)
+        addSubscribe(mRetrofitHelper.fetchSectionChildListInfo(id)
                 .compose(RxUtil.<SectionChildListBean>rxSchedulerHelper())
-                .map(new Func1<SectionChildListBean, SectionChildListBean>() {
+                .map(new Function<SectionChildListBean, SectionChildListBean>() {
                     @Override
-                    public SectionChildListBean call(SectionChildListBean sectionChildListBean) {
+                    public SectionChildListBean apply(SectionChildListBean sectionChildListBean) {
                         List<SectionChildListBean.StoriesBean> list = sectionChildListBean.getStories();
                         for(SectionChildListBean.StoriesBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getId()));
@@ -44,13 +43,13 @@ public class SectionChildPresenter extends RxPresenter<SectionChildContract.View
                         return sectionChildListBean;
                     }
                 })
-                .subscribe(new CommonSubscriber<SectionChildListBean>(mView) {
+                .subscribeWith(new CommonSubscriber<SectionChildListBean>(mView) {
                     @Override
                     public void onNext(SectionChildListBean sectionChildListBean) {
                         mView.showContent(sectionChildListBean);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

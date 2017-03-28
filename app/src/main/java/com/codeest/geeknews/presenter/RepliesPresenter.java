@@ -14,8 +14,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Func1;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 /**
  * Created by codeest on 16/12/23.
@@ -34,40 +35,40 @@ public class RepliesPresenter extends RxPresenter<RepliesContract.View> implemen
 
     @Override
     public void getContent(String topic_id) {
-        Subscription rxSubscription = mRetrofitHelper.fetchRepliesList(topic_id)
+        addSubscribe(mRetrofitHelper.fetchRepliesList(topic_id)
                 .compose(RxUtil.<List<RepliesListBean>>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<List<RepliesListBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<RepliesListBean>>(mView) {
                     @Override
                     public void onNext(List<RepliesListBean> repliesListBeen) {
                         mView.showContent(repliesListBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getTopInfo(String topic_id) {
-        Subscription rxSubscription = mRetrofitHelper.fetchTopicInfo(topic_id)
+        addSubscribe(mRetrofitHelper.fetchTopicInfo(topic_id)
                 .compose(RxUtil.<List<NodeListBean>>rxSchedulerHelper())
-                .filter(new Func1<List<NodeListBean>, Boolean>() {
+                .filter(new Predicate<List<NodeListBean>>() {
                     @Override
-                    public Boolean call(List<NodeListBean> nodeListBeen) {
+                    public boolean test(@NonNull List<NodeListBean> nodeListBeen) throws Exception {
                         return nodeListBeen.size() > 0;
                     }
                 })
-                .map(new Func1<List<NodeListBean>, NodeListBean>() {
+                .map(new Function<List<NodeListBean>, NodeListBean>() {
                     @Override
-                    public NodeListBean call(List<NodeListBean> nodeListBeen) {
+                    public NodeListBean apply(List<NodeListBean> nodeListBeen) {
                         return nodeListBeen.get(0);
                     }
                 })
-                .subscribe(new CommonSubscriber<NodeListBean>(mView) {
+                .subscribeWith(new CommonSubscriber<NodeListBean>(mView) {
                     @Override
                     public void onNext(NodeListBean nodeListBean) {
                         mView.showTopInfo(nodeListBean);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

@@ -15,9 +15,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.functions.Func1;
+import io.reactivex.Flowable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 /**
  * Created by codeest on 16/8/29.
@@ -42,74 +43,74 @@ public class WechatPresenter extends RxPresenter<WechatContract.View> implements
     public void getWechatData() {
         queryStr = null;
         currentPage = 1;
-        Subscription rxSubscription = mRetrofitHelper.fetchWechatListInfo(NUM_OF_PAGE,currentPage)
+        addSubscribe(mRetrofitHelper.fetchWechatListInfo(NUM_OF_PAGE,currentPage)
                 .compose(RxUtil.<WXHttpResponse<List<WXItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<WXItemBean>>handleWXResult())
-                .subscribe(new CommonSubscriber<List<WXItemBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<WXItemBean>>(mView) {
                     @Override
                     public void onNext(List<WXItemBean> wxItemBeen) {
                         mView.showContent(wxItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getMoreWechatData() {
-        Observable<WXHttpResponse<List<WXItemBean>>> observable;
+        Flowable<WXHttpResponse<List<WXItemBean>>> observable;
         if (queryStr != null) {
             observable = mRetrofitHelper.fetchWechatSearchListInfo(NUM_OF_PAGE,++currentPage,queryStr);
         } else {
             observable = mRetrofitHelper.fetchWechatListInfo(NUM_OF_PAGE,++currentPage);
         }
-        Subscription rxSubscription = observable
+        addSubscribe(observable
                 .compose(RxUtil.<WXHttpResponse<List<WXItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<WXItemBean>>handleWXResult())
-                .subscribe(new CommonSubscriber<List<WXItemBean>>(mView, "没有更多了ヽ(≧Д≦)ノ") {
+                .subscribeWith(new CommonSubscriber<List<WXItemBean>>(mView, "没有更多了ヽ(≧Д≦)ノ") {
                     @Override
                     public void onNext(List<WXItemBean> wxItemBeen) {
                         mView.showMoreContent(wxItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     private void getSearchWechatData(String query) {
         currentPage = 1;
-        Subscription rxSubscription = mRetrofitHelper.fetchWechatSearchListInfo(NUM_OF_PAGE,currentPage,query)
+        addSubscribe(mRetrofitHelper.fetchWechatSearchListInfo(NUM_OF_PAGE,currentPage,query)
                 .compose(RxUtil.<WXHttpResponse<List<WXItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<WXItemBean>>handleWXResult())
-                .subscribe(new CommonSubscriber<List<WXItemBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<WXItemBean>>(mView) {
                     @Override
                     public void onNext(List<WXItemBean> wxItemBeen) {
                         mView.showContent(wxItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
-    void registerEvent() {
-        Subscription rxSubscription = RxBus.getDefault().toObservable(SearchEvent.class)
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(SearchEvent.class)
                 .compose(RxUtil.<SearchEvent>rxSchedulerHelper())
-                .filter(new Func1<SearchEvent, Boolean>() {
+                .filter(new Predicate<SearchEvent>() {
                     @Override
-                    public Boolean call(SearchEvent searchEvent) {
+                    public boolean test(@NonNull SearchEvent searchEvent) throws Exception {
                         return searchEvent.getType() == Constants.TYPE_WECHAT;
                     }
                 })
-                .map(new Func1<SearchEvent, String>() {
+                .map(new Function<SearchEvent, String>() {
                     @Override
-                    public String call(SearchEvent searchEvent) {
+                    public String apply(SearchEvent searchEvent) {
                         return searchEvent.getQuery();
                     }
                 })
-                .subscribe(new CommonSubscriber<String>(mView, "搜索失败ヽ(≧Д≦)ノ") {
+                .subscribeWith(new CommonSubscriber<String>(mView, "搜索失败ヽ(≧Д≦)ノ") {
                     @Override
                     public void onNext(String s) {
                         queryStr = s;
                         getSearchWechatData(s);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

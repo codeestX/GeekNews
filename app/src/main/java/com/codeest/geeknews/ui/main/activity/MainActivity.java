@@ -34,7 +34,7 @@ import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;

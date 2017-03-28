@@ -17,10 +17,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by codeest on 16/12/23.
@@ -35,11 +37,12 @@ public class VtexPresenter extends RxPresenter<VtexContract.View> implements Vte
 
     @Override
     public void getContent(String type) {
-        Observable.just(VtexApis.TAB_HOST + type)
+        addSubscribe(Flowable
+                .just(VtexApis.TAB_HOST + type)
                 .subscribeOn(Schedulers.io())
-                .map(new Func1<String, Document>() {
+                .map(new Function<String, Document>() {
                     @Override
-                    public Document call(String s) {
+                    public Document apply(String s) {
                         try {
                             return Jsoup.connect(s).timeout(10000).get();
                         } catch (IOException e) {
@@ -49,15 +52,15 @@ public class VtexPresenter extends RxPresenter<VtexContract.View> implements Vte
                         return null;
                     }
                 })
-                .filter(new Func1<Document, Boolean>() {
+                .filter(new Predicate<Document>() {
                     @Override
-                    public Boolean call(Document document) {
+                    public boolean test(@NonNull Document document) throws Exception {
                         return document != null;
                     }
                 })
-                .map(new Func1<Document, List<TopicListBean>>() {
+                .map(new Function<Document, List<TopicListBean>>() {
                     @Override
-                    public List<TopicListBean> call(Document doc) {
+                    public List<TopicListBean> apply(Document doc) {
                         List<TopicListBean> mList = new ArrayList<>();
                         Elements itemElements = doc.select("div.cell.item");    //item根节点
                         int count = itemElements.size();
@@ -101,12 +104,13 @@ public class VtexPresenter extends RxPresenter<VtexContract.View> implements Vte
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CommonSubscriber<List<TopicListBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<TopicListBean>>(mView) {
                     @Override
                     public void onNext(List<TopicListBean> mList) {
                         mView.showContent(mList);
                     }
-                });
+                })
+        );
     }
 
     private String parseId(String str) {

@@ -12,8 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-
 /**
  * Created by codeest on 16/8/19.
  */
@@ -34,29 +32,29 @@ public class GirlPresenter extends RxPresenter<GirlContract.View> implements Gir
     @Override
     public void getGirlData() {
         currentPage = 1;
-        Subscription rxSubscription = mRetrofitHelper.fetchGirlList(NUM_OF_PAGE,currentPage)
+        addSubscribe(mRetrofitHelper.fetchGirlList(NUM_OF_PAGE,currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
                     public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showContent(gankItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getMoreGirlData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchGirlList(NUM_OF_PAGE,++currentPage)
+        addSubscribe(mRetrofitHelper.fetchGirlList(NUM_OF_PAGE,++currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
                     public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showMoreContent(gankItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

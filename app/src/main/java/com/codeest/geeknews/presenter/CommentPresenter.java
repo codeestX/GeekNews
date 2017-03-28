@@ -9,8 +9,6 @@ import com.codeest.geeknews.widget.CommonSubscriber;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-
 /**
  * Created by codeest on 16/8/18.
  */
@@ -28,29 +26,28 @@ public class CommentPresenter extends RxPresenter<CommentContract.View> implemen
         this.mRetrofitHelper = mRetrofitHelper;
     }
 
-
     @Override
     public void getCommentData(int id, int commentKind) {
         if(commentKind == SHORT_COMMENT) {
-            Subscription rxSubscription = mRetrofitHelper.fetchShortCommentInfo(id)
-                    .compose(RxUtil.<CommentBean>rxSchedulerHelper())
-                    .subscribe(new CommonSubscriber<CommentBean>(mView) {
-                        @Override
-                        public void onNext(CommentBean commentBean) {
-                            mView.showContent(commentBean);
-                        }
-                    });
-            addSubscrebe(rxSubscription);
+            addSubscribe(mRetrofitHelper.fetchShortCommentInfo(id)
+                .compose(RxUtil.<CommentBean>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<CommentBean>(mView) {
+                    @Override
+                    public void onNext(CommentBean commentBean) {
+                        mView.showContent(commentBean);
+                    }
+                })
+            );
         } else {
-            Subscription rxSubscription = mRetrofitHelper.fetchLongCommentInfo(id)
-                    .compose(RxUtil.<CommentBean>rxSchedulerHelper())
-                    .subscribe(new CommonSubscriber<CommentBean>(mView) {
-                        @Override
-                        public void onNext(CommentBean commentBean) {
-                            mView.showContent(commentBean);
-                        }
-                    });
-            addSubscrebe(rxSubscription);
+            addSubscribe(mRetrofitHelper.fetchLongCommentInfo(id)
+                .compose(RxUtil.<CommentBean>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<CommentBean>(mView) {
+                    @Override
+                    public void onNext(CommentBean commentBean) {
+                        mView.showContent(commentBean);
+                    }
+                })
+            );
         }
     }
 }

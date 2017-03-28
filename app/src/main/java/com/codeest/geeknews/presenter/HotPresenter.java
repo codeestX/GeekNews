@@ -12,8 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Func1;
+import io.reactivex.functions.Function;
 
 /**
  * Created by codeest on 16/8/12.
@@ -32,11 +31,11 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
 
     @Override
     public void getHotData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchHotListInfo()
+        addSubscribe(mRetrofitHelper.fetchHotListInfo()
                 .compose(RxUtil.<HotListBean>rxSchedulerHelper())
-                .map(new Func1<HotListBean, HotListBean>() {
+                .map(new Function<HotListBean, HotListBean>() {
                     @Override
-                    public HotListBean call(HotListBean hotListBean) {
+                    public HotListBean apply(HotListBean hotListBean) {
                         List<HotListBean.RecentBean> list = hotListBean.getRecent();
                         for(HotListBean.RecentBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getNews_id()));
@@ -44,13 +43,13 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
                         return hotListBean;
                     }
                 })
-                .subscribe(new CommonSubscriber<HotListBean>(mView) {
+                .subscribeWith(new CommonSubscriber<HotListBean>(mView) {
                     @Override
                     public void onNext(HotListBean hotListBean) {
                         mView.showContent(hotListBean);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

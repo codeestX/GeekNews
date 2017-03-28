@@ -4,15 +4,16 @@ import android.text.TextUtils;
 
 import com.codeest.geeknews.base.BaseView;
 import com.codeest.geeknews.model.http.exception.ApiException;
+import com.codeest.geeknews.util.LogUtil;
 
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscriber;
+import io.reactivex.subscribers.ResourceSubscriber;
+import retrofit2.HttpException;
 
 /**
  * Created by codeest on 2017/2/23.
  */
 
-public abstract class CommonSubscriber<T> extends Subscriber<T> {
+public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
     private BaseView mView;
     private String mErrorMsg;
 
@@ -26,7 +27,7 @@ public abstract class CommonSubscriber<T> extends Subscriber<T> {
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
 
     }
 
@@ -42,6 +43,7 @@ public abstract class CommonSubscriber<T> extends Subscriber<T> {
             mView.showError("数据加载失败ヽ(≧Д≦)ノ");
         } else {
             mView.showError("未知错误ヽ(≧Д≦)ノ");
+            LogUtil.d(e.toString());
         }
     }
 }

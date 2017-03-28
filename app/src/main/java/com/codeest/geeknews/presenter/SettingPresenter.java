@@ -10,8 +10,6 @@ import com.codeest.geeknews.widget.CommonSubscriber;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-
 /**
  * Created by codeest on 16/10/17.
  */
@@ -27,10 +25,10 @@ public class SettingPresenter extends RxPresenter<SettingContract.View> implemen
 
     @Override
     public void checkVersion(final String currentVersion) {
-        Subscription rxSubscription = mRetrofitHelper.fetchVersionInfo()
+        addSubscribe(mRetrofitHelper.fetchVersionInfo()
                 .compose(RxUtil.<MyHttpResponse<VersionBean>>rxSchedulerHelper())
                 .compose(RxUtil.<VersionBean>handleMyResult())
-                .subscribe(new CommonSubscriber<VersionBean>(mView, "获取版本信息失败 T T") {
+                .subscribeWith(new CommonSubscriber<VersionBean>(mView, "获取版本信息失败 T T") {
                     @Override
                     public void onNext(VersionBean versionBean) {
                         if (Integer.valueOf(currentVersion.replace(".", "")) < Integer.valueOf(versionBean.getCode().replace(".", ""))) {
@@ -39,7 +37,7 @@ public class SettingPresenter extends RxPresenter<SettingContract.View> implemen
                             mView.showError("已经是最新版本~");
                         }
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

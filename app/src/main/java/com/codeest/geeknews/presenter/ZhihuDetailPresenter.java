@@ -13,8 +13,6 @@ import com.codeest.geeknews.widget.CommonSubscriber;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-
 /**
  * Created by codeest on 16/8/13.
  */
@@ -33,29 +31,29 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
 
     @Override
     public void getDetailData(int id) {
-        Subscription rxSubscription =  mRetrofitHelper.fetchDetailInfo(id)
+        addSubscribe(mRetrofitHelper.fetchDetailInfo(id)
                 .compose(RxUtil.<ZhihuDetailBean>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<ZhihuDetailBean>(mView) {
+                .subscribeWith(new CommonSubscriber<ZhihuDetailBean>(mView) {
                     @Override
                     public void onNext(ZhihuDetailBean zhihuDetailBean) {
                         mData = zhihuDetailBean;
                         mView.showContent(zhihuDetailBean);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getExtraData(int id) {
-        Subscription rxSubscription =  mRetrofitHelper.fetchDetailExtraInfo(id)
+        addSubscribe(mRetrofitHelper.fetchDetailExtraInfo(id)
                 .compose(RxUtil.<DetailExtraBean>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<DetailExtraBean>(mView, "加载额外信息失败ヽ(≧Д≦)ノ") {
+                .subscribeWith(new CommonSubscriber<DetailExtraBean>(mView, "加载额外信息失败ヽ(≧Д≦)ノ") {
                     @Override
                     public void onNext(DetailExtraBean detailExtraBean) {
                         mView.showExtraInfo(detailExtraBean);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

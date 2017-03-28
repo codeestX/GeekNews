@@ -2,9 +2,9 @@ package com.codeest.geeknews.base;
 
 import com.codeest.geeknews.component.RxBus;
 
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by codeest on 2016/8/2.
@@ -13,26 +13,26 @@ import rx.subscriptions.CompositeSubscription;
 public class RxPresenter<T extends BaseView> implements BasePresenter<T> {
 
     protected T mView;
-    protected CompositeSubscription mCompositeSubscription;
+    protected CompositeDisposable mCompositeDisposable;
 
     protected void unSubscribe() {
-        if (mCompositeSubscription != null) {
-            mCompositeSubscription.unsubscribe();
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.dispose();
         }
     }
 
-    protected void addSubscrebe(Subscription subscription) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeSubscription();
+    protected void addSubscribe(Disposable subscription) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
         }
-        mCompositeSubscription.add(subscription);
+        mCompositeDisposable.add(subscription);
     }
 
-    protected <U> void addRxBusSubscribe(Class<U> eventType, Action1<U> act) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeSubscription();
+    protected <U> void addRxBusSubscribe(Class<U> eventType, Consumer<U> act) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
         }
-        mCompositeSubscription.add(RxBus.getDefault().toDefaultObservable(eventType, act));
+        mCompositeDisposable.add(RxBus.getDefault().toDefaultFlowable(eventType, act));
     }
 
     @Override

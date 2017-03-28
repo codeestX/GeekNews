@@ -18,8 +18,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Func1;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 /**
  * Created by codeest on 16/8/20.
@@ -42,38 +43,38 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
     }
 
     private void registerEvent() {
-        Subscription rxSubscription = RxBus.getDefault().toObservable(SearchEvent.class)
+        addSubscribe(RxBus.getDefault().toFlowable(SearchEvent.class)
                 .compose(RxUtil.<SearchEvent>rxSchedulerHelper())
-                .filter(new Func1<SearchEvent, Boolean>() {
+                .filter(new Predicate<SearchEvent>() {
                     @Override
-                    public Boolean call(SearchEvent searchEvent) {
+                    public boolean test(@NonNull SearchEvent searchEvent) throws Exception {
                         return searchEvent.getType() == currentType;
                     }
                 })
-                .map(new Func1<SearchEvent, String>() {
+                .map(new Function<SearchEvent, String>() {
                     @Override
-                    public String call(SearchEvent searchEvent) {
+                    public String apply(SearchEvent searchEvent) {
                         return searchEvent.getQuery();
                     }
                 })
-                .subscribe(new CommonSubscriber<String>(mView, "搜索失败") {
+                .subscribeWith(new CommonSubscriber<String>(mView, "搜索失败") {
                     @Override
                     public void onNext(String s) {
                         queryStr = s;
                         getSearchTechData();
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     private void getSearchTechData() {
         currentPage = 1;
-        Subscription rxSubscription = mRetrofitHelper.fetchGankSearchList(queryStr, currentTech, NUM_OF_PAGE, currentPage)
+        addSubscribe(mRetrofitHelper.fetchGankSearchList(queryStr, currentTech, NUM_OF_PAGE, currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankSearchItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankSearchItemBean>>handleResult())
-                .map(new Func1<List<GankSearchItemBean>, List<GankItemBean>>() {
+                .map(new Function<List<GankSearchItemBean>, List<GankItemBean>>() {
                     @Override
-                    public List<GankItemBean> call(List<GankSearchItemBean> gankSearchItemBeen) {
+                    public List<GankItemBean> apply(List<GankSearchItemBean> gankSearchItemBeen) {
                         List<GankItemBean> newList = new ArrayList<>();
                         for (GankSearchItemBean item : gankSearchItemBeen) {
                             GankItemBean bean = new GankItemBean();
@@ -87,13 +88,13 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                         return newList;
                     }
                 })
-                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
                     public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showContent(gankItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
@@ -102,16 +103,16 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
         currentPage = 1;
         currentTech = tech;
         currentType = type;
-        Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,currentPage)
+        addSubscribe(mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
                     public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showContent(gankItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
@@ -120,25 +121,25 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
             getMoreSearchGankData();
             return;
         }
-        Subscription rxSubscription = mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,++currentPage)
+        addSubscribe(mRetrofitHelper.fetchTechList(tech,NUM_OF_PAGE,++currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView, "加载更多数据失败ヽ(≧Д≦)ノ") {
+                .subscribeWith(new CommonSubscriber<List<GankItemBean>>(mView, "加载更多数据失败ヽ(≧Д≦)ノ") {
                     @Override
                     public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showMoreContent(gankItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     private void getMoreSearchGankData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchGankSearchList(queryStr, currentTech, NUM_OF_PAGE, ++currentPage)
+        addSubscribe(mRetrofitHelper.fetchGankSearchList(queryStr, currentTech, NUM_OF_PAGE, ++currentPage)
                 .compose(RxUtil.<GankHttpResponse<List<GankSearchItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankSearchItemBean>>handleResult())
-                .map(new Func1<List<GankSearchItemBean>, List<GankItemBean>>() {
+                .map(new Function<List<GankSearchItemBean>, List<GankItemBean>>() {
                     @Override
-                    public List<GankItemBean> call(List<GankSearchItemBean> gankSearchItemBeen) {
+                    public List<GankItemBean> apply(List<GankSearchItemBean> gankSearchItemBeen) {
                         List<GankItemBean> newList = new ArrayList<>();
                         for (GankSearchItemBean item : gankSearchItemBeen) {
                             GankItemBean bean = new GankItemBean();
@@ -152,26 +153,26 @@ public class TechPresenter extends RxPresenter<TechContract.View> implements Tec
                         return newList;
                     }
                 })
-                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<GankItemBean>>(mView) {
                     @Override
                     public void onNext(List<GankItemBean> gankItemBeen) {
                         mView.showMoreContent(gankItemBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getGirlImage() {
-        Subscription rxSubscription = mRetrofitHelper.fetchRandomGirl(1)
+        addSubscribe(mRetrofitHelper.fetchRandomGirl(1)
                 .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new CommonSubscriber<List<GankItemBean>>(mView, "加载封面失败") {
+                .subscribeWith(new CommonSubscriber<List<GankItemBean>>(mView, "加载封面失败") {
                     @Override
                     public void onNext(List<GankItemBean> gankItemBean) {
                         mView.showGirlImage(gankItemBean.get(0).getUrl(), gankItemBean.get(0).getWho());
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

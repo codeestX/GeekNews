@@ -15,8 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
+import io.reactivex.Flowable;
 
 /**
  * Created by codeest on 16/11/27.
@@ -44,20 +43,20 @@ public class GoldPresenter extends RxPresenter<GoldContract.View> implements Gol
         mType = type;
         currentPage = 0;
         totalList.clear();
-        Observable<List<GoldListBean>> list = mRetrofitHelper.fetchGoldList(type, NUM_EACH_PAGE, currentPage++)
+        Flowable<List<GoldListBean>> list = mRetrofitHelper.fetchGoldList(type, NUM_EACH_PAGE, currentPage++)
                 .compose(RxUtil.<GoldHttpResponse<List<GoldListBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GoldListBean>>handleGoldResult());
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -3);
 
-        Observable<List<GoldListBean>> hotList = mRetrofitHelper.fetchGoldHotList(type,
+        Flowable<List<GoldListBean>> hotList = mRetrofitHelper.fetchGoldHotList(type,
                 new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()), NUM_HOT_LIMIT)
                 .compose(RxUtil.<GoldHttpResponse<List<GoldListBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GoldListBean>>handleGoldResult());
 
-        Subscription rxSubscription = Observable.concat(hotList, list)
-                .subscribe(new CommonSubscriber<List<GoldListBean>>(mView) {
+        addSubscribe(Flowable.concat(hotList, list)
+                .subscribeWith(new CommonSubscriber<List<GoldListBean>>(mView) {
                     @Override
                     public void onNext(List<GoldListBean> goldListBean) {
                         if (isHotList) {
@@ -69,22 +68,22 @@ public class GoldPresenter extends RxPresenter<GoldContract.View> implements Gol
                             mView.showContent(totalList);
                         }
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getMoreGoldData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchGoldList(mType, NUM_EACH_PAGE, currentPage++)
+        addSubscribe(mRetrofitHelper.fetchGoldList(mType, NUM_EACH_PAGE, currentPage++)
                 .compose(RxUtil.<GoldHttpResponse<List<GoldListBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GoldListBean>>handleGoldResult())
-                .subscribe(new CommonSubscriber<List<GoldListBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<GoldListBean>>(mView) {
                     @Override
                     public void onNext(List<GoldListBean> goldListBeen) {
                         totalList.addAll(goldListBeen);
                         mView.showMoreContent(totalList, totalList.size(), totalList.size() + NUM_EACH_PAGE);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

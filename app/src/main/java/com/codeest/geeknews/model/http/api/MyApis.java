@@ -3,8 +3,8 @@ package com.codeest.geeknews.model.http.api;
 import com.codeest.geeknews.model.bean.VersionBean;
 import com.codeest.geeknews.model.http.response.MyHttpResponse;
 
+import io.reactivex.Flowable;
 import retrofit2.http.GET;
-import rx.Observable;
 
 /**
  * Created by codeest on 16/10/10.
@@ -22,6 +22,6 @@ public interface MyApis {
      * @return
      */
     @GET("version")
-    Observable<MyHttpResponse<VersionBean>> getVersionInfo();
+    Flowable<MyHttpResponse<VersionBean>> getVersionInfo();
 
 }

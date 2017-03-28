@@ -9,8 +9,8 @@ import com.codeest.geeknews.util.SharedPreferenceUtil;
 
 import javax.inject.Inject;
 
+import io.reactivex.functions.Consumer;
 import io.realm.RealmList;
-import rx.functions.Action1;
 
 /**
  * Created by codeest on 16/11/28.
@@ -28,9 +28,9 @@ public class GoldMainPresenter extends RxPresenter<GoldMainContract.View> implem
     }
 
     private void registerEvent() {
-        addRxBusSubscribe(GoldManagerBean.class, new Action1<GoldManagerBean>() {
+        addRxBusSubscribe(GoldManagerBean.class, new Consumer<GoldManagerBean>() {
             @Override
-            public void call(GoldManagerBean goldManagerBean) {
+            public void accept(GoldManagerBean goldManagerBean) {
                 mRealmHelper.updateGoldManagerList(goldManagerBean);
                 mView.updateTab(goldManagerBean.getManagerList());
             }

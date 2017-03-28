@@ -12,8 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-
 /**
  * Created by codeest on 16/12/23.
  */
@@ -29,27 +27,27 @@ public class NodePresenter extends RxPresenter<NodeContract.View> implements Nod
 
     @Override
     public void getContent(String node_name) {
-        Subscription rxSubscription = mRetrofitHelper.fetchTopicList(node_name)
+        addSubscribe(mRetrofitHelper.fetchTopicList(node_name)
                 .compose(RxUtil.<List<NodeListBean>>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<List<NodeListBean>>(mView) {
+                .subscribeWith(new CommonSubscriber<List<NodeListBean>>(mView) {
                     @Override
                     public void onNext(List<NodeListBean> nodeListBeen) {
                         mView.showContent(nodeListBeen);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getTopInfo(String node_name) {
-        Subscription rxSubscription = mRetrofitHelper.fetchNodeInfo(node_name)
+        addSubscribe(mRetrofitHelper.fetchNodeInfo(node_name)
                 .compose(RxUtil.<NodeBean>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<NodeBean>(mView) {
+                .subscribeWith(new CommonSubscriber<NodeBean>(mView) {
                     @Override
                     public void onNext(NodeBean nodeBean) {
                         mView.showTopInfo(nodeBean);
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

@@ -4,7 +4,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "com.codeest.geeknews"
@@ -47,16 +47,17 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.1.0'
 
     //rx
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
 
     //network
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 
@@ -71,7 +72,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.orhanobut:logger:1.15'
     compile 'me.yokeyword:fragmentation:0.7.9'
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
     compile 'org.jsoup:jsoup:1.10.1'
     compile 'com.tencent.bugly:crashreport:latest.release'
 
