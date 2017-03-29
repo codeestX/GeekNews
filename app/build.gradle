@@ -3,15 +3,15 @@ apply plugin: 'android-apt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.codeest.geeknews"
-        minSdkVersion 21
-        targetSdkVersion 25
-        versionCode 130
-        versionName "1.3.0"
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
 
         multiDexEnabled true
         renderscriptTargetApi 23
@@ -21,6 +21,9 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+//            shrinkResources true
+//            zipAlignEnabled true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,6 +32,10 @@ android {
         google {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "google"]
         }
+    }
+
+    defaultConfig {
+        resConfigs "zh"
     }
 }
 
@@ -40,52 +47,52 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
 
+    //base
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["recyclerview-v7"]
+    compile rootProject.ext.dependencies["cardview-v7"]
+
     //ui
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:cardview-v7:25.1.0'
+    compile rootProject.ext.dependencies["material-calendarview"]
+    compile rootProject.ext.dependencies["materialsearchview"]
+    compile rootProject.ext.dependencies["multiline-collapsingtoolbar"]
+    compile rootProject.ext.dependencies["PhotoView"]
+    compile rootProject.ext.dependencies["glide-transformations"]
+    compile rootProject.ext.dependencies["html-textview"]
 
     //rx
-    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    compile rootProject.ext.dependencies["rxjava"]
+    compile rootProject.ext.dependencies["rxandroid"]
+    compile rootProject.ext.dependencies["rxpermissions"]
 
     //network
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile rootProject.ext.dependencies["gson"]
+    compile rootProject.ext.dependencies["retrofit"]
+    compile rootProject.ext.dependencies["retrofit-converter-gson"]
+    compile rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    compile rootProject.ext.dependencies["okhttp"]
+    compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
+    compile rootProject.ext.dependencies["glide"]
+    compile rootProject.ext.dependencies["glide-okhttp3-integration"]
+    compile rootProject.ext.dependencies["jsoup"]
 
     //di
-    compile 'com.google.dagger:dagger:2.0.2'
-    compile 'com.google.dagger:dagger-compiler:2.0.2'
-    compile 'com.jakewharton:butterknife:8.2.1'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile rootProject.ext.dependencies["dagger"]
+    compile rootProject.ext.dependencies["dagger-compiler"]
+    compile rootProject.ext.dependencies["butterknife"]
+    apt rootProject.ext.dependencies["butterknife-compiler"]
+    provided rootProject.ext.dependencies["annotation"]
 
     //other
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.orhanobut:logger:1.15'
-    compile 'me.yokeyword:fragmentation:0.7.9'
-    compile 'org.jsoup:jsoup:1.10.1'
-    compile 'com.tencent.bugly:crashreport:latest.release'
-
-    //widget
-    compile 'com.prolificinteractive:material-calendarview:1.4.0'
-    compile 'net.opacapp:multiline-collapsingtoolbar:1.3.1'
-    compile 'com.github.chrisbanes:PhotoView:1.3.0'
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
-    compile 'jp.wasabeef:glide-transformations:1.2.1'
-    compile 'org.sufficientlysecure:html-textview:3.1'
+    compile rootProject.ext.dependencies["multidex"]
+    compile rootProject.ext.dependencies["logger"]
+    compile rootProject.ext.dependencies["fragmentation"]
+    compile rootProject.ext.dependencies["crashreport"]
 
     //canary
-    debugCompile 'com.github.moduth:blockcanary-android:1.2.1'
-    releaseCompile 'com.github.moduth:blockcanary-no-op:1.2.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    debugCompile rootProject.ext.dependencies["blockcanary-android"]
+    releaseCompile rootProject.ext.dependencies["blockcanary-no-op"]
+    debugCompile rootProject.ext.dependencies["leakcanary-android"]
+    releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
 }
