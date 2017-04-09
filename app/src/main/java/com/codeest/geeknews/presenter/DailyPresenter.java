@@ -9,6 +9,7 @@ import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.DailyContract;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by codeest on 16/8/11.
@@ -33,7 +36,7 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
 
     private RetrofitHelper mRetrofitHelper;
     private RealmHelper mRealmHelper;
-    private Subscription intervalSubscription;
+    private Disposable intervalSubscription;
 
     private static final int INTERVAL_INSTANCE = 6;
 
@@ -48,11 +51,11 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     }
 
     private void registerEvent() {
-        Subscription rxSubscription = RxBus.getDefault().toObservable(CalendarDay.class)
+        addSubscribe(RxBus.getDefault().toFlowable(CalendarDay.class)
                 .subscribeOn(Schedulers.io())
-                .map(new Func1<CalendarDay, String>() {
+                .map(new Function<CalendarDay, String>() {
                     @Override
-                    public String call(CalendarDay calendarDay) {
+                    public String apply(CalendarDay calendarDay) {
                         StringBuilder date = new StringBuilder();
                         String year = String.valueOf(calendarDay.getYear());
                         String month = String.valueOf(calendarDay.getMonth() + 1);
@@ -66,9 +69,9 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return date.append(year).append(month).append(day).toString();
                     }
                 })
-                .filter(new Func1<String, Boolean>() {
+                .filter(new Predicate<String>() {
                     @Override
-                    public Boolean call(String s) {
+                    public boolean test(@NonNull String s) throws Exception {
                         if(s.equals(DateUtil.getTomorrowDate())) {
                             getDailyData();
                             return false;
@@ -77,16 +80,16 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                     }
                 })
                 .observeOn(Schedulers.io())   //为了网络请求切到io线程
-                .flatMap(new Func1<String, Observable<DailyBeforeListBean>>() {
+                .flatMap(new Function<String, Flowable<DailyBeforeListBean>>() {
                     @Override
-                    public Observable<DailyBeforeListBean> call(String date) {
+                    public Flowable<DailyBeforeListBean> apply(String date) {
                         return mRetrofitHelper.fetchDailyBeforeListInfo(date);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())    //为了使用Realm和显示结果切到主线程
-                .map(new Func1<DailyBeforeListBean, DailyBeforeListBean>() {
+                .map(new Function<DailyBeforeListBean, DailyBeforeListBean>() {
                     @Override
-                    public DailyBeforeListBean call(DailyBeforeListBean dailyBeforeListBean) {
+                    public DailyBeforeListBean apply(DailyBeforeListBean dailyBeforeListBean) {
                         List<DailyListBean.StoriesBean> list = dailyBeforeListBean.getStories();
                         for(DailyListBean.StoriesBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getId()));
@@ -94,31 +97,25 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return dailyBeforeListBean;
                     }
                 })
-                .subscribe(new Action1<DailyBeforeListBean>() {
-                   @Override
-                   public void call(DailyBeforeListBean dailyBeforeListBean) {
-                       int year = Integer.valueOf(dailyBeforeListBean.getDate().substring(0,4));
-                       int month = Integer.valueOf(dailyBeforeListBean.getDate().substring(4,6));
-                       int day = Integer.valueOf(dailyBeforeListBean.getDate().substring(6,8));
-                       mView.showMoreContent(String.format("%d年%d月%d日",year,month,day),dailyBeforeListBean);
-                   }
-                },
-                new Action1<Throwable>() {
+                .subscribeWith(new CommonSubscriber<DailyBeforeListBean>(mView) {
                     @Override
-                    public void call(Throwable throwable) {
-                        registerEvent();
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }});
-        addSubscrebe(rxSubscription);
+                    public void onNext(DailyBeforeListBean dailyBeforeListBean) {
+                        int year = Integer.valueOf(dailyBeforeListBean.getDate().substring(0,4));
+                        int month = Integer.valueOf(dailyBeforeListBean.getDate().substring(4,6));
+                        int day = Integer.valueOf(dailyBeforeListBean.getDate().substring(6,8));
+                        mView.showMoreContent(String.format("%d年%d月%d日",year,month,day),dailyBeforeListBean);
+                    }
+                })
+        );
     }
 
     @Override
     public void getDailyData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchDailyListInfo()
+        addSubscribe(mRetrofitHelper.fetchDailyListInfo()
                 .compose(RxUtil.<DailyListBean>rxSchedulerHelper())
-                .map(new Func1<DailyListBean, DailyListBean>() {
+                .map(new Function<DailyListBean, DailyListBean>() {
                     @Override
-                    public DailyListBean call(DailyListBean dailyListBean) {
+                    public DailyListBean apply(DailyListBean dailyListBean) {
                         List<DailyListBean.StoriesBean> list = dailyListBean.getStories();
                         for(DailyListBean.StoriesBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getId()));
@@ -126,28 +123,23 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return dailyListBean;
                     }
                 })
-                .subscribe(new Action1<DailyListBean>() {
+                .subscribeWith(new CommonSubscriber<DailyListBean>(mView) {
                     @Override
-                    public void call(DailyListBean dailyListBean) {
+                    public void onNext(DailyListBean dailyListBean) {
                         topCount = dailyListBean.getTop_stories().size();
                         mView.showContent(dailyListBean);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getBeforeData(String date) {
-        Subscription rxSubscription = mRetrofitHelper.fetchDailyBeforeListInfo(date)
+        addSubscribe(mRetrofitHelper.fetchDailyBeforeListInfo(date)
                 .compose(RxUtil.<DailyBeforeListBean>rxSchedulerHelper())
-                .map(new Func1<DailyBeforeListBean, DailyBeforeListBean>() {
+                .map(new Function<DailyBeforeListBean, DailyBeforeListBean>() {
                     @Override
-                    public DailyBeforeListBean call(DailyBeforeListBean dailyBeforeListBean) {
+                    public DailyBeforeListBean apply(DailyBeforeListBean dailyBeforeListBean) {
                         List<DailyListBean.StoriesBean> list = dailyBeforeListBean.getStories();
                         for(DailyListBean.StoriesBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getId()));
@@ -155,42 +147,37 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                         return dailyBeforeListBean;
                     }
                 })
-                .subscribe(new Action1<DailyBeforeListBean>() {
+                .subscribeWith(new CommonSubscriber<DailyBeforeListBean>(mView) {
                     @Override
-                    public void call(DailyBeforeListBean dailyBeforeListBean) {
+                    public void onNext(DailyBeforeListBean dailyBeforeListBean) {
                         int year = Integer.valueOf(dailyBeforeListBean.getDate().substring(0,4));
                         int month = Integer.valueOf(dailyBeforeListBean.getDate().substring(4,6));
                         int day = Integer.valueOf(dailyBeforeListBean.getDate().substring(6,8));
                         mView.showMoreContent(String.format("%d年%d月%d日",year,month,day),dailyBeforeListBean);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void startInterval() {
-        intervalSubscription = Observable.interval(INTERVAL_INSTANCE, TimeUnit.SECONDS)
+        intervalSubscription = Flowable.interval(INTERVAL_INSTANCE, TimeUnit.SECONDS)
                 .compose(RxUtil.<Long>rxSchedulerHelper())
-                .subscribe(new Action1<Long>() {
+                .subscribe(new Consumer<Long>() {
                     @Override
-                    public void call(Long aLong) {
+                    public void accept(Long aLong) {
                         if(currentTopCount == topCount)
                             currentTopCount = 0;
                         mView.doInterval(currentTopCount++);
                     }
                 });
-        addSubscrebe(intervalSubscription);
+        addSubscribe(intervalSubscription);
     }
 
     @Override
     public void stopInterval() {
         if (intervalSubscription != null) {
-            intervalSubscription.unsubscribe();
+            intervalSubscription.dispose();
         }
     }
 

@@ -2,7 +2,7 @@ package com.codeest.geeknews.di.component;
 
 import android.app.Activity;
 
-import com.codeest.geeknews.di.ActivityScope;
+import com.codeest.geeknews.di.scope.ActivityScope;
 import com.codeest.geeknews.di.module.ActivityModule;
 import com.codeest.geeknews.ui.main.activity.MainActivity;
 import com.codeest.geeknews.ui.main.activity.WelcomeActivity;

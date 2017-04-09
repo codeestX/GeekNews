@@ -34,7 +34,7 @@ import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -54,7 +54,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R.id.view_search)
     MaterialSearchView mSearchView;
 
-    ActionBarDrawerToggle mDrawerToggle;
     ZhihuMainFragment mZhihuFragment;
     GankMainFragment mGankFragment;
     WechatMainFragment mWechatFragment;
@@ -63,8 +62,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     LikeFragment mLikeFragment;
     SettingFragment mSettingFragment;
     AboutFragment mAboutFragment;
+
     MenuItem mLastMenuItem;
     MenuItem mSearchMenuItem;
+    ActionBarDrawerToggle mDrawerToggle;
 
     private int hideFragment = Constants.TYPE_ZHIHU;
     private int showFragment = Constants.TYPE_ZHIHU;

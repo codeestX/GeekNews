@@ -10,9 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.functions.Action1;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by codeest on 16/8/15.
@@ -33,32 +32,32 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
 
     @Override
     public void getWelcomeData() {
-        Subscription rxSubscription =  mRetrofitHelper.fetchWelcomeInfo(RES)
+        addSubscribe(mRetrofitHelper.fetchWelcomeInfo(RES)
                 .compose(RxUtil.<WelcomeBean>rxSchedulerHelper())
-                .subscribe(new Action1<WelcomeBean>() {
+                .subscribe(new Consumer<WelcomeBean>() {
                     @Override
-                    public void call(WelcomeBean welcomeBean) {
+                    public void accept(WelcomeBean welcomeBean) {
                         mView.showContent(welcomeBean);
                         startCountDown();
                     }
-                }, new Action1<Throwable>() {
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         mView.jumpToMain();
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     private void startCountDown() {
-        Subscription rxSubscription = Observable.timer(COUNT_DOWN_TIME, TimeUnit.MILLISECONDS)
+        addSubscribe(Flowable.timer(COUNT_DOWN_TIME, TimeUnit.MILLISECONDS)
                 .compose(RxUtil.<Long>rxSchedulerHelper())
-                .subscribe(new Action1<Long>() {
+                .subscribe(new Consumer<Long>() {
                     @Override
-                    public void call(Long aLong) {
+                    public void accept(Long aLong) {
                         mView.jumpToMain();
                     }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

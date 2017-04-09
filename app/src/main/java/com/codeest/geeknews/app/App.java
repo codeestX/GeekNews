@@ -13,6 +13,7 @@ import com.codeest.geeknews.component.InitializeService;
 import com.codeest.geeknews.di.component.AppComponent;
 import com.codeest.geeknews.di.component.DaggerAppComponent;
 import com.codeest.geeknews.di.module.AppModule;
+import com.codeest.geeknews.di.module.HttpModule;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -104,6 +105,7 @@ public class App extends Application{
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(instance))
+                    .httpModule(new HttpModule())
                     .build();
         }
         return appComponent;

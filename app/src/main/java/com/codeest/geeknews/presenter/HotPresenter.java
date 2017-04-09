@@ -6,14 +6,13 @@ import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.HotContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import io.reactivex.functions.Function;
 
 /**
  * Created by codeest on 16/8/12.
@@ -32,11 +31,11 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
 
     @Override
     public void getHotData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchHotListInfo()
+        addSubscribe(mRetrofitHelper.fetchHotListInfo()
                 .compose(RxUtil.<HotListBean>rxSchedulerHelper())
-                .map(new Func1<HotListBean, HotListBean>() {
+                .map(new Function<HotListBean, HotListBean>() {
                     @Override
-                    public HotListBean call(HotListBean hotListBean) {
+                    public HotListBean apply(HotListBean hotListBean) {
                         List<HotListBean.RecentBean> list = hotListBean.getRecent();
                         for(HotListBean.RecentBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getNews_id()));
@@ -44,18 +43,13 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
                         return hotListBean;
                     }
                 })
-                .subscribe(new Action1<HotListBean>() {
+                .subscribeWith(new CommonSubscriber<HotListBean>(mView) {
                     @Override
-                    public void call(HotListBean dailyListBean) {
-                        mView.showContent(dailyListBean);
+                    public void onNext(HotListBean hotListBean) {
+                        mView.showContent(hotListBean);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

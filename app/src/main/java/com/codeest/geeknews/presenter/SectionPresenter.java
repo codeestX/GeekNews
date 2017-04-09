@@ -5,11 +5,9 @@ import com.codeest.geeknews.model.bean.SectionListBean;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.SectionContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import javax.inject.Inject;
-
-import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by codeest on 16/8/12.
@@ -26,19 +24,14 @@ public class SectionPresenter extends RxPresenter<SectionContract.View> implemen
 
     @Override
     public void getSectionData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchSectionListInfo()
+        addSubscribe(mRetrofitHelper.fetchSectionListInfo()
                 .compose(RxUtil.<SectionListBean>rxSchedulerHelper())
-                .subscribe(new Action1<SectionListBean>() {
+                .subscribeWith(new CommonSubscriber<SectionListBean>(mView) {
                     @Override
-                    public void call(SectionListBean sectionListBean) {
+                    public void onNext(SectionListBean sectionListBean) {
                         mView.showContent(sectionListBean);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

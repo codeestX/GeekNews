@@ -8,14 +8,15 @@ import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.RepliesContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 /**
  * Created by codeest on 16/12/23.
@@ -34,50 +35,40 @@ public class RepliesPresenter extends RxPresenter<RepliesContract.View> implemen
 
     @Override
     public void getContent(String topic_id) {
-        Subscription rxSubscription = mRetrofitHelper.fetchRepliesList(topic_id)
+        addSubscribe(mRetrofitHelper.fetchRepliesList(topic_id)
                 .compose(RxUtil.<List<RepliesListBean>>rxSchedulerHelper())
-                .subscribe(new Action1<List<RepliesListBean>>() {
+                .subscribeWith(new CommonSubscriber<List<RepliesListBean>>(mView) {
                     @Override
-                    public void call(List<RepliesListBean> repliesListBeen) {
+                    public void onNext(List<RepliesListBean> repliesListBeen) {
                         mView.showContent(repliesListBeen);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("获取数据失败");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override
     public void getTopInfo(String topic_id) {
-        Subscription rxSubscription = mRetrofitHelper.fetchTopicInfo(topic_id)
+        addSubscribe(mRetrofitHelper.fetchTopicInfo(topic_id)
                 .compose(RxUtil.<List<NodeListBean>>rxSchedulerHelper())
-                .filter(new Func1<List<NodeListBean>, Boolean>() {
+                .filter(new Predicate<List<NodeListBean>>() {
                     @Override
-                    public Boolean call(List<NodeListBean> nodeListBeen) {
+                    public boolean test(@NonNull List<NodeListBean> nodeListBeen) throws Exception {
                         return nodeListBeen.size() > 0;
                     }
                 })
-                .map(new Func1<List<NodeListBean>, NodeListBean>() {
+                .map(new Function<List<NodeListBean>, NodeListBean>() {
                     @Override
-                    public NodeListBean call(List<NodeListBean> nodeListBeen) {
+                    public NodeListBean apply(List<NodeListBean> nodeListBeen) {
                         return nodeListBeen.get(0);
                     }
                 })
-                .subscribe(new Action1<NodeListBean>() {
+                .subscribeWith(new CommonSubscriber<NodeListBean>(mView) {
                     @Override
-                    public void call(NodeListBean nodeListBean) {
+                    public void onNext(NodeListBean nodeListBean) {
                         mView.showTopInfo(nodeListBean);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("获取数据失败");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

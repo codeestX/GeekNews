@@ -2,7 +2,7 @@ package com.codeest.geeknews.di.module;
 
 import android.app.Activity;
 
-import com.codeest.geeknews.di.ActivityScope;
+import com.codeest.geeknews.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;

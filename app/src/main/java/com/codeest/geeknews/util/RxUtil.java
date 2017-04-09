@@ -6,11 +6,14 @@ import com.codeest.geeknews.model.http.response.GoldHttpResponse;
 import com.codeest.geeknews.model.http.response.MyHttpResponse;
 import com.codeest.geeknews.model.http.response.WXHttpResponse;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.FlowableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by codeest on 2016/8/3.
@@ -22,10 +25,10 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<T, T> rxSchedulerHelper() {    //compose简化线程
-        return new Observable.Transformer<T, T>() {
+    public static <T> FlowableTransformer<T, T> rxSchedulerHelper() {    //compose简化线程
+        return new FlowableTransformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<T> observable) {
+            public Flowable<T> apply(Flowable<T> observable) {
                 return observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }
@@ -37,17 +40,17 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
-        return new Observable.Transformer<GankHttpResponse<T>, T>() {
+    public static <T> FlowableTransformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
+        return new FlowableTransformer<GankHttpResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<GankHttpResponse<T>> httpResponseObservable) {
-                return httpResponseObservable.flatMap(new Func1<GankHttpResponse<T>, Observable<T>>() {
+            public Flowable<T> apply(Flowable<GankHttpResponse<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<GankHttpResponse<T>, Flowable<T>>() {
                     @Override
-                    public Observable<T> call(GankHttpResponse<T> tGankHttpResponse) {
+                    public Flowable<T> apply(GankHttpResponse<T> tGankHttpResponse) {
                         if(!tGankHttpResponse.getError()) {
                             return createData(tGankHttpResponse.getResults());
                         } else {
-                            return Observable.error(new ApiException("服务器返回error"));
+                            return Flowable.error(new ApiException("服务器返回error"));
                         }
                     }
                 });
@@ -60,17 +63,17 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<WXHttpResponse<T>, T> handleWXResult() {   //compose判断结果
-        return new Observable.Transformer<WXHttpResponse<T>, T>() {
+    public static <T> FlowableTransformer<WXHttpResponse<T>, T> handleWXResult() {   //compose判断结果
+        return new FlowableTransformer<WXHttpResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<WXHttpResponse<T>> httpResponseObservable) {
-                return httpResponseObservable.flatMap(new Func1<WXHttpResponse<T>, Observable<T>>() {
+            public Flowable<T> apply(Flowable<WXHttpResponse<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<WXHttpResponse<T>, Flowable<T>>() {
                     @Override
-                    public Observable<T> call(WXHttpResponse<T> tWXHttpResponse) {
+                    public Flowable<T> apply(WXHttpResponse<T> tWXHttpResponse) {
                         if(tWXHttpResponse.getCode() == 200) {
                             return createData(tWXHttpResponse.getNewslist());
                         } else {
-                            return Observable.error(new ApiException("服务器返回error"));
+                            return Flowable.error(new ApiException("服务器返回error"));
                         }
                     }
                 });
@@ -83,17 +86,17 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<MyHttpResponse<T>, T> handleMyResult() {   //compose判断结果
-        return new Observable.Transformer<MyHttpResponse<T>, T>() {
+    public static <T> FlowableTransformer<MyHttpResponse<T>, T> handleMyResult() {   //compose判断结果
+        return new FlowableTransformer<MyHttpResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<MyHttpResponse<T>> httpResponseObservable) {
-                return httpResponseObservable.flatMap(new Func1<MyHttpResponse<T>, Observable<T>>() {
+            public Flowable<T> apply(Flowable<MyHttpResponse<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<MyHttpResponse<T>, Flowable<T>>() {
                     @Override
-                    public Observable<T> call(MyHttpResponse<T> tMyHttpResponse) {
+                    public Flowable<T> apply(MyHttpResponse<T> tMyHttpResponse) {
                         if(tMyHttpResponse.getCode() == 200) {
                             return createData(tMyHttpResponse.getData());
                         } else {
-                            return Observable.error(new ApiException("服务器返回error"));
+                            return Flowable.error(new ApiException("服务器返回error"));
                         }
                     }
                 });
@@ -106,17 +109,17 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<GoldHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
-        return new Observable.Transformer<GoldHttpResponse<T>, T>() {
+    public static <T> FlowableTransformer<GoldHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
+        return new FlowableTransformer<GoldHttpResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<GoldHttpResponse<T>> httpResponseObservable) {
-                return httpResponseObservable.flatMap(new Func1<GoldHttpResponse<T>, Observable<T>>() {
+            public Flowable<T> apply(Flowable<GoldHttpResponse<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<GoldHttpResponse<T>, Flowable<T>>() {
                     @Override
-                    public Observable<T> call(GoldHttpResponse<T> tGoldHttpResponse) {
+                    public Flowable<T> apply(GoldHttpResponse<T> tGoldHttpResponse) {
                         if(tGoldHttpResponse.getResults() != null) {
                             return createData(tGoldHttpResponse.getResults());
                         } else {
-                            return Observable.error(new ApiException("服务器返回error"));
+                            return Flowable.error(new ApiException("服务器返回error"));
                         }
                     }
                 });
@@ -125,21 +128,21 @@ public class RxUtil {
     }
 
     /**
-     * 生成Observable
+     * 生成Flowable
      * @param <T>
      * @return
      */
-    public static <T> Observable<T> createData(final T t) {
-        return Observable.create(new Observable.OnSubscribe<T>() {
+    public static <T> Flowable<T> createData(final T t) {
+        return Flowable.create(new FlowableOnSubscribe<T>() {
             @Override
-            public void call(Subscriber<? super T> subscriber) {
+            public void subscribe(FlowableEmitter<T> emitter) throws Exception {
                 try {
-                    subscriber.onNext(t);
-                    subscriber.onCompleted();
+                    emitter.onNext(t);
+                    emitter.onComplete();
                 } catch (Exception e) {
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
-        });
+        }, BackpressureStrategy.BUFFER);
     }
 }

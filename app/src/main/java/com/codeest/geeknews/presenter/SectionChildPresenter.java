@@ -1,20 +1,18 @@
 package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
-import com.codeest.geeknews.model.bean.HotListBean;
 import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.SectionChildContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import io.reactivex.functions.Function;
 
 /**
  * Created by codeest on 16/8/28.
@@ -33,11 +31,11 @@ public class SectionChildPresenter extends RxPresenter<SectionChildContract.View
 
     @Override
     public void getThemeChildData(int id) {
-        Subscription rxSubscription = mRetrofitHelper.fetchSectionChildListInfo(id)
+        addSubscribe(mRetrofitHelper.fetchSectionChildListInfo(id)
                 .compose(RxUtil.<SectionChildListBean>rxSchedulerHelper())
-                .map(new Func1<SectionChildListBean, SectionChildListBean>() {
+                .map(new Function<SectionChildListBean, SectionChildListBean>() {
                     @Override
-                    public SectionChildListBean call(SectionChildListBean sectionChildListBean) {
+                    public SectionChildListBean apply(SectionChildListBean sectionChildListBean) {
                         List<SectionChildListBean.StoriesBean> list = sectionChildListBean.getStories();
                         for(SectionChildListBean.StoriesBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getId()));
@@ -45,18 +43,13 @@ public class SectionChildPresenter extends RxPresenter<SectionChildContract.View
                         return sectionChildListBean;
                     }
                 })
-                .subscribe(new Action1<SectionChildListBean>() {
+                .subscribeWith(new CommonSubscriber<SectionChildListBean>(mView) {
                     @Override
-                    public void call(SectionChildListBean sectionChildListBean) {
+                    public void onNext(SectionChildListBean sectionChildListBean) {
                         mView.showContent(sectionChildListBean);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("加载数据失败");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

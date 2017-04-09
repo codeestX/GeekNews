@@ -12,9 +12,9 @@ import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.model.bean.WelcomeBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 
+import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Created by codeest on 2016/8/2.
@@ -28,73 +28,73 @@ public interface ZhihuApis {
      * 启动界面图片
      */
     @GET("start-image/{res}")
-    Observable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
+    Flowable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
 
     /**
      * 最新日报
      */
     @GET("news/latest")
-    Observable<DailyListBean> getDailyList();
+    Flowable<DailyListBean> getDailyList();
 
     /**
      * 往期日报
      */
     @GET("news/before/{date}")
-    Observable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
+    Flowable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
 
     /**
      * 主题日报
      */
     @GET("themes")
-    Observable<ThemeListBean> getThemeList();
+    Flowable<ThemeListBean> getThemeList();
 
     /**
      * 主题日报详情
      */
     @GET("theme/{id}")
-    Observable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
+    Flowable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
 
     /**
      * 专栏日报
      */
     @GET("sections")
-    Observable<SectionListBean> getSectionList();
+    Flowable<SectionListBean> getSectionList();
 
     /**
      * 专栏日报详情
      */
     @GET("section/{id}")
-    Observable<SectionChildListBean> getSectionChildList(@Path("id") int id);
+    Flowable<SectionChildListBean> getSectionChildList(@Path("id") int id);
 
     /**
      * 热门日报
      */
     @GET("news/hot")
-    Observable<HotListBean> getHotList();
+    Flowable<HotListBean> getHotList();
 
     /**
      * 日报详情
      */
     @GET("news/{id}")
-    Observable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
+    Flowable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
 
     /**
      * 日报的额外信息
      */
     @GET("story-extra/{id}")
-    Observable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
+    Flowable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
 
     /**
      * 日报的长评论
      */
     @GET("story/{id}/long-comments")
-    Observable<CommentBean> getLongCommentInfo(@Path("id") int id);
+    Flowable<CommentBean> getLongCommentInfo(@Path("id") int id);
 
     /**
      * 日报的短评论
      */
     @GET("story/{id}/short-comments")
-    Observable<CommentBean> getShortCommentInfo(@Path("id") int id);
+    Flowable<CommentBean> getShortCommentInfo(@Path("id") int id);
 
 //
 //    /**
@@ -105,6 +105,6 @@ public interface ZhihuApis {
 //     * @return
 //     */
 //    @GET("section/{id}/before/{timestamp}")
-//    Observable<SectionsDetails> getBeforeSectionsDetails(@Path("id") int id, @Path("timestamp") long timestamp);
+//    Flowable<SectionsDetails> getBeforeSectionsDetails(@Path("id") int id, @Path("timestamp") long timestamp);
 //
 }

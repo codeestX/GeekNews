@@ -1,20 +1,18 @@
 package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
-import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 import com.codeest.geeknews.presenter.contract.ThemeChildContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import io.reactivex.functions.Function;
 
 /**
  * Created by codeest on 16/8/24.
@@ -33,11 +31,11 @@ public class ThemeChildPresenter extends RxPresenter<ThemeChildContract.View> im
 
     @Override
     public void getThemeChildData(int id) {
-        Subscription rxSubscription = mRetrofitHelper.fetchThemeChildListInfo(id)
+        addSubscribe(mRetrofitHelper.fetchThemeChildListInfo(id)
                 .compose(RxUtil.<ThemeChildListBean>rxSchedulerHelper())
-                .map(new Func1<ThemeChildListBean, ThemeChildListBean>() {
+                .map(new Function<ThemeChildListBean, ThemeChildListBean>() {
                     @Override
-                    public ThemeChildListBean call(ThemeChildListBean themeChildListBean) {
+                    public ThemeChildListBean apply(ThemeChildListBean themeChildListBean) {
                         List<ThemeChildListBean.StoriesBean> list = themeChildListBean.getStories();
                         for(ThemeChildListBean.StoriesBean item : list) {
                             item.setReadState(mRealmHelper.queryNewsId(item.getId()));
@@ -45,18 +43,13 @@ public class ThemeChildPresenter extends RxPresenter<ThemeChildContract.View> im
                         return themeChildListBean;
                     }
                 })
-                .subscribe(new Action1<ThemeChildListBean>() {
+                .subscribeWith(new CommonSubscriber<ThemeChildListBean>(mView) {
                     @Override
-                    public void call(ThemeChildListBean themeChildListBean) {
+                    public void onNext(ThemeChildListBean themeChildListBean) {
                         mView.showContent(themeChildListBean);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 
     @Override

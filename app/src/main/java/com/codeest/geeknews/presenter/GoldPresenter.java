@@ -2,10 +2,11 @@ package com.codeest.geeknews.presenter;
 
 import com.codeest.geeknews.base.RxPresenter;
 import com.codeest.geeknews.model.bean.GoldListBean;
-import com.codeest.geeknews.model.http.response.GoldHttpResponse;
 import com.codeest.geeknews.model.http.RetrofitHelper;
+import com.codeest.geeknews.model.http.response.GoldHttpResponse;
 import com.codeest.geeknews.presenter.contract.GoldContract;
 import com.codeest.geeknews.util.RxUtil;
+import com.codeest.geeknews.widget.CommonSubscriber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,9 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.functions.Action1;
+import io.reactivex.Flowable;
 
 /**
  * Created by codeest on 16/11/27.
@@ -44,56 +43,47 @@ public class GoldPresenter extends RxPresenter<GoldContract.View> implements Gol
         mType = type;
         currentPage = 0;
         totalList.clear();
-        Observable<List<GoldListBean>> list = mRetrofitHelper.fetchGoldList(type, NUM_EACH_PAGE, currentPage++)
+        Flowable<List<GoldListBean>> list = mRetrofitHelper.fetchGoldList(type, NUM_EACH_PAGE, currentPage++)
                 .compose(RxUtil.<GoldHttpResponse<List<GoldListBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GoldListBean>>handleGoldResult());
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -3);
 
-        Observable<List<GoldListBean>> hotList = mRetrofitHelper.fetchGoldHotList(type,
+        Flowable<List<GoldListBean>> hotList = mRetrofitHelper.fetchGoldHotList(type,
                 new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()), NUM_HOT_LIMIT)
                 .compose(RxUtil.<GoldHttpResponse<List<GoldListBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GoldListBean>>handleGoldResult());
 
-        Subscription rxSubscription = Observable.concat(hotList, list).subscribe(new Action1<List<GoldListBean>>() {
-            @Override
-            public void call(List<GoldListBean> goldListBean) {
-                if (isHotList) {
-                    isHotList = false;
-                    totalList.addAll(goldListBean);
-                } else {
-                    isHotList = true;
-                    totalList.addAll(goldListBean);
-                    mView.showContent(totalList);
-                }
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-            }
-        });
-        addSubscrebe(rxSubscription);
+        addSubscribe(Flowable.concat(hotList, list)
+                .subscribeWith(new CommonSubscriber<List<GoldListBean>>(mView) {
+                    @Override
+                    public void onNext(List<GoldListBean> goldListBean) {
+                        if (isHotList) {
+                            isHotList = false;
+                            totalList.addAll(goldListBean);
+                        } else {
+                            isHotList = true;
+                            totalList.addAll(goldListBean);
+                            mView.showContent(totalList);
+                        }
+                    }
+                })
+        );
     }
 
     @Override
     public void getMoreGoldData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchGoldList(mType, NUM_EACH_PAGE, currentPage++)
+        addSubscribe(mRetrofitHelper.fetchGoldList(mType, NUM_EACH_PAGE, currentPage++)
                 .compose(RxUtil.<GoldHttpResponse<List<GoldListBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GoldListBean>>handleGoldResult())
-                .subscribe(new Action1<List<GoldListBean>>() {
+                .subscribeWith(new CommonSubscriber<List<GoldListBean>>(mView) {
                     @Override
-                    public void call(List<GoldListBean> goldListBeen) {
+                    public void onNext(List<GoldListBean> goldListBeen) {
                         totalList.addAll(goldListBeen);
                         mView.showMoreContent(totalList, totalList.size(), totalList.size() + NUM_EACH_PAGE);
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-                    }
-                });
-        addSubscrebe(rxSubscription);
+                })
+        );
     }
 }

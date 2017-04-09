@@ -14,6 +14,7 @@ import com.codeest.geeknews.ui.gold.adapter.GoldListAdapter;
 import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.widget.GoldItemDecoration;
 import com.codeest.geeknews.widget.ProgressImageView;
+import com.codeest.geeknews.widget.TouchSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
     @BindView(R.id.iv_progress)
     ProgressImageView ivProgress;
     @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout swipeRefresh;
+    TouchSwipeRefreshLayout swipeRefresh;
 
     private GoldListAdapter mAdapter;
     private GoldItemDecoration mDecoration;
@@ -46,7 +47,7 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
 
     @Override
     protected int getLayoutId() {
-        return R.layout.view_common_list;
+        return R.layout.fragment_gold_page;
     }
 
     @Override

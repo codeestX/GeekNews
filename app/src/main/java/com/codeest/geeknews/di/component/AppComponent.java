@@ -2,6 +2,7 @@ package com.codeest.geeknews.di.component;
 
 import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.module.AppModule;
+import com.codeest.geeknews.di.module.HttpModule;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
 
@@ -14,7 +15,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = AppModule.class)
+@Component(modules = {AppModule.class, HttpModule.class})
 public interface AppComponent {
 
     App getContext();  // 提供App的Context
@@ -22,5 +23,4 @@ public interface AppComponent {
     RetrofitHelper retrofitHelper();  //提供http的帮助类
 
     RealmHelper realmHelper();    //提供数据库帮助类
-
 }
