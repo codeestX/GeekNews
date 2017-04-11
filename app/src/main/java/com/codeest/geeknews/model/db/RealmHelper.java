@@ -1,7 +1,5 @@
 package com.codeest.geeknews.model.db;
 
-import android.content.Context;
-
 import com.codeest.geeknews.model.bean.GoldManagerBean;
 import com.codeest.geeknews.model.bean.ReadStateBean;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
@@ -22,8 +20,8 @@ public class RealmHelper {
 
     private Realm mRealm;
 
-    public RealmHelper(Context mContext) {
-        mRealm = Realm.getInstance(new RealmConfiguration.Builder(mContext)
+    public RealmHelper() {
+        mRealm = Realm.getInstance(new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .name(DB_NAME)
                 .build());

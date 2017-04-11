@@ -44,6 +44,6 @@ public class AppModule {
     @Provides
     @Singleton
     RealmHelper provideRealmHelper() {
-        return new RealmHelper(application);
+        return new RealmHelper();
     }
 }

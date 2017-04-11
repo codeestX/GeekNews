@@ -18,6 +18,8 @@ import com.codeest.geeknews.di.module.HttpModule;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.realm.Realm;
+
 /**
  * Created by codeest on 2016/8/2.
  */
@@ -49,7 +51,10 @@ public class App extends Application{
         //初始化屏幕宽高
         getScreenSize();
 
-        //在子线程中初始化
+        //初始化数据库
+        Realm.init(getApplicationContext());
+
+        //在子线程中完成其他初始化
         InitializeService.start(this);
     }
 
