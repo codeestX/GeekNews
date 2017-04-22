@@ -7,14 +7,12 @@ import android.support.v7.widget.Toolbar;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.base.BaseActivity;
+import com.codeest.geeknews.base.RootActivity;
 import com.codeest.geeknews.model.bean.NodeBean;
 import com.codeest.geeknews.model.bean.NodeListBean;
-import com.codeest.geeknews.presenter.NodePresenter;
-import com.codeest.geeknews.presenter.contract.NodeContract;
+import com.codeest.geeknews.presenter.vtex.NodePresenter;
+import com.codeest.geeknews.base.contract.vtex.NodeContract;
 import com.codeest.geeknews.ui.vtex.adapter.NodeListAdapter;
-import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +23,12 @@ import butterknife.BindView;
  * Created by codeest on 16/12/19.
  */
 
-public class NodeListActivity extends BaseActivity<NodePresenter> implements NodeContract.View {
+public class NodeListActivity extends RootActivity<NodePresenter> implements NodeContract.View {
 
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
-    @BindView(R.id.rv_content)
+    @BindView(R.id.view_main)
     RecyclerView rvContent;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
 
@@ -51,6 +47,7 @@ public class NodeListActivity extends BaseActivity<NodePresenter> implements Nod
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         nodeName = getIntent().getStringExtra(Constants.IT_VTEX_NODE_NAME);
         setToolBar(toolBar, nodeName);
         mAdapter = new NodeListAdapter(mContext, new ArrayList<NodeListBean>());
@@ -62,28 +59,25 @@ public class NodeListActivity extends BaseActivity<NodePresenter> implements Nod
                 mPresenter.getContent(nodeName);
             }
         });
-        ivProgress.start();
+        stateLoading();
         mPresenter.getContent(nodeName);
         mPresenter.getTopInfo(nodeName);
     }
 
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(toolBar, msg);
     }
 
     @Override
     public void showContent(List<NodeListBean> mList) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mAdapter.setContentData(mList);
     }
 

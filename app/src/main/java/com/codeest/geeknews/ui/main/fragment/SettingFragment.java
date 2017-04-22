@@ -16,14 +16,12 @@ import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.component.ACache;
 import com.codeest.geeknews.component.RxBus;
-import com.codeest.geeknews.model.event.NightModeEvent;
 import com.codeest.geeknews.model.bean.VersionBean;
-import com.codeest.geeknews.presenter.SettingPresenter;
-import com.codeest.geeknews.presenter.contract.SettingContract;
+import com.codeest.geeknews.model.event.NightModeEvent;
+import com.codeest.geeknews.presenter.main.SettingPresenter;
+import com.codeest.geeknews.base.contract.main.SettingContract;
 import com.codeest.geeknews.ui.main.activity.MainActivity;
 import com.codeest.geeknews.util.ShareUtil;
-import com.codeest.geeknews.util.SharedPreferenceUtil;
-import com.codeest.geeknews.util.SnackbarUtil;
 
 import java.io.File;
 
@@ -71,9 +69,9 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements C
     protected void initEventAndData() {
         cacheFile = new File(Constants.PATH_CACHE);
         tvSettingClear.setText(ACache.getCacheSize(cacheFile));
-        cbSettingCache.setChecked(SharedPreferenceUtil.getAutoCacheState());
-        cbSettingImage.setChecked(SharedPreferenceUtil.getNoImageState());
-        cbSettingNight.setChecked(SharedPreferenceUtil.getNightModeState());
+        cbSettingCache.setChecked(mPresenter.getAutoCacheState());
+        cbSettingImage.setChecked(mPresenter.getNoImageState());
+        cbSettingNight.setChecked(mPresenter.getNightModeState());
         cbSettingCache.setOnCheckedChangeListener(this);
         cbSettingImage.setOnCheckedChangeListener(this);
         cbSettingNight.setOnCheckedChangeListener(this);
@@ -114,17 +112,17 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements C
         switch (compoundButton.getId()) {
             case R.id.cb_setting_night:
                 if (isNull) {   //防止夜间模式MainActivity执行reCreate后重复调用
-                    SharedPreferenceUtil.setNightModeState(b);
+                    mPresenter.setNightModeState(b);
                     NightModeEvent event = new NightModeEvent();
                     event.setNightMode(b);
                     RxBus.getDefault().post(event);
                 }
                 break;
             case R.id.cb_setting_image:
-                SharedPreferenceUtil.setNoImageState(b);
+                mPresenter.setNoImageState(b);
                 break;
             case R.id.cb_setting_cache:
-                SharedPreferenceUtil.setAutoCacheState(b);
+                mPresenter.setAutoCacheState(b);
                 break;
         }
     }
@@ -153,10 +151,5 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements C
             }
         });
         builder.show();
-    }
-
-    @Override
-    public void showError(String msg) {
-        SnackbarUtil.showShort(tvSettingUpdate, msg);
     }
 }

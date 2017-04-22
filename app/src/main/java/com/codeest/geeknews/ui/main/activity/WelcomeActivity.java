@@ -9,8 +9,8 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.base.BaseActivity;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.WelcomeBean;
-import com.codeest.geeknews.presenter.WelcomePresenter;
-import com.codeest.geeknews.presenter.contract.WelcomeContract;
+import com.codeest.geeknews.presenter.main.WelcomePresenter;
+import com.codeest.geeknews.base.contract.main.WelcomeContract;
 
 import butterknife.BindView;
 
@@ -60,10 +60,5 @@ public class WelcomeActivity extends BaseActivity<WelcomePresenter> implements W
     protected void onDestroy() {
         Glide.clear(ivWelcomeBg);
         super.onDestroy();
-    }
-
-    @Override
-    public void showError(String msg) {
-
     }
 }

@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.component.ActivityComponent;
 import com.codeest.geeknews.di.component.DaggerActivityComponent;
 import com.codeest.geeknews.di.module.ActivityModule;
+import com.codeest.geeknews.util.SnackbarUtil;
 
 import javax.inject.Inject;
 
@@ -40,11 +42,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
             mPresenter.attachView(this);
         App.getInstance().addActivity(this);
         initEventAndData();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     protected void setToolBar(Toolbar toolbar, String title) {
@@ -81,6 +78,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
     }
 
     @Override
+    public void showErrorMsg(String msg) {
+        SnackbarUtil.show(((ViewGroup) findViewById(android.R.id.content)).getChildAt(0), msg);
+    }
+
+    @Override
     public void useNightMode(boolean isNight) {
         if (isNight) {
             AppCompatDelegate.setDefaultNightMode(
@@ -90,6 +92,18 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
                     AppCompatDelegate.MODE_NIGHT_NO);
         }
         recreate();
+    }
+
+    @Override
+    public void stateError() {
+    }
+
+    @Override
+    public void stateLoading() {
+    }
+
+    @Override
+    public void stateMain() {
     }
 
     protected abstract void initInject();

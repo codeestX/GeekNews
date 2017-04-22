@@ -13,7 +13,7 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
-import com.codeest.geeknews.presenter.VtexPresenter;
+import com.codeest.geeknews.presenter.vtex.VtexPresenter;
 import com.codeest.geeknews.ui.gank.activity.GirlDetailActivity;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.ui.vtex.activity.RepliesActivity;

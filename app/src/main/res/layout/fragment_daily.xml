@@ -10,13 +10,11 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_daily_list"
+            android:id="@+id/view_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:scrollbars="none" />
-
-        <include layout="@layout/view_progress" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_calender"

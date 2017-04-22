@@ -11,11 +11,10 @@ import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.model.bean.GoldManagerBean;
 import com.codeest.geeknews.model.bean.GoldManagerItemBean;
-import com.codeest.geeknews.presenter.GoldMainPresenter;
-import com.codeest.geeknews.presenter.contract.GoldMainContract;
+import com.codeest.geeknews.presenter.gold.GoldMainPresenter;
+import com.codeest.geeknews.base.contract.gold.GoldMainContract;
 import com.codeest.geeknews.ui.gold.activity.GoldManagerActivity;
 import com.codeest.geeknews.ui.gold.adapter.GoldPagerAdapter;
-import com.codeest.geeknews.util.SnackbarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,11 +86,6 @@ public class GoldMainFragment extends BaseFragment<GoldMainPresenter> implements
         Intent intent = new Intent(getActivity(), GoldManagerActivity.class);
         intent.putExtra(Constants.IT_GOLD_MANAGER, mBean);
         mContext.startActivity(intent);
-    }
-
-    @Override
-    public void showError(String msg) {
-        SnackbarUtil.showShort(mTabLayout, msg);
     }
 
     @OnClick(R.id.iv_gold_menu)

@@ -5,13 +5,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.codeest.geeknews.R;
-import com.codeest.geeknews.base.BaseFragment;
+import com.codeest.geeknews.base.RootFragment;
 import com.codeest.geeknews.model.bean.SectionListBean;
-import com.codeest.geeknews.presenter.SectionPresenter;
-import com.codeest.geeknews.presenter.contract.SectionContract;
+import com.codeest.geeknews.presenter.zhihu.SectionPresenter;
+import com.codeest.geeknews.base.contract.zhihu.SectionContract;
 import com.codeest.geeknews.ui.zhihu.adapter.SectionAdapter;
-import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +19,12 @@ import butterknife.BindView;
 /**
  * Created by codeest on 2016/8/11.
  */
-public class SectionFragment extends BaseFragment<SectionPresenter> implements SectionContract.View {
+public class SectionFragment extends RootFragment<SectionPresenter> implements SectionContract.View {
 
-    @BindView(R.id.rv_content)
+    @BindView(R.id.view_main)
     RecyclerView rvSectionList;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
 
     List<SectionListBean.DataBean> mList;
     SectionAdapter mAdapter;
@@ -45,6 +41,7 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mList = new ArrayList<>();
         mAdapter = new SectionAdapter(mContext,mList);
         rvSectionList.setLayoutManager(new GridLayoutManager(mContext, 2));
@@ -56,26 +53,23 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
             }
         });
         mPresenter.getSectionData();
-        ivProgress.start();
+        stateLoading();
     }
 
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(rvSectionList,msg);
     }
 
     @Override
     public void showContent(SectionListBean sectionListBean) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mList.clear();
         mList.addAll(sectionListBean.getData());
         mAdapter.notifyDataSetChanged();

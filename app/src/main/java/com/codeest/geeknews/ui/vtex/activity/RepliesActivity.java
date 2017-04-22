@@ -9,19 +9,17 @@ import android.view.MenuItem;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.base.BaseActivity;
+import com.codeest.geeknews.base.RootActivity;
 import com.codeest.geeknews.model.bean.NodeListBean;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.bean.RepliesListBean;
 import com.codeest.geeknews.model.http.api.VtexApis;
-import com.codeest.geeknews.presenter.RepliesPresenter;
-import com.codeest.geeknews.presenter.contract.RepliesContract;
+import com.codeest.geeknews.presenter.vtex.RepliesPresenter;
+import com.codeest.geeknews.base.contract.vtex.RepliesContract;
 import com.codeest.geeknews.ui.vtex.adapter.RepliesAdapter;
 import com.codeest.geeknews.util.ShareUtil;
-import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.codeest.geeknews.widget.CommonItemDecoration;
-import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +30,12 @@ import butterknife.BindView;
  * Created by codeest on 16/12/19.
  */
 
-public class RepliesActivity extends BaseActivity<RepliesPresenter> implements RepliesContract.View {
+public class RepliesActivity extends RootActivity<RepliesPresenter> implements RepliesContract.View {
 
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
-    @BindView(R.id.rv_content)
+    @BindView(R.id.view_main)
     RecyclerView rvContent;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
 
@@ -61,6 +57,7 @@ public class RepliesActivity extends BaseActivity<RepliesPresenter> implements R
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         setToolBar(toolBar, "帖子详情");
         topicId = getIntent().getExtras().getString(Constants.IT_VTEX_TOPIC_ID);
         mTopBean = getIntent().getParcelableExtra(Constants.IT_VTEX_REPLIES_TOP);
@@ -75,30 +72,28 @@ public class RepliesActivity extends BaseActivity<RepliesPresenter> implements R
                 mPresenter.getContent(topicId);
             }
         });
-        ivProgress.start();
+        stateLoading();
         mPresenter.getContent(topicId);
         if (mTopBean == null) {
             mPresenter.getTopInfo(topicId);
         }
     }
 
+
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(toolBar, msg);
     }
 
     @Override
     public void showContent(List<RepliesListBean> mList) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mAdapter.setContentData(mList);
     }
 

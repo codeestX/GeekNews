@@ -69,13 +69,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.tencent.smtt.sdk.WebView
-                android:id="@+id/wv_detail_content"
+                android:id="@+id/view_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:isScrollContainer="false"
                 android:overScrollMode="never"
                 android:scrollbars="vertical"/>
-            <include layout="@layout/view_progress" />
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
     <FrameLayout

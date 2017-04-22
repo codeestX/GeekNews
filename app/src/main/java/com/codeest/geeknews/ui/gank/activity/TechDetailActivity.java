@@ -18,8 +18,8 @@ import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.db.RealmHelper;
+import com.codeest.geeknews.model.prefs.ImplPreferencesHelper;
 import com.codeest.geeknews.util.ShareUtil;
-import com.codeest.geeknews.util.SharedPreferenceUtil;
 import com.codeest.geeknews.util.SystemUtil;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
@@ -42,6 +42,7 @@ public class TechDetailActivity extends SimpleActivity {
     TextView tvProgress;
 
     RealmHelper mRealmHelper;
+    ImplPreferencesHelper mImplPreferencesHelper;
     MenuItem menuItem;
 
     String title,url,imgUrl,id;
@@ -56,6 +57,7 @@ public class TechDetailActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
         mRealmHelper = App.getAppComponent().realmHelper();
+        mImplPreferencesHelper = App.getAppComponent().preferencesHelper();
         Intent intent = getIntent();
         type = intent.getExtras().getInt(Constants.IT_DETAIL_TYPE);
         title = intent.getExtras().getString(Constants.IT_DETAIL_TITLE);
@@ -64,10 +66,10 @@ public class TechDetailActivity extends SimpleActivity {
         id = intent.getExtras().getString(Constants.IT_DETAIL_ID);
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
-        if (SharedPreferenceUtil.getNoImageState()) {
+        if (mImplPreferencesHelper.getNoImageState()) {
             settings.setBlockNetworkImage(true);
         }
-        if (SharedPreferenceUtil.getAutoCacheState()) {
+        if (mImplPreferencesHelper.getAutoCacheState()) {
             settings.setAppCacheEnabled(true);
             settings.setDomStorageEnabled(true);
             settings.setDatabaseEnabled(true);

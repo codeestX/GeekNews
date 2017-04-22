@@ -5,7 +5,6 @@
     android:layout_height="match_parent">
     <include layout="@layout/view_toolbar"/>
     <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,14 +13,11 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_section_content"
+                android:id="@+id/view_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </android.support.v7.widget.RecyclerView>
-
-            <include layout="@layout/view_progress" />
-
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

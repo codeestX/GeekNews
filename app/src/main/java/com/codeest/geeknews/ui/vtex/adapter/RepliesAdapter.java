@@ -11,7 +11,7 @@ import com.codeest.geeknews.R;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.NodeListBean;
 import com.codeest.geeknews.model.bean.RepliesListBean;
-import com.codeest.geeknews.presenter.VtexPresenter;
+import com.codeest.geeknews.presenter.vtex.VtexPresenter;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.widget.SquareImageView;
 

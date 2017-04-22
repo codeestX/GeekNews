@@ -6,12 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.codeest.geeknews.R;
-import com.codeest.geeknews.base.BaseFragment;
+import com.codeest.geeknews.base.RootFragment;
 import com.codeest.geeknews.model.bean.CommentBean;
-import com.codeest.geeknews.presenter.CommentPresenter;
-import com.codeest.geeknews.presenter.contract.CommentContract;
+import com.codeest.geeknews.presenter.zhihu.CommentPresenter;
+import com.codeest.geeknews.base.contract.zhihu.CommentContract;
 import com.codeest.geeknews.ui.zhihu.adapter.CommentAdapter;
-import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +21,10 @@ import butterknife.BindView;
  * Created by codeest on 16/8/18.
  */
 
-public class CommentFragment extends BaseFragment<CommentPresenter> implements CommentContract.View {
+public class CommentFragment extends RootFragment<CommentPresenter> implements CommentContract.View {
 
-    @BindView(R.id.rv_comment_list)
+    @BindView(R.id.view_main)
     RecyclerView rvCommentList;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
 
     CommentAdapter mAdapter;
     List<CommentBean.CommentsBean> mList;
@@ -44,9 +41,10 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         Bundle bundle = getArguments();
+        stateLoading();
         mPresenter.getCommentData(bundle.getInt("id"),bundle.getInt("kind"));
-        ivProgress.start();
         rvCommentList.setVisibility(View.INVISIBLE);
         mList = new ArrayList<>();
         mAdapter = new CommentAdapter(mContext,mList);
@@ -56,16 +54,9 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
 
     @Override
     public void showContent(CommentBean commentBean) {
-        ivProgress.stop();
         rvCommentList.setVisibility(View.VISIBLE);
         mList.clear();
         mList.addAll(commentBean.getComments());
         mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void showError(String msg) {
-        ivProgress.stop();
-        rvCommentList.setVisibility(View.VISIBLE);
     }
 }

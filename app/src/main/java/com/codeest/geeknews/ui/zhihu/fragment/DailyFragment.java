@@ -9,19 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.codeest.geeknews.R;
-import com.codeest.geeknews.base.BaseFragment;
+import com.codeest.geeknews.base.RootFragment;
 import com.codeest.geeknews.component.RxBus;
 import com.codeest.geeknews.model.bean.DailyBeforeListBean;
 import com.codeest.geeknews.model.bean.DailyListBean;
-import com.codeest.geeknews.presenter.DailyPresenter;
-import com.codeest.geeknews.presenter.contract.DailyContract;
+import com.codeest.geeknews.presenter.zhihu.DailyPresenter;
+import com.codeest.geeknews.base.contract.zhihu.DailyContract;
 import com.codeest.geeknews.ui.zhihu.activity.CalendarActivity;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.DailyAdapter;
 import com.codeest.geeknews.util.CircularAnimUtil;
 import com.codeest.geeknews.util.DateUtil;
-import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.widget.ProgressImageView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
@@ -33,16 +31,14 @@ import butterknife.OnClick;
 /**
  * Created by codeest on 2016/8/11.
  */
-public class DailyFragment extends BaseFragment<DailyPresenter> implements DailyContract.View {
+public class DailyFragment extends RootFragment<DailyPresenter> implements DailyContract.View {
 
     @BindView(R.id.fab_calender)
     FloatingActionButton fabCalender;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
-    @BindView(R.id.rv_daily_list)
+    @BindView(R.id.view_main)
     RecyclerView rvDailyList;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
 
     String currentDate;
     DailyAdapter mAdapter;
@@ -60,6 +56,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         currentDate = DateUtil.getTomorrowDate();
         mAdapter = new DailyAdapter(mContext,mList);
         mAdapter.setOnItemClickListener(new DailyAdapter.OnItemClickListener() {
@@ -74,7 +71,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
                 }
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id",mList.get(position).getId());
+                intent.putExtra("id", mList.get(position).getId());
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
                 mContext.startActivity(intent,options.toBundle());
             }
@@ -95,7 +92,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         });
         rvDailyList.setLayoutManager(new LinearLayoutManager(mContext));
         rvDailyList.setAdapter(mAdapter);
-        ivProgress.start();
+        stateLoading();
         mPresenter.getDailyData();
     }
 
@@ -107,9 +104,8 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     public void showContent(DailyListBean info) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mList = info.getStories();
         currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
         mAdapter.addDailyDate(info);
@@ -126,9 +122,8 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     public void showMoreContent(String date,DailyBeforeListBean info) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mPresenter.stopInterval();
         mList = info.getStories();
         currentDate = String.valueOf(Integer.valueOf(info.getDate()));
@@ -148,12 +143,10 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     }
 
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(rvDailyList,msg);
     }
 }

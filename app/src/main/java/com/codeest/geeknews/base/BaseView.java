@@ -6,8 +6,14 @@ package com.codeest.geeknews.base;
  */
 public interface BaseView {
 
-    void showError(String msg);
+    void showErrorMsg(String msg);
 
     void useNightMode(boolean isNight);
 
+    //=======  State  =======
+    void stateError();
+
+    void stateLoading();
+
+    void stateMain();
 }

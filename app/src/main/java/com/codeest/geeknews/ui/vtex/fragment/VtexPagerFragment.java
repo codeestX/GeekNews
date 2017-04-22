@@ -6,13 +6,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.base.BaseFragment;
+import com.codeest.geeknews.base.RootFragment;
 import com.codeest.geeknews.model.bean.TopicListBean;
-import com.codeest.geeknews.presenter.VtexPresenter;
-import com.codeest.geeknews.presenter.contract.VtexContract;
+import com.codeest.geeknews.presenter.vtex.VtexPresenter;
+import com.codeest.geeknews.base.contract.vtex.VtexContract;
 import com.codeest.geeknews.ui.vtex.adapter.TopicAdapter;
-import com.codeest.geeknews.util.SnackbarUtil;
-import com.codeest.geeknews.widget.ProgressImageView;
 import com.codeest.geeknews.widget.CommonItemDecoration;
 
 import java.util.ArrayList;
@@ -24,12 +22,10 @@ import butterknife.BindView;
  * Created by codeest on 6/12/19.
  */
 
-public class VtexPagerFragment extends BaseFragment<VtexPresenter> implements VtexContract.View{
+public class VtexPagerFragment extends RootFragment<VtexPresenter> implements VtexContract.View{
 
-    @BindView(R.id.rv_content)
+    @BindView(R.id.view_main)
     RecyclerView rvContent;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
 
@@ -49,6 +45,7 @@ public class VtexPagerFragment extends BaseFragment<VtexPresenter> implements Vt
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mType = getArguments().getString(Constants.IT_VTEX_TYPE);
         mAdapter = new TopicAdapter(mContext, new ArrayList<TopicListBean>());
         CommonItemDecoration mDecoration = new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP);
@@ -61,27 +58,24 @@ public class VtexPagerFragment extends BaseFragment<VtexPresenter> implements Vt
                 mPresenter.getContent(mType);
             }
         });
-        ivProgress.start();
+        stateLoading();
         mPresenter.getContent(mType);
     }
 
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(rvContent, msg);
     }
 
     @Override
     public void showContent(List<TopicListBean> mList) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mAdapter.updateData(mList);
     }
 }

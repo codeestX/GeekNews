@@ -11,16 +11,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.base.BaseFragment;
+import com.codeest.geeknews.base.RootFragment;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.GankItemBean;
-import com.codeest.geeknews.presenter.TechPresenter;
-import com.codeest.geeknews.presenter.contract.TechContract;
+import com.codeest.geeknews.presenter.gank.TechPresenter;
+import com.codeest.geeknews.base.contract.gank.TechContract;
 import com.codeest.geeknews.ui.gank.activity.TechDetailActivity;
 import com.codeest.geeknews.ui.gank.adapter.TechAdapter;
-import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.SystemUtil;
-import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +30,12 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
  * Created by codeest on 16/8/19.
  */
 
-public class TechFragment extends BaseFragment<TechPresenter> implements TechContract.View {
+public class TechFragment extends RootFragment<TechPresenter> implements TechContract.View {
 
-    @BindView(R.id.rv_tech_content)
+    @BindView(R.id.view_main)
     RecyclerView rvTechContent;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
     @BindView(R.id.iv_tech_blur)
     ImageView ivBlur;
     @BindView(R.id.iv_tech_origin)
@@ -68,6 +64,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mPresenter.getGirlImage();
         mList = new ArrayList<>();
         tech = getArguments().getString(Constants.IT_GANK_TYPE);
@@ -75,7 +72,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
         mAdapter = new TechAdapter(mContext,mList,tech);
         rvTechContent.setLayoutManager(new LinearLayoutManager(mContext));
         rvTechContent.setAdapter(mAdapter);
-        ivProgress.start();
+        stateLoading();
         mPresenter.getGankData(tech, type);
         mAdapter.setOnItemClickListener(new TechAdapter.OnItemClickListener() {
             @Override
@@ -125,22 +122,19 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
     }
 
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(rvTechContent,msg);
     }
 
     @Override
     public void showContent(List<GankItemBean> list) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mList.clear();
         mList.addAll(list);
         mAdapter.notifyDataSetChanged();
@@ -148,7 +142,7 @@ public class TechFragment extends BaseFragment<TechPresenter> implements TechCon
 
     @Override
     public void showMoreContent(List<GankItemBean> list) {
-        ivProgress.stop();
+        stateMain();
         mList.addAll(list);
         mAdapter.notifyDataSetChanged();
         isLoadingMore = false;

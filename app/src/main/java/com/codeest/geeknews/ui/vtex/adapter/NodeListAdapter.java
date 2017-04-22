@@ -13,7 +13,7 @@ import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.NodeBean;
 import com.codeest.geeknews.model.bean.NodeListBean;
-import com.codeest.geeknews.presenter.VtexPresenter;
+import com.codeest.geeknews.presenter.vtex.VtexPresenter;
 import com.codeest.geeknews.ui.vtex.activity.RepliesActivity;
 import com.codeest.geeknews.util.DateUtil;
 import com.codeest.geeknews.widget.CircleImageView;

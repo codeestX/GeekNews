@@ -12,6 +12,7 @@ import com.codeest.geeknews.app.App;
 import com.codeest.geeknews.di.component.DaggerFragmentComponent;
 import com.codeest.geeknews.di.component.FragmentComponent;
 import com.codeest.geeknews.di.module.FragmentModule;
+import com.codeest.geeknews.util.SnackbarUtil;
 
 import javax.inject.Inject;
 
@@ -94,7 +95,27 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     }
 
     @Override
+    public void showErrorMsg(String msg) {
+        SnackbarUtil.show(((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0), msg);
+    }
+
+    @Override
     public void useNightMode(boolean isNight) {
+
+    }
+
+    @Override
+    public void stateError() {
+
+    }
+
+    @Override
+    public void stateLoading() {
+
+    }
+
+    @Override
+    public void stateMain() {
 
     }
 

@@ -6,14 +6,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.app.Constants;
-import com.codeest.geeknews.base.BaseFragment;
+import com.codeest.geeknews.base.RootFragment;
 import com.codeest.geeknews.model.bean.GoldListBean;
-import com.codeest.geeknews.presenter.GoldPresenter;
-import com.codeest.geeknews.presenter.contract.GoldContract;
+import com.codeest.geeknews.presenter.gold.GoldPresenter;
+import com.codeest.geeknews.base.contract.gold.GoldContract;
 import com.codeest.geeknews.ui.gold.adapter.GoldListAdapter;
-import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.widget.GoldItemDecoration;
-import com.codeest.geeknews.widget.ProgressImageView;
 import com.codeest.geeknews.widget.TouchSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -25,12 +23,10 @@ import butterknife.BindView;
  * Created by codeest on 16/11/27.
  */
 
-public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements GoldContract.View {
+public class GoldPagerFragment extends RootFragment<GoldPresenter> implements GoldContract.View {
 
-    @BindView(R.id.rv_content)
+    @BindView(R.id.view_main)
     RecyclerView rvGoldList;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
     @BindView(R.id.swipe_refresh)
     TouchSwipeRefreshLayout swipeRefresh;
 
@@ -52,6 +48,7 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mType = getArguments().getString(Constants.IT_GOLD_TYPE);
         mDecoration = new GoldItemDecoration();
         mAdapter = new GoldListAdapter(mContext, new ArrayList<GoldListBean>(), getArguments().getString(Constants.IT_GOLD_TYPE_STR));
@@ -88,7 +85,7 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
                 rvGoldList.removeItemDecoration(mDecoration);
             }
         });
-        ivProgress.start();
+        stateLoading();
         mPresenter.getGoldData(mType);
     }
 
@@ -96,9 +93,8 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
     public void showContent(List<GoldListBean> goldListBean) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         mAdapter.updateData(goldListBean);
         mAdapter.notifyDataSetChanged();
     }
@@ -111,12 +107,10 @@ public class GoldPagerFragment extends BaseFragment<GoldPresenter> implements Go
     }
 
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(rvGoldList, msg);
     }
 }

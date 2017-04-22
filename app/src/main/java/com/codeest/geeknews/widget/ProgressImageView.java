@@ -2,15 +2,15 @@ package com.codeest.geeknews.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Animatable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 
 /**
  * Created by codeest on 16/9/27.
  */
 
-public class ProgressImageView extends ImageView{
+public class ProgressImageView extends AppCompatImageView{
 
 
     public ProgressImageView(Context context) {

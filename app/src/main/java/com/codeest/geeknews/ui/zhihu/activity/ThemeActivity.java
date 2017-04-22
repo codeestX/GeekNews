@@ -13,15 +13,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codeest.geeknews.R;
-import com.codeest.geeknews.base.BaseActivity;
+import com.codeest.geeknews.base.RootActivity;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
-import com.codeest.geeknews.presenter.ThemeChildPresenter;
-import com.codeest.geeknews.presenter.contract.ThemeChildContract;
+import com.codeest.geeknews.presenter.zhihu.ThemeChildPresenter;
+import com.codeest.geeknews.base.contract.zhihu.ThemeChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeChildAdapter;
-import com.codeest.geeknews.util.SnackbarUtil;
 import com.codeest.geeknews.util.SystemUtil;
-import com.codeest.geeknews.widget.ProgressImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +31,14 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
  * Created by codeest on 16/8/24.
  */
 
-public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements ThemeChildContract.View {
+public class ThemeActivity extends RootActivity<ThemeChildPresenter> implements ThemeChildContract.View {
 
-    @BindView(R.id.rv_theme_child_list)
+    @BindView(R.id.view_main)
     RecyclerView rvThemeChildList;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
-    @BindView(R.id.iv_progress)
-    ProgressImageView ivProgress;
     @BindView(R.id.iv_theme_child_blur)
     ImageView ivBlur;
     @BindView(R.id.iv_theme_child_origin)
@@ -54,8 +50,6 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
 
     ThemeChildAdapter mAdapter;
     List<ThemeChildListBean.StoriesBean> mList;
-
-    int id;
 
     @Override
     protected void initInject() {
@@ -69,13 +63,14 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         Intent intent = getIntent();
-        id = intent.getExtras().getInt("id");
-        ivProgress.start();
+        final int id = intent.getExtras().getInt("id");
         mList = new ArrayList<>();
         mAdapter = new ThemeChildAdapter(mContext, mList);
         rvThemeChildList.setLayoutManager(new LinearLayoutManager(mContext));
         rvThemeChildList.setAdapter(mAdapter);
+        stateLoading();
         mPresenter.getThemeChildData(id);
         mAdapter.setOnItemClickListener(new ThemeChildAdapter.OnItemClickListener() {
             @Override
@@ -115,22 +110,19 @@ public class ThemeActivity extends BaseActivity<ThemeChildPresenter> implements 
     }
 
     @Override
-    public void showError(String msg) {
+    public void stateError() {
+        super.stateError();
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
-        SnackbarUtil.showShort(getWindow().getDecorView(),msg);
     }
 
     @Override
     public void showContent(ThemeChildListBean themeChildListBean) {
         if(swipeRefresh.isRefreshing()) {
             swipeRefresh.setRefreshing(false);
-        } else {
-            ivProgress.stop();
         }
+        stateMain();
         setToolBar(mToolBar,themeChildListBean.getName());
         mList.clear();
         mList.addAll(themeChildListBean.getStories());

@@ -1,14 +1,13 @@
 package com.codeest.geeknews.di.module;
 
 import com.codeest.geeknews.app.App;
+import com.codeest.geeknews.model.DataManager;
+import com.codeest.geeknews.model.db.DBHelper;
 import com.codeest.geeknews.model.db.RealmHelper;
+import com.codeest.geeknews.model.http.HttpHelper;
 import com.codeest.geeknews.model.http.RetrofitHelper;
-import com.codeest.geeknews.model.http.api.GankApis;
-import com.codeest.geeknews.model.http.api.GoldApis;
-import com.codeest.geeknews.model.http.api.MyApis;
-import com.codeest.geeknews.model.http.api.VtexApis;
-import com.codeest.geeknews.model.http.api.WeChatApis;
-import com.codeest.geeknews.model.http.api.ZhihuApis;
+import com.codeest.geeknews.model.prefs.ImplPreferencesHelper;
+import com.codeest.geeknews.model.prefs.PreferencesHelper;
 
 import javax.inject.Singleton;
 
@@ -35,15 +34,25 @@ public class AppModule {
 
     @Provides
     @Singleton
-    RetrofitHelper provideRetrofitHelper(ZhihuApis zhihuApiService, GankApis gankApiService, WeChatApis wechatApiService,
-                                         MyApis myApiService, GoldApis goldApiService, VtexApis vtexApiService) {
-        return new RetrofitHelper(zhihuApiService, gankApiService, wechatApiService,
-                myApiService, goldApiService, vtexApiService);
+    HttpHelper provideHttpHelper(RetrofitHelper retrofitHelper) {
+        return retrofitHelper;
     }
 
     @Provides
     @Singleton
-    RealmHelper provideRealmHelper() {
-        return new RealmHelper();
+    DBHelper provideDBHelper(RealmHelper realmHelper) {
+        return realmHelper;
+    }
+
+    @Provides
+    @Singleton
+    PreferencesHelper providePreferencesHelper(ImplPreferencesHelper implPreferencesHelper) {
+        return implPreferencesHelper;
+    }
+
+    @Provides
+    @Singleton
+    DataManager provideDataManager(HttpHelper httpHelper, DBHelper DBHelper, PreferencesHelper preferencesHelper) {
+        return new DataManager(httpHelper, DBHelper, preferencesHelper);
     }
 }

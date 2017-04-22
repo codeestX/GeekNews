@@ -42,4 +42,5 @@
         本着学习的目的,该项目会持续迭代与优化,加入更丰富的阅读内容与功能,并不断尝试最新的技术,欢迎star、fork、issue、email</string>
     <string name="about_award">请作者吃糖(￣▽￣)</string>
     <string name="about_info">GeekNews\t\t\tV1.3.0</string>
+    <string name="error_tips">糟糕！加载失败了ヽ(≧Д≦)ノ\n 偷偷告诉你一些可能的原因：\n1.惨不忍睹的网络环境\n 2.服务器君的不定期抽风\n 3.GeekNews现在心情不好拒绝服务喔~</string>
 </resources>
