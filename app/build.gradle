@@ -16,6 +16,10 @@ android {
         multiDexEnabled true
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
+
+        ndk {
+            abiFilters "armeabi"
+        }
     }
 
     buildTypes {
