@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.SimpleActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.CommentMainAdapter;
 import com.codeest.geeknews.ui.zhihu.fragment.CommentFragment;
@@ -40,11 +41,10 @@ public class CommentActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
         Intent intent = getIntent();
-        int allNum = intent.getExtras().getInt("allNum");
-        int shortNum = intent.getExtras().getInt("shortNum");
-        int longNum = intent.getExtras().getInt("longNum");
-        int id = intent.getExtras().getInt("id");
-        intent.getExtras().getInt("shortNum");
+        int allNum = intent.getExtras().getInt(Constants.IT_ZHIHU_COMMENT_ALL_NUM);
+        int shortNum = intent.getExtras().getInt(Constants.IT_ZHIHU_COMMENT_SHORT_NUM);
+        int longNum = intent.getExtras().getInt(Constants.IT_ZHIHU_COMMENT_LONG_NUM);
+        int id = intent.getExtras().getInt(Constants.IT_ZHIHU_COMMENT_ID);
         setToolBar(toolBar,String.format("%d条评论",allNum));
 
         CommentFragment shortCommentFragment = new CommentFragment();

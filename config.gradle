@@ -49,6 +49,7 @@ ext {
             "okhttp-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${dependVersion.okhttp}",
             "glide"                     : "com.github.bumptech.glide:glide:3.7.0",
             "glide-okhttp3-integration" : "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar",
+            "jsoup"                     : "org.jsoup:jsoup:1.10.1",
 
             //di
             "dagger"                    : "com.google.dagger:dagger:${dependVersion.dagger2}",
@@ -60,8 +61,7 @@ ext {
             //other
             "multidex"                  : "com.android.support:multidex:1.0.1",
             "logger"                    : "com.orhanobut:logger:1.15",
-            "fragmentation"             : "me.yokeyword:fragmentation:0.7.9",
-            "jsoup"                     : "org.jsoup:jsoup:1.10.1",
+            "fragmentation"             : "me.yokeyword:fragmentation:0.10.4",
             "crashreport"               : "com.tencent.bugly:crashreport:latest.release",
 
             //canary

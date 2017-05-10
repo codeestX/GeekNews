@@ -11,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RootActivity;
+import com.codeest.geeknews.base.contract.zhihu.ZhihuDetailContract;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.DetailExtraBean;
 import com.codeest.geeknews.model.bean.ZhihuDetailBean;
 import com.codeest.geeknews.presenter.zhihu.ZhihuDetailPresenter;
-import com.codeest.geeknews.base.contract.zhihu.ZhihuDetailContract;
 import com.codeest.geeknews.util.HtmlUtil;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
@@ -84,7 +85,7 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
         super.initEventAndData();
         setToolBar(viewToolbar,"");
         Intent intent = getIntent();
-        id = intent.getExtras().getInt("id");
+        id = intent.getExtras().getInt(Constants.IT_ZHIHU_DETAIL_ID);
         isNotTransition = intent.getBooleanExtra("isNotTransition",false);
         mPresenter.queryLikeData(id);
         mPresenter.getDetailData(id);
@@ -200,10 +201,10 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
     void gotoComment() {
         Intent intent = getIntent();
         intent.setClass(this,CommentActivity.class);
-        intent.putExtra("id",id);
-        intent.putExtra("allNum",allNum);
-        intent.putExtra("shortNum",shortNum);
-        intent.putExtra("longNum",longNum);
+        intent.putExtra(Constants.IT_ZHIHU_COMMENT_ID, id);
+        intent.putExtra(Constants.IT_ZHIHU_COMMENT_ALL_NUM, allNum);
+        intent.putExtra(Constants.IT_ZHIHU_COMMENT_SHORT_NUM, shortNum);
+        intent.putExtra(Constants.IT_ZHIHU_COMMENT_LONG_NUM, longNum);
         startActivity(intent);
     }
 

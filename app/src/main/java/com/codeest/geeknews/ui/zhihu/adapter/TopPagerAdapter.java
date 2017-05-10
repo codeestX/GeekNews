@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.DailyListBean;
 import com.codeest.geeknews.ui.zhihu.activity.ZhihuDetailActivity;
@@ -56,8 +57,8 @@ public class TopPagerAdapter extends PagerAdapter{
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id",id);
-                intent.putExtra("isNotTransition",true);
+                intent.putExtra(Constants.IT_ZHIHU_DETAIL_ID, id);
+                intent.putExtra(Constants.IT_ZHIHU_DETAIL_TRANSITION, true);
                 mContext.startActivity(intent);
             }
         });

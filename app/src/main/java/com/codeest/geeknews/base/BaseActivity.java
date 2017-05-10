@@ -65,14 +65,22 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
 
     @Override
     public void stateError() {
+
+    }
+
+    @Override
+    public void stateEmpty() {
+
     }
 
     @Override
     public void stateLoading() {
+
     }
 
     @Override
     public void stateMain() {
+
     }
 
     protected abstract void initInject();

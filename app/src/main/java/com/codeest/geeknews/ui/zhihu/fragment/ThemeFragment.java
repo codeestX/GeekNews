@@ -6,10 +6,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RootFragment;
+import com.codeest.geeknews.base.contract.zhihu.ThemeContract;
 import com.codeest.geeknews.model.bean.ThemeListBean;
 import com.codeest.geeknews.presenter.zhihu.ThemePresenter;
-import com.codeest.geeknews.base.contract.zhihu.ThemeContract;
 import com.codeest.geeknews.ui.zhihu.activity.ThemeActivity;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeAdapter;
 
@@ -52,7 +53,7 @@ public class ThemeFragment extends RootFragment<ThemePresenter> implements Theme
             public void onItemClick(int id) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, ThemeActivity.class);
-                intent.putExtra("id", id);
+                intent.putExtra(Constants.IT_ZHIHU_THEME_ID, id);
                 mContext.startActivity(intent);
             }
         });

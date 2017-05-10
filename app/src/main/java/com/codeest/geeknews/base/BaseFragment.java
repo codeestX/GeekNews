@@ -62,6 +62,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
     }
 
     @Override
+    public void stateEmpty() {
+
+    }
+
+    @Override
     public void stateLoading() {
 
     }

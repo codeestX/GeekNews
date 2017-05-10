@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.BaseFragment;
 import com.codeest.geeknews.model.bean.GankItemBean;
 import com.codeest.geeknews.presenter.gank.GirlPresenter;
@@ -82,8 +83,8 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlCon
             public void onItemClickListener(int position, View shareView) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, GirlDetailActivity.class);
-                intent.putExtra("url",mList.get(position).getUrl());
-                intent.putExtra("id",mList.get(position).get_id());
+                intent.putExtra(Constants.IT_GANK_GRIL_URL, mList.get(position).getUrl());
+                intent.putExtra(Constants.IT_GANK_GRIL_ID, mList.get(position).get_id());
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
                 mContext.startActivity(intent,options.toBundle());
             }

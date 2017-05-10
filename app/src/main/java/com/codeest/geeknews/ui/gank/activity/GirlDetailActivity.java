@@ -53,8 +53,8 @@ public class GirlDetailActivity extends SimpleActivity {
         setToolBar(toolBar,"");
         mRealmHelper = App.getAppComponent().realmHelper();
         Intent intent = getIntent();
-        url = intent.getExtras().getString("url");
-        id = intent.getExtras().getString("id");
+        url = intent.getExtras().getString(Constants.IT_GANK_GRIL_URL);
+        id = intent.getExtras().getString(Constants.IT_GANK_GRIL_ID);
         if (url != null) {
             Glide.with(mContext).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override

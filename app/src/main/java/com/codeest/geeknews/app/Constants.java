@@ -73,31 +73,53 @@ public class Constants {
     public static final String SP_MANAGER_POINT = "manager_point";
 
     //================= INTENT ====================
-    public static final String IT_GANK_TYPE = "type";
+    public static final String IT_GANK_TYPE = "gank_type";
 
-    public static final String IT_GANK_TYPE_CODE = "type_code";
+    public static final String IT_GANK_TYPE_CODE = "gank_type_code";
 
-    public static final String IT_DETAIL_TITLE = "title";
+    public static final String IT_GANK_DETAIL_TITLE = "gank_detail_title";
 
-    public static final String IT_DETAIL_URL = "url";
+    public static final String IT_GANK_DETAIL_URL = "gank_detail_url";
 
-    public static final String IT_DETAIL_IMG_URL = "img_url";
+    public static final String IT_GANK_DETAIL_IMG_URL = "gank_detail_img_url";
 
-    public static final String IT_DETAIL_ID = "id";
+    public static final String IT_GANK_DETAIL_ID = "gank_detail_id";
 
-    public static final String IT_DETAIL_TYPE = "type";
+    public static final String IT_GANK_DETAIL_TYPE = "gank_detail_type";
 
-    public static final String IT_GOLD_TYPE = "type";
+    public static final String IT_GANK_GRIL_ID = "gank_girl_id";
 
-    public static final String IT_GOLD_TYPE_STR = "type_str";
+    public static final String IT_GANK_GRIL_URL = "gank_girl_url";
 
-    public static final String IT_GOLD_MANAGER = "manager";
+    public static final String IT_GOLD_TYPE = "gold_type";
 
-    public static final String IT_VTEX_TYPE = "type";
+    public static final String IT_GOLD_TYPE_STR = "gold_type_str";
 
-    public static final String IT_VTEX_TOPIC_ID = "id";
+    public static final String IT_GOLD_MANAGER = "gold_manager";
 
-    public static final String IT_VTEX_REPLIES_TOP = "top_info";
+    public static final String IT_VTEX_TYPE = "vtex_type";
 
-    public static final String IT_VTEX_NODE_NAME = "node_name";
+    public static final String IT_VTEX_TOPIC_ID = "vtex_id";
+
+    public static final String IT_VTEX_REPLIES_TOP = "vtex_replies_top";
+
+    public static final String IT_VTEX_NODE_NAME = "vtex_node_name";
+
+    public static final String IT_ZHIHU_DETAIL_ID = "zhihu_detail_id";
+
+    public static final String IT_ZHIHU_DETAIL_TRANSITION = "zhihu_detail_transition";
+
+    public static final String IT_ZHIHU_THEME_ID = "zhihu_theme_id";
+
+    public static final String IT_ZHIHU_SECTION_ID = "zhihu_section_id";
+
+    public static final String IT_ZHIHU_SECTION_TITLE = "zhihu_section_title";
+
+    public static final String IT_ZHIHU_COMMENT_ID = "zhihu_comment_id";
+
+    public static final String IT_ZHIHU_COMMENT_ALL_NUM = "zhihu_comment_all_num";
+
+    public static final String IT_ZHIHU_COMMENT_SHORT_NUM = "zhihu_comment_short_num";
+
+    public static final String IT_ZHIHU_COMMENT_LONG_NUM = "zhihu_comment_long_num";
 }

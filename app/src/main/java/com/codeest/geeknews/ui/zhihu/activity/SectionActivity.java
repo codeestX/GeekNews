@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RootActivity;
 import com.codeest.geeknews.model.bean.SectionChildListBean;
 import com.codeest.geeknews.presenter.zhihu.SectionChildPresenter;
@@ -74,7 +75,7 @@ public class SectionActivity extends RootActivity<SectionChildPresenter> impleme
                 mAdapter.notifyItemChanged(position);
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id", mList.get(position).getId());
+                intent.putExtra(Constants.IT_ZHIHU_DETAIL_ID, mList.get(position).getId());
                 if (shareView != null) {
                     mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mContext, shareView, "shareView").toBundle());
                 } else {

@@ -13,6 +13,8 @@ public interface BaseView {
     //=======  State  =======
     void stateError();
 
+    void stateEmpty();
+
     void stateLoading();
 
     void stateMain();

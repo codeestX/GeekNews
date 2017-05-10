@@ -13,11 +13,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RootActivity;
+import com.codeest.geeknews.base.contract.zhihu.ThemeChildContract;
 import com.codeest.geeknews.component.ImageLoader;
 import com.codeest.geeknews.model.bean.ThemeChildListBean;
 import com.codeest.geeknews.presenter.zhihu.ThemeChildPresenter;
-import com.codeest.geeknews.base.contract.zhihu.ThemeChildContract;
 import com.codeest.geeknews.ui.zhihu.adapter.ThemeChildAdapter;
 import com.codeest.geeknews.util.SystemUtil;
 
@@ -65,7 +66,7 @@ public class ThemeActivity extends RootActivity<ThemeChildPresenter> implements 
     protected void initEventAndData() {
         super.initEventAndData();
         Intent intent = getIntent();
-        final int id = intent.getExtras().getInt("id");
+        final int id = intent.getExtras().getInt(Constants.IT_ZHIHU_THEME_ID);
         mList = new ArrayList<>();
         mAdapter = new ThemeChildAdapter(mContext, mList);
         rvThemeChildList.setLayoutManager(new LinearLayoutManager(mContext));
@@ -80,7 +81,7 @@ public class ThemeActivity extends RootActivity<ThemeChildPresenter> implements 
                 mAdapter.notifyItemChanged(position);
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id", mList.get(position).getId());
+                intent.putExtra(Constants.IT_ZHIHU_DETAIL_ID, mList.get(position).getId());
                 if (shareView != null) {
                     mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mContext, shareView, "shareView").toBundle());
                 } else {

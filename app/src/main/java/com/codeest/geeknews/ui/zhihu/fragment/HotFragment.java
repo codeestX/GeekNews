@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.codeest.geeknews.R;
+import com.codeest.geeknews.app.Constants;
 import com.codeest.geeknews.base.RootFragment;
 import com.codeest.geeknews.model.bean.HotListBean;
 import com.codeest.geeknews.presenter.zhihu.HotPresenter;
@@ -67,7 +68,7 @@ public class HotFragment extends RootFragment<HotPresenter> implements HotContra
                 mAdapter.notifyItemChanged(position);
                 Intent intent = new Intent();
                 intent.setClass(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id", mList.get(position).getNews_id());
+                intent.putExtra(Constants.IT_ZHIHU_DETAIL_ID, mList.get(position).getNews_id());
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, shareView, "shareView");
                 mContext.startActivity(intent,options.toBundle());
             }

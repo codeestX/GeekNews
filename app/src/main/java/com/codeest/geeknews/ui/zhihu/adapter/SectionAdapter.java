@@ -21,6 +21,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.codeest.geeknews.app.Constants.IT_ZHIHU_SECTION_ID;
+import static com.codeest.geeknews.app.Constants.IT_ZHIHU_SECTION_TITLE;
+
 /**
  * Created by codeest on 16/8/21.
  */
@@ -57,8 +60,8 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, SectionActivity.class);
-                intent.putExtra("id",mList.get(holder.getAdapterPosition()).getId());
-                intent.putExtra("title",mList.get(holder.getAdapterPosition()).getName());
+                intent.putExtra(IT_ZHIHU_SECTION_ID, mList.get(holder.getAdapterPosition()).getId());
+                intent.putExtra(IT_ZHIHU_SECTION_TITLE, mList.get(holder.getAdapterPosition()).getName());
                 mContext.startActivity(intent);
             }
         });

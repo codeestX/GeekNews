@@ -59,11 +59,11 @@ public class TechDetailActivity extends SimpleActivity {
         mRealmHelper = App.getAppComponent().realmHelper();
         mImplPreferencesHelper = App.getAppComponent().preferencesHelper();
         Intent intent = getIntent();
-        type = intent.getExtras().getInt(Constants.IT_DETAIL_TYPE);
-        title = intent.getExtras().getString(Constants.IT_DETAIL_TITLE);
-        url = intent.getExtras().getString(Constants.IT_DETAIL_URL);
-        imgUrl = intent.getExtras().getString(Constants.IT_DETAIL_IMG_URL);
-        id = intent.getExtras().getString(Constants.IT_DETAIL_ID);
+        type = intent.getExtras().getInt(Constants.IT_GANK_DETAIL_TYPE);
+        title = intent.getExtras().getString(Constants.IT_GANK_DETAIL_TITLE);
+        url = intent.getExtras().getString(Constants.IT_GANK_DETAIL_URL);
+        imgUrl = intent.getExtras().getString(Constants.IT_GANK_DETAIL_IMG_URL);
+        id = intent.getExtras().getString(Constants.IT_GANK_DETAIL_ID);
         setToolBar(toolBar,title);
         WebSettings settings = wvTechContent.getSettings();
         if (mImplPreferencesHelper.getNoImageState()) {
@@ -234,21 +234,21 @@ public class TechDetailActivity extends SimpleActivity {
         if (builder.shareView != null) {
             Intent intent = new Intent();
             intent.setClass(builder.mContext, TechDetailActivity.class);
-            intent.putExtra(Constants.IT_DETAIL_URL, builder.url);
-            intent.putExtra(Constants.IT_DETAIL_IMG_URL, builder.imgUrl);
-            intent.putExtra(Constants.IT_DETAIL_TITLE, builder.title);
-            intent.putExtra(Constants.IT_DETAIL_ID, builder.id);
-            intent.putExtra(Constants.IT_DETAIL_TYPE, builder.type);
+            intent.putExtra(Constants.IT_GANK_DETAIL_URL, builder.url);
+            intent.putExtra(Constants.IT_GANK_DETAIL_IMG_URL, builder.imgUrl);
+            intent.putExtra(Constants.IT_GANK_DETAIL_TITLE, builder.title);
+            intent.putExtra(Constants.IT_GANK_DETAIL_ID, builder.id);
+            intent.putExtra(Constants.IT_GANK_DETAIL_TYPE, builder.type);
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(builder.mActivity, builder.shareView, "shareView");
             builder.mContext.startActivity(intent,options.toBundle());
         } else {
             Intent intent = new Intent();
             intent.setClass(builder.mContext, TechDetailActivity.class);
-            intent.putExtra(Constants.IT_DETAIL_URL, builder.url);
-            intent.putExtra(Constants.IT_DETAIL_IMG_URL, builder.imgUrl);
-            intent.putExtra(Constants.IT_DETAIL_TITLE, builder.title);
-            intent.putExtra(Constants.IT_DETAIL_ID, builder.id);
-            intent.putExtra(Constants.IT_DETAIL_TYPE, builder.type);
+            intent.putExtra(Constants.IT_GANK_DETAIL_URL, builder.url);
+            intent.putExtra(Constants.IT_GANK_DETAIL_IMG_URL, builder.imgUrl);
+            intent.putExtra(Constants.IT_GANK_DETAIL_TITLE, builder.title);
+            intent.putExtra(Constants.IT_GANK_DETAIL_ID, builder.id);
+            intent.putExtra(Constants.IT_GANK_DETAIL_TYPE, builder.type);
             builder.mContext.startActivity(intent);
         }
     }

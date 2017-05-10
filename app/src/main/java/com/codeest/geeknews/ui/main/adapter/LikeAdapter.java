@@ -197,15 +197,15 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    public void gotoDailyDetail(int id) {
+    private void gotoDailyDetail(int id) {
         Intent intent = new Intent();
         intent.setClass(mContext, ZhihuDetailActivity.class);
-        intent.putExtra("id",id);
-        intent.putExtra("isNotTransition",true);
+        intent.putExtra(Constants.IT_ZHIHU_DETAIL_ID, id);
+        intent.putExtra(Constants.IT_ZHIHU_DETAIL_TRANSITION, true);
         mContext.startActivity(intent);
     }
 
-    public void gotoTechDetail(String url,String imgUrl, String title,String id,int type) {
+    private void gotoTechDetail(String url, String imgUrl, String title, String id, int type) {
         TechDetailActivity.launch(new TechDetailActivity.Builder()
                 .setContext(mContext)
                 .setUrl(url)
@@ -215,15 +215,15 @@ public class LikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 .setType(type));
     }
 
-    public void gotoGirlDetail(String url,String id) {
+    private void gotoGirlDetail(String url,String id) {
         Intent intent = new Intent();
         intent.setClass(mContext, GirlDetailActivity.class);
-        intent.putExtra("url",url);
-        intent.putExtra("id",id);
+        intent.putExtra(Constants.IT_GANK_GRIL_URL, url);
+        intent.putExtra(Constants.IT_GANK_GRIL_ID, id);
         mContext.startActivity(intent);
     }
 
-    public void gotoVtexDetail(String topicId) {
+    private void gotoVtexDetail(String topicId) {
         Intent intent = new Intent();
         intent.setClass(mContext, RepliesActivity.class);
         intent.putExtra(Constants.IT_VTEX_TOPIC_ID,topicId);
