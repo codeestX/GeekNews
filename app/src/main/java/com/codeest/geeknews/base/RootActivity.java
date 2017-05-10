@@ -24,7 +24,7 @@ public abstract class RootActivity<T extends BasePresenter> extends BaseActivity
     private LinearLayout viewError;
     private FrameLayout viewLoading;
     private ViewGroup viewMain;
-    ViewGroup mParent;
+    private ViewGroup mParent;
 
     private int currentState = STATE_MAIN;
     private boolean isErrorViewAdded = false;

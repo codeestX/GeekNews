@@ -24,7 +24,10 @@ public abstract class RootFragment<T extends BasePresenter> extends BaseFragment
     private LinearLayout viewError;
     private FrameLayout viewLoading;
     private ViewGroup viewMain;
+    private ViewGroup mParent;
+
     private int currentState = STATE_MAIN;
+    private boolean isErrorViewAdded = false;
 
     @Override
     protected void initEventAndData() {
@@ -39,13 +42,10 @@ public abstract class RootFragment<T extends BasePresenter> extends BaseFragment
             throw new IllegalStateException(
                     "view_main's ParentView should be a ViewGroup.");
         }
-        ViewGroup parent = (ViewGroup) viewMain.getParent();
-        View.inflate(mContext, R.layout.view_error, parent);
-        View.inflate(mContext, R.layout.view_progress, parent);
-        viewError = (LinearLayout) parent.findViewById(R.id.view_error);
-        viewLoading = (FrameLayout) parent.findViewById(R.id.view_loading);
+        mParent = (ViewGroup) viewMain.getParent();
+        View.inflate(mContext, R.layout.view_progress, mParent);
+        viewLoading = (FrameLayout) mParent.findViewById(R.id.view_loading);
         ivLoading = (ProgressImageView) viewLoading.findViewById(R.id.iv_progress);
-        viewError.setVisibility(View.GONE);
         viewLoading.setVisibility(View.GONE);
         viewMain.setVisibility(View.VISIBLE);
     }
@@ -54,6 +54,11 @@ public abstract class RootFragment<T extends BasePresenter> extends BaseFragment
     public void stateError() {
         if (currentState == STATE_ERROR)
             return;
+        if (!isErrorViewAdded) {
+            isErrorViewAdded = true;
+            View.inflate(mContext, R.layout.view_error, mParent);
+            viewError = (LinearLayout) mParent.findViewById(R.id.view_error);
+        }
         hideCurrentView();
         currentState = STATE_ERROR;
         viewError.setVisibility(View.VISIBLE);
@@ -88,7 +93,9 @@ public abstract class RootFragment<T extends BasePresenter> extends BaseFragment
                 viewLoading.setVisibility(View.GONE);
                 break;
             case STATE_ERROR:
-                viewError.setVisibility(View.GONE);
+                if (viewError != null) {
+                    viewError.setVisibility(View.GONE);
+                }
                 break;
         }
     }
