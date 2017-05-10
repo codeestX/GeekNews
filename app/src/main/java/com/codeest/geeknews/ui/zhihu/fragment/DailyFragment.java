@@ -45,6 +45,8 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
     DailyAdapter mAdapter;
     List<DailyListBean.StoriesBean> mList = new ArrayList<>();
 
+    boolean isDataReady = false;
+
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
@@ -97,6 +99,20 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         mPresenter.getDailyData();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (isDataReady) {
+            mPresenter.startInterval();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mPresenter.stopInterval();
+    }
+
     /**
      * 当天数据
      * @param info
@@ -110,7 +126,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         mList = info.getStories();
         currentDate = String.valueOf(Integer.valueOf(info.getDate()) + 1);
         mAdapter.addDailyDate(info);
-        mPresenter.stopInterval();
+        isDataReady = true;
         mPresenter.startInterval();
     }
 
@@ -125,6 +141,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
             swipeRefresh.setRefreshing(false);
         }
         stateMain();
+        isDataReady = false;
         mPresenter.stopInterval();
         mList = info.getStories();
         currentDate = String.valueOf(Integer.valueOf(info.getDate()));

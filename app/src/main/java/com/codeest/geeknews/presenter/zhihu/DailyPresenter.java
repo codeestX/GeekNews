@@ -169,7 +169,11 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
 
     @Override
     public void startInterval() {
+        if (intervalSubscription != null && !intervalSubscription.isDisposed()) {
+            return;
+        }
         intervalSubscription = Flowable.interval(INTERVAL_INSTANCE, TimeUnit.SECONDS)
+                .onBackpressureDrop()
                 .compose(RxUtil.<Long>rxSchedulerHelper())
                 .subscribe(new Consumer<Long>() {
                     @Override
@@ -184,7 +188,7 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
 
     @Override
     public void stopInterval() {
-        if (intervalSubscription != null) {
+        if (intervalSubscription != null && !intervalSubscription.isDisposed()) {
             intervalSubscription.dispose();
         }
     }
