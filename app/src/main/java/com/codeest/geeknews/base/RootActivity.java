@@ -2,8 +2,6 @@ package com.codeest.geeknews.base;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.codeest.geeknews.R;
 import com.codeest.geeknews.widget.ProgressImageView;
@@ -21,10 +19,12 @@ public abstract class RootActivity<T extends BasePresenter> extends BaseActivity
     private static final int STATE_ERROR = 0x02;
 
     private ProgressImageView ivLoading;
-    private LinearLayout viewError;
-    private FrameLayout viewLoading;
+    private View viewError;
+    private View viewLoading;
     private ViewGroup viewMain;
     private ViewGroup mParent;
+
+    private int mErrorResource = R.layout.view_error;
 
     private int currentState = STATE_MAIN;
     private boolean isErrorViewAdded = false;
@@ -34,7 +34,7 @@ public abstract class RootActivity<T extends BasePresenter> extends BaseActivity
         viewMain = (ViewGroup) findViewById(R.id.view_main);
         if (viewMain == null) {
             throw new IllegalStateException(
-                    "The subclass of RootActivity must contain a View named view_main.");
+                    "The subclass of RootActivity must contain a View named 'view_main'.");
         }
         if (!(viewMain.getParent() instanceof ViewGroup)) {
             throw new IllegalStateException(
@@ -42,7 +42,7 @@ public abstract class RootActivity<T extends BasePresenter> extends BaseActivity
         }
         mParent = (ViewGroup) viewMain.getParent();
         View.inflate(mContext, R.layout.view_progress, mParent);
-        viewLoading = (FrameLayout) mParent.findViewById(R.id.view_loading);
+        viewLoading = mParent.findViewById(R.id.view_loading);
         ivLoading = (ProgressImageView) viewLoading.findViewById(R.id.iv_progress);
         viewLoading.setVisibility(View.GONE);
         viewMain.setVisibility(View.VISIBLE);
@@ -54,8 +54,12 @@ public abstract class RootActivity<T extends BasePresenter> extends BaseActivity
             return;
         if (!isErrorViewAdded) {
             isErrorViewAdded = true;
-            View.inflate(mContext, R.layout.view_error, mParent);
-            viewError = (LinearLayout) mParent.findViewById(R.id.view_error);
+            View.inflate(mContext, mErrorResource, mParent);
+            viewError = mParent.findViewById(R.id.view_error);
+            if (viewError == null) {
+                throw new IllegalStateException(
+                        "A View should be named 'view_error' in ErrorLayoutResource.");
+            }
         }
         hideCurrentView();
         currentState = STATE_ERROR;
@@ -96,5 +100,9 @@ public abstract class RootActivity<T extends BasePresenter> extends BaseActivity
                 }
                 break;
         }
+    }
+
+    public void setErrorResource(int errorLayoutResource) {
+        this.mErrorResource = errorLayoutResource;
     }
 }

@@ -1,5 +1,6 @@
 package com.codeest.geeknews.ui.gank.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +19,11 @@ import com.codeest.geeknews.model.bean.RealmLikeBean;
 import com.codeest.geeknews.model.db.RealmHelper;
 import com.codeest.geeknews.util.ShareUtil;
 import com.codeest.geeknews.util.SystemUtil;
+import com.codeest.geeknews.util.ToastUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -33,7 +37,11 @@ public class GirlDetailActivity extends SimpleActivity {
     @BindView(R.id.iv_girl_detail)
     ImageView ivGirlDetail;
 
+    private static int ACTION_SAVE = 0x00;
+    private static int ACTION_SHARE = 0x01;
+
     Bitmap bitmap;
+    RxPermissions rxPermissions;
     RealmHelper mRealmHelper;
     PhotoViewAttacher mAttacher;
     MenuItem menuItem;
@@ -94,10 +102,10 @@ public class GirlDetailActivity extends SimpleActivity {
                 }
                 break;
             case R.id.action_save:
-                SystemUtil.saveBitmapToFile(mContext,url,bitmap,ivGirlDetail,false);
+                checkPermissionAndAction(ACTION_SAVE);
                 break;
             case R.id.action_share:
-                ShareUtil.shareImage(mContext,SystemUtil.saveBitmapToFile(mContext,url,bitmap,ivGirlDetail,true),"分享一只妹纸");
+                checkPermissionAndAction(ACTION_SHARE);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -120,5 +128,26 @@ public class GirlDetailActivity extends SimpleActivity {
         } else {
             finishAfterTransition();
         }
+    }
+
+    private void checkPermissionAndAction(final int action) {
+        if (rxPermissions == null) {
+            rxPermissions = new RxPermissions(this);
+        }
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) {
+                        if (granted) {
+                            if (action == ACTION_SAVE) {
+                                SystemUtil.saveBitmapToFile(mContext, url, bitmap, ivGirlDetail, false);
+                            } else if (action == ACTION_SHARE) {
+                                ShareUtil.shareImage(mContext, SystemUtil.saveBitmapToFile(mContext, url, bitmap, ivGirlDetail, true), "分享一只妹纸");
+                            }
+                        } else {
+                            ToastUtil.shortShow("获取写入权限失败");
+                        }
+                    }
+                });
     }
 }

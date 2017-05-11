@@ -73,7 +73,7 @@ public class RxUtil {
                         if(tWXHttpResponse.getCode() == 200) {
                             return createData(tWXHttpResponse.getNewslist());
                         } else {
-                            return Flowable.error(new ApiException("服务器返回error"));
+                            return Flowable.error(new ApiException(tWXHttpResponse.getMsg(), tWXHttpResponse.getCode()));
                         }
                     }
                 });
@@ -96,7 +96,7 @@ public class RxUtil {
                         if(tMyHttpResponse.getCode() == 200) {
                             return createData(tMyHttpResponse.getData());
                         } else {
-                            return Flowable.error(new ApiException("服务器返回error"));
+                            return Flowable.error(new ApiException(tMyHttpResponse.getMessage(), tMyHttpResponse.getCode()));
                         }
                     }
                 });
