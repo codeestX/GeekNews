@@ -53,7 +53,9 @@ public class CalendarActivity extends SimpleActivity {
 
     @OnClick(R.id.tv_calender_enter)
     void chooseDate() {
-        RxBus.getDefault().post(mDate);
+        if (mDate != null) {
+            RxBus.getDefault().post(mDate);
+        }
         finish();
     }
 }
