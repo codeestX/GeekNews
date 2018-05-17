@@ -91,6 +91,7 @@ public class GirlDetailActivity extends SimpleActivity {
                 if(isLiked) {
                     item.setIcon(R.mipmap.ic_toolbar_like_n);
                     mRealmHelper.deleteLikeBean(this.id);
+                    isLiked = false;
                 } else {
                     item.setIcon(R.mipmap.ic_toolbar_like_p);
                     RealmLikeBean bean = new RealmLikeBean();
@@ -99,6 +100,7 @@ public class GirlDetailActivity extends SimpleActivity {
                     bean.setType(Constants.TYPE_GIRL);
                     bean.setTime(System.currentTimeMillis());
                     mRealmHelper.insertLikeBean(bean);
+                    isLiked = true;
                 }
                 break;
             case R.id.action_save:
