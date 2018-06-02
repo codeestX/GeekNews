@@ -133,10 +133,10 @@ public class RepliesActivity extends RootActivity<RepliesPresenter> implements R
                 }
                 break;
             case R.id.action_copy:
-                SystemUtil.copyToClipBoard(mContext, VtexApis.REPLIES_URL + id);
+                SystemUtil.copyToClipBoard(mContext, VtexApis.REPLIES_URL + topicId);
                 return true;
             case R.id.action_share:
-                ShareUtil.shareText(mContext, VtexApis.REPLIES_URL + id, "分享一篇文章");
+                ShareUtil.shareText(mContext, VtexApis.REPLIES_URL + topicId, "分享一篇文章");
         }
         return super.onOptionsItemSelected(item);
     }
