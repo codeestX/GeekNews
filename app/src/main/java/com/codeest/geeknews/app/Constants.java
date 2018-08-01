@@ -48,6 +48,8 @@ public class Constants {
 
     public static final String BUGLY_ID = "257700f3f8";
 
+    public static final String FILE_PROVIDER_AUTHORITY="com.codeest.geeknews.fileprovider";
+
     //================= PATH ====================
 
     public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";

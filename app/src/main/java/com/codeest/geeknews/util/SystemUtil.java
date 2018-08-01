@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -80,6 +82,10 @@ public class SystemUtil {
         File imageFile = new File(fileDir,fileName);
         Uri uri = Uri.fromFile(imageFile);
         if (isShare && imageFile.exists()) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                uri = FileProvider.getUriForFile(context.getApplicationContext(),
+                        Constants.FILE_PROVIDER_AUTHORITY, imageFile);
+            }
             return uri;
         }
         try {
@@ -102,6 +108,10 @@ public class SystemUtil {
             e.printStackTrace();
         }
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri));
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context.getApplicationContext(),
+                    Constants.FILE_PROVIDER_AUTHORITY, imageFile);
+        }
         return uri;
     }
 
