@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 apply plugin: 'realm-android'
 
 android {
@@ -17,9 +16,6 @@ android {
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
 
-        ndk {
-            abiFilters "armeabi"
-        }
     }
 
     buildTypes {
@@ -32,11 +28,7 @@ android {
         }
     }
 
-    productFlavors {
-        google {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "google"]
-        }
-    }
+
 
     packagingOptions {
         exclude "lib/mips/librealm-jni.so"
@@ -52,62 +44,66 @@ android {
             universalApk true
         }
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile files('libs/tbs_sdk_thirdapp_v2.2.0.1096_36549_sharewithdownload_withoutGame_obfs_20160830_211645.jar')
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support:support-annotations:25.1.0'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/tbs_sdk_thirdapp_v2.2.0.1096_36549_sharewithdownload_withoutGame_obfs_20160830_211645.jar')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support:support-annotations:25.1.0'
+    androidTestImplementation 'com.android.support.test:runner:0.5'
+    androidTestImplementation 'com.android.support.test:rules:0.5'
 
     //base
-    compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["recyclerview-v7"]
-    compile rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
 
     //ui
-    compile rootProject.ext.dependencies["material-calendarview"]
-    compile rootProject.ext.dependencies["materialsearchview"]
-    compile rootProject.ext.dependencies["multiline-collapsingtoolbar"]
-    compile rootProject.ext.dependencies["PhotoView"]
-    compile rootProject.ext.dependencies["glide-transformations"]
-    compile rootProject.ext.dependencies["html-textview"]
+    implementation rootProject.ext.dependencies["material-calendarview"]
+    implementation rootProject.ext.dependencies["materialsearchview"]
+    implementation rootProject.ext.dependencies["multiline-collapsingtoolbar"]
+    implementation rootProject.ext.dependencies["PhotoView"]
+    implementation rootProject.ext.dependencies["glide-transformations"]
+    implementation rootProject.ext.dependencies["html-textview"]
 
     //rx
-    compile rootProject.ext.dependencies["rxjava"]
-    compile rootProject.ext.dependencies["rxandroid"]
-    compile rootProject.ext.dependencies["rxpermissions"]
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxpermissions"]
 
     //network
-    compile rootProject.ext.dependencies["gson"]
-    compile rootProject.ext.dependencies["retrofit"]
-    compile rootProject.ext.dependencies["retrofit-converter-gson"]
-    compile rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
-    compile rootProject.ext.dependencies["okhttp"]
-    compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
-    compile rootProject.ext.dependencies["glide"]
-    compile rootProject.ext.dependencies["glide-okhttp3-integration"]
-    compile rootProject.ext.dependencies["jsoup"]
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["okhttp-logging-interceptor"]
+    implementation rootProject.ext.dependencies["glide"]
+    implementation rootProject.ext.dependencies["glide-okhttp3-integration"]
+    implementation rootProject.ext.dependencies["jsoup"]
 
     //di
-    compile rootProject.ext.dependencies["dagger"]
-    compile rootProject.ext.dependencies["dagger-compiler"]
-    compile rootProject.ext.dependencies["butterknife"]
-    apt rootProject.ext.dependencies["butterknife-compiler"]
-    provided rootProject.ext.dependencies["annotation"]
+    implementation rootProject.ext.dependencies["dagger"]
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+
+    //butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compileOnly rootProject.ext.dependencies["annotation"]
 
     //other
-    compile rootProject.ext.dependencies["multidex"]
-    compile rootProject.ext.dependencies["logger"]
-    compile rootProject.ext.dependencies["fragmentation"]
-    compile rootProject.ext.dependencies["crashreport"]
+    implementation rootProject.ext.dependencies["multidex"]
+    implementation rootProject.ext.dependencies["logger"]
+    implementation rootProject.ext.dependencies["fragmentation"]
+    implementation rootProject.ext.dependencies["crashreport"]
 
     //canary
-    debugCompile rootProject.ext.dependencies["blockcanary-android"]
-    releaseCompile rootProject.ext.dependencies["blockcanary-no-op"]
-    debugCompile rootProject.ext.dependencies["leakcanary-android"]
-    releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
+    debugImplementation rootProject.ext.dependencies["blockcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["blockcanary-no-op"]
+    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
 }
